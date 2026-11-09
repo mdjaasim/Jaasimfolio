@@ -28,6 +28,11 @@ export const overlay = {
   unmountDelayMs: 1000,
   caseSwapMs: 1250,
   caseSlideMs: 1100,
+  travelDelayMs: 350,
+  itemDelayBaseMs: 250,
+  itemStaggerMs: 50,
+  itemRisePx: 44,
+  sideDelayMs: 450,
 } as const;
 
 export const cursor = {
@@ -40,6 +45,13 @@ export const cursor = {
   hover: { link: 2.6, view: 5.2 },
   ghostDecayPerSecond: 1.7,
   maxGhosts: 30,
+  sizePx: 14,
+  labelOpacityScale: 2.2,
+  followLabelOffset: { x: -15, y: -6 },
+  colors: { yellow: 'var(--yellow)', ink: 'var(--ink)' },
 } as const;
 
 export const breakpoints = { mobileMax: 767 } as const;
+
+/** Wordmark morph geometry in em of the logo size: AASIM collapses and a slash appears. */
+export const logo = { lettersEm: 4.3, slashEm: 0.5, driftEm: 0.7, slashDriftEm: 0.4 } as const;

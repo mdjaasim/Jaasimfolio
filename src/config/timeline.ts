@@ -57,6 +57,14 @@ export const timeline = {
     bio: [15.6, 16.1] as Range,
   },
   contact: { visible: 16.5, lines: 17.2, button: [17.4, 17.8] as Range },
+  /** Header ink: dark scenes where the header turns on-ink, and where the ground floods yellow. */
+  darkHeader: [
+    [3.0, 7.4],
+    [10.7, 13.0],
+  ] as readonly Range[],
+  yellowFrom: 16.9,
+  /** Screens at which the current chapter changes (chapter i is active while u < bounds[i]). */
+  chapterBounds: [2.5, 7.2, 9.0, 10.4, 12.8, 15.0, 16.6] as readonly number[],
   /** Index overlay targets: chapter id -> screen to travel to. */
   chapters: {
     hello: 0,

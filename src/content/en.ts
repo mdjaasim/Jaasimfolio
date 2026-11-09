@@ -229,6 +229,8 @@ export const en = {
     pace: 'Pace',
     guided: 'Guided story',
     free: 'Free scroll',
+    guidedShort: 'Guided',
+    freeShort: 'Free',
     email: 'Email',
     elsewhere: 'Elsewhere',
     hint: 'Select a chapter to travel there',

@@ -1,0 +1,27 @@
+.layer {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  pointer-events: none;
+  overflow: hidden;
+}
+/* A plain circle: no border, no shadow. */
+.dot {
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-radius: 50%;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+.label {
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--ink);
+  font: 600 11px / 1 var(--font-mono);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  opacity: 0;
+  transition: opacity 0.25s;
+}

@@ -1,12 +1,7 @@
-import { t } from '@/content';
+import { AppShell } from '@/components/app-shell/app-shell';
 
 export default function Home() {
-  const copy = t();
-  return (
-    <h1 className="label">
-      {copy.hero.first} {copy.hero.last}
-    </h1>
-  );
+  return <AppShell />;
 }
 
 export { Home };

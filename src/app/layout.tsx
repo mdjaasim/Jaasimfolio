@@ -3,6 +3,7 @@ import type { ReactNode } from 'react';
 import { site } from '@/config/site';
 import { t } from '@/content';
 import '@/styles/globals.css';
+import { Providers } from '@/components/providers/providers';
 import { fontVariables } from './fonts';
 
 const copy = t();
@@ -28,9 +29,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <a className="skip-link" href="#main">
           {copy.a11y.skip}
         </a>
-        <main id="main" aria-label={copy.a11y.mainLabel}>
-          {children}
-        </main>
+        <Providers>
+          <main id="main" aria-label={copy.a11y.mainLabel}>
+            {children}
+          </main>
+        </Providers>
       </body>
     </html>
   );

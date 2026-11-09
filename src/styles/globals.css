@@ -1,5 +1,16 @@
 @import './tokens.css';
 
+/* --s is the active design pixel: --u on the desktop stage (1440x900), --m on mobile (390 wide).
+   Write layout as calc(N * var(--s)) with N taken from the matching design board. */
+:root {
+  --s: var(--u);
+}
+@media (max-width: 767px) {
+  :root {
+    --s: var(--m);
+  }
+}
+
 *,
 *::before,
 *::after {
@@ -77,4 +88,10 @@ body {
   --font-accent: var(--nf-fraunces), 'Times New Roman', serif;
   --font-sans: var(--nf-geist), 'Helvetica Neue', Arial, sans-serif;
   --font-mono: var(--nf-geist-mono), ui-monospace, Menlo, monospace;
+}
+
+/* The ball replaces the native pointer only while it runs (fine pointer, motion allowed). */
+html[data-cursor='ball'],
+html[data-cursor='ball'] * {
+  cursor: none;
 }

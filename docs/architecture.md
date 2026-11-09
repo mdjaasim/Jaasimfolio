@@ -6,7 +6,7 @@ Static export. A client-side stage reads one eased scroll value `u` (screens, 1 
 
 ## Scaling
 
-Desktop stage is designed at 1440x900. `--u = min(100vw/1440, 100svh/900)` turns each designed pixel into `calc(N * var(--u))`, so layouts scale 1:1 with the design at any desktop size. Mobile uses `--m = 100vw/390`. Tokens (colour, type, spacing, radius) come from `src/styles/tokens.css`.
+Desktop stage is designed at 1440x900. `--u = min(100vw/1440, 100svh/900)` turns each designed pixel into `calc(N * var(--u))`, so layouts scale 1:1 with the design at any desktop size. Mobile uses `--m = 100vw/390`. Components write `calc(N * var(--s))`, where `--s` is `--u` on desktop and `--m` under 768px. Tokens (colour, type, spacing, radius) come from `src/styles/tokens.css`.
 
 ## Modes
 

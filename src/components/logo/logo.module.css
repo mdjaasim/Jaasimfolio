@@ -1,0 +1,27 @@
+.logo {
+  display: inline-flex;
+  align-items: flex-end;
+  font: 600 var(--wm, calc(26 * var(--s))) / 0.88 var(--font-display);
+  font-stretch: 125%;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: inherit;
+  white-space: nowrap;
+}
+
+/* Code tags are quiet: 55% opacity, 0.12em from the letters. */
+.tag {
+  opacity: 0.55;
+}
+.tag:first-of-type {
+  margin-right: 0.12em;
+}
+.tag:last-of-type {
+  margin-left: 0.12em;
+}
+
+.clip {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+}
