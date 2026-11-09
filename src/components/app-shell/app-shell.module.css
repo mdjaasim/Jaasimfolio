@@ -11,13 +11,3 @@
   overflow: hidden;
   background: var(--surface);
 }
-.hello {
-  position: absolute;
-  left: 6%;
-  top: 50%;
-  margin: 0;
-  transform: translateY(-50%);
-  font: 700 calc(190 * var(--s)) / 1 var(--font-display);
-  font-stretch: 125%;
-  letter-spacing: -0.04em;
-}

@@ -1,6 +1,7 @@
 'use client';
 
 import type { ReactNode } from 'react';
+import { GreetingProvider } from '@/engine/greeting';
 import { ModeProvider } from '@/engine/mode';
 import { TimelineProvider } from '@/engine/timeline';
 import { Cursor } from '../cursor/cursor';
@@ -10,8 +11,10 @@ export function Providers({ children }: { children: ReactNode }) {
   return (
     <ModeProvider>
       <TimelineProvider>
-        {children}
-        <Cursor />
+        <GreetingProvider>
+          {children}
+          <Cursor />
+        </GreetingProvider>
       </TimelineProvider>
     </ModeProvider>
   );

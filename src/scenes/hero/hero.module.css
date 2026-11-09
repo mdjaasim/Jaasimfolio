@@ -1,0 +1,66 @@
+.name {
+  position: absolute;
+  margin: 0;
+  font: 700 calc(176 * var(--s)) / calc(160 * var(--s)) var(--font-display);
+  font-stretch: 125%;
+  letter-spacing: -0.03em;
+  white-space: nowrap;
+}
+.first {
+  left: calc(32 * var(--s));
+  top: calc(150 * var(--s));
+}
+.last {
+  right: calc(48 * var(--s));
+  top: calc(310 * var(--s));
+}
+.letter {
+  display: inline-block;
+}
+.sub {
+  position: absolute;
+  left: calc(32 * var(--s));
+  top: calc(540 * var(--s));
+  width: calc(520 * var(--s));
+  margin: 0;
+  font: 500 calc(32 * var(--s)) / calc(38 * var(--s)) var(--font-sans);
+  letter-spacing: -0.5px;
+}
+.strip {
+  position: absolute;
+  left: calc(32 * var(--s));
+  bottom: calc(28 * var(--s));
+  margin: 0;
+  display: flex;
+  gap: calc(28 * var(--s));
+}
+
+@media (max-width: 767px) {
+  .name {
+    font-size: calc(56 * var(--s));
+    line-height: calc(96 * var(--s));
+  }
+  .first {
+    left: calc(16 * var(--s));
+    top: calc(112 * var(--s));
+  }
+  .last {
+    right: calc(16 * var(--s));
+    top: calc(192 * var(--s));
+  }
+  .sub {
+    left: calc(16 * var(--s));
+    top: calc(330 * var(--s));
+    width: calc(340 * var(--s));
+    font-size: calc(22 * var(--s));
+    line-height: calc(28 * var(--s));
+    letter-spacing: -0.3px;
+  }
+  .strip {
+    top: calc(438 * var(--s));
+    bottom: auto;
+    left: calc(16 * var(--s));
+    gap: calc(14 * var(--s));
+    font-size: calc(10 * var(--s));
+  }
+}

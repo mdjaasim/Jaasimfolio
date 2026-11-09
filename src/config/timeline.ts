@@ -9,8 +9,14 @@ export const TOTAL_SCREENS = 18;
 export const SCROLL_LERP = 6; // per second, frame-rate independent
 
 export const timeline = {
-  hello: { out: [0.3, 0.8] as Range, visibleUntil: 0.95 },
-  hero: { visible: [0.7, 3.3] as Range, spread: [1.4, 2.5] as Range, subOut: [1.8, 2.4] as Range },
+  hello: { out: [0.3, 0.8] as Range, visibleUntil: 0.95, skipAt: 0.2 },
+  hero: {
+    visible: [0.7, 3.3] as Range,
+    letters: { start: 0.85, length: 0.5, stagger: 0.05, rightOffset: 0.25 },
+    sub: [1.3, 1.8] as Range,
+    spread: [1.4, 2.5] as Range,
+    subOut: [1.8, 2.4] as Range,
+  },
   headerMorph: { collapse: [0.04, 0.5] as Range, slash: [0.1, 0.55] as Range },
   phone: {
     rise: [0.9, 1.5] as Range,
@@ -28,6 +34,7 @@ export const timeline = {
   craft: {
     visible: [2.4, 7.9] as Range,
     intro: [2.8, 3.4] as Range,
+    shake: [5.8, 6.1] as Range,
     beats: [4.0, 4.8, 5.6] as readonly number[],
     sheet: [6.1, 6.5] as Range,
     brands: [6.7, 7.0] as readonly number[],

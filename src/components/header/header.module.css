@@ -1,6 +1,8 @@
 .header {
   position: fixed;
-  inset: calc(28 * var(--s)) calc(32 * var(--s)) auto;
+  left: calc(var(--frame-x) + 32 * var(--s));
+  right: calc(var(--frame-x) + 32 * var(--s));
+  top: calc(var(--frame-y) + 28 * var(--s));
   z-index: 30;
   display: flex;
   justify-content: space-between;
@@ -34,7 +36,9 @@
 
 @media (max-width: 767px) {
   .header {
-    inset: calc(20 * var(--s)) calc(16 * var(--s)) auto;
+    left: calc(var(--frame-x) + 16 * var(--s));
+    right: calc(var(--frame-x) + 16 * var(--s));
+    top: calc(var(--frame-y) + 20 * var(--s));
   }
   .home {
     --wm: calc(18 * var(--s));

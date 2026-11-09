@@ -86,81 +86,83 @@ export function IndexOverlay({ open, onClose }: IndexOverlayProps) {
       data-entered={entered}
       onKeyDown={onKeyDown}
     >
-      <div className={styles.top}>
-        <Logo />
-        <button
-          type="button"
-          className={styles.close}
-          data-cursor="link"
-          data-autofocus
-          onClick={onClose}
-        >
-          {copy.header.close}
-        </button>
-      </div>
-
-      <ol className={styles.list}>
-        {copy.index.chapters.map((chapter, i) => (
-          <li key={chapter.id} style={rise(i)} className={styles.item}>
-            <button
-              type="button"
-              className={styles.chapter}
-              data-cursor="link"
-              aria-current={active === i ? 'true' : undefined}
-              onClick={() => {
-                onClose();
-                window.setTimeout(() => navigate(chapter.id), overlay.travelDelayMs);
-              }}
-            >
-              <span className={styles.number}>{String(i + 1).padStart(2, '0')}</span>
-              {chapter.label}
-            </button>
-          </li>
-        ))}
-      </ol>
-
-      <div
-        className={styles.side}
-        style={{
-          opacity: entered ? 1 : 0,
-          transform: `translateY(${entered ? 0 : 30}px)`,
-          transitionDelay: `${overlay.sideDelayMs}ms`,
-        }}
-      >
-        <p className={styles.key}>{copy.index.pace}</p>
-        <div role="group" aria-label={copy.index.pace} className={styles.switch}>
-          {modes.map((m) => (
-            <button
-              key={m.value}
-              type="button"
-              className={styles.option}
-              data-cursor="link"
-              aria-pressed={preference === m.value}
-              onClick={() => setPreference(m.value)}
-            >
-              <span className={styles.long}>{m.label}</span>
-              <span className={styles.short}>{m.short}</span>
-            </button>
-          ))}
+      <div className="frame">
+        <div className={styles.top}>
+          <Logo />
+          <button
+            type="button"
+            className={styles.close}
+            data-cursor="link"
+            data-autofocus
+            onClick={onClose}
+          >
+            {copy.header.close}
+          </button>
         </div>
-        <p className={styles.key}>{copy.index.email}</p>
-        <p className={styles.value}>
-          <a href={`mailto:${site.email}`} data-cursor="link">
-            {site.email}
-          </a>
-        </p>
-        <p className={`${styles.key} ${styles.elsewhere}`}>{copy.index.elsewhere}</p>
-        <p className={`${styles.value} ${styles.elsewhere}`}>
-          <a href={site.linkedin} data-cursor="link">
-            {copy.contact.linkedin}
-          </a>
-          <br />
-          <a href={site.github} data-cursor="link">
-            {copy.contact.github}
-          </a>
-        </p>
+
+        <ol className={styles.list}>
+          {copy.index.chapters.map((chapter, i) => (
+            <li key={chapter.id} style={rise(i)} className={styles.item}>
+              <button
+                type="button"
+                className={styles.chapter}
+                data-cursor="link"
+                aria-current={active === i ? 'true' : undefined}
+                onClick={() => {
+                  onClose();
+                  window.setTimeout(() => navigate(chapter.id), overlay.travelDelayMs);
+                }}
+              >
+                <span className={styles.number}>{String(i + 1).padStart(2, '0')}</span>
+                {chapter.label}
+              </button>
+            </li>
+          ))}
+        </ol>
+
+        <div
+          className={styles.side}
+          style={{
+            opacity: entered ? 1 : 0,
+            transform: `translateY(${entered ? 0 : 30}px)`,
+            transitionDelay: `${overlay.sideDelayMs}ms`,
+          }}
+        >
+          <p className={styles.key}>{copy.index.pace}</p>
+          <div role="group" aria-label={copy.index.pace} className={styles.switch}>
+            {modes.map((m) => (
+              <button
+                key={m.value}
+                type="button"
+                className={styles.option}
+                data-cursor="link"
+                aria-pressed={preference === m.value}
+                onClick={() => setPreference(m.value)}
+              >
+                <span className={styles.long}>{m.label}</span>
+                <span className={styles.short}>{m.short}</span>
+              </button>
+            ))}
+          </div>
+          <p className={styles.key}>{copy.index.email}</p>
+          <p className={styles.value}>
+            <a href={`mailto:${site.email}`} data-cursor="link">
+              {site.email}
+            </a>
+          </p>
+          <p className={`${styles.key} ${styles.elsewhere}`}>{copy.index.elsewhere}</p>
+          <p className={`${styles.value} ${styles.elsewhere}`}>
+            <a href={site.linkedin} data-cursor="link">
+              {copy.contact.linkedin}
+            </a>
+            <br />
+            <a href={site.github} data-cursor="link">
+              {copy.contact.github}
+            </a>
+          </p>
+        </div>
+        <p className={styles.hint}>{copy.index.hint}</p>
       </div>
-      <p className={styles.hint}>{copy.index.hint}</p>
     </div>
   );
 }

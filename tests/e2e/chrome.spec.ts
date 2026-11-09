@@ -1,4 +1,7 @@
 import { expect, test } from '@playwright/test';
+import { skipLaunch } from './helpers';
+
+test.beforeEach(async ({ page }) => skipLaunch(page));
 
 test('index overlay opens, traps Esc, and restores focus', async ({ page }) => {
   await page.goto('/');

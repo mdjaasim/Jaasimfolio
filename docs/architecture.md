@@ -21,3 +21,11 @@ Index, case study and 404 use a presence pattern: mount, enter, exit, unmount af
 ## Content
 
 Copy in `src/content/en.ts`, case studies in `work.ts`, photos in `photos.ts`, contact facts in `src/config/site.ts`. `t()` is the only accessor.
+
+## Design frame
+
+Scenes are laid out in design pixels inside `.frame` (`src/components/frame`), a box of 1440x900 (390x844 on mobile) times `--s` that stays centred in the viewport. Grounds, panels and photographs go full-bleed outside it. `--frame-x` and `--frame-y` give its offset; the header uses them too.
+
+## Launch and greeting
+
+`src/scenes/launch` plays once per session (`sessionStorage`); reduced motion shows the wordmark for 300ms. Timings come from `src/config/motion.ts` and `launch-schedule.ts`. The visitor's first name is sanitised, kept only in `localStorage` and returns in Contact (`src/engine/greeting.tsx`).

@@ -1,0 +1,233 @@
+.root {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  overflow: hidden;
+  background: var(--ink);
+  border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+  animation: curtain var(--curtain-dur, 0.9s) var(--ease-reveal) var(--curtain-at, 8.4s) forwards;
+}
+.root[data-reduced='true'] {
+  animation: fade 0.4s linear 0.3s forwards;
+}
+.reduced {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: var(--on-ink);
+}
+
+/* The cut: black words and photographs, faster and faster. */
+.word {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: var(--ink);
+  color: var(--on-ink);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-stretch: 125%;
+  letter-spacing: -0.05em;
+  line-height: 1;
+  white-space: nowrap;
+}
+.photo {
+  position: absolute;
+  inset: 0;
+  background: var(--ink);
+}
+.photoImg {
+  object-fit: cover;
+  animation: zoomin 0.9s var(--ease-house) both;
+}
+.caption,
+.count {
+  position: absolute;
+  font: var(--text-label);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--on-ink);
+}
+.caption {
+  left: calc(32 * var(--s));
+  bottom: calc(28 * var(--s));
+}
+.count {
+  right: calc(32 * var(--s));
+  top: calc(28 * var(--s));
+  z-index: 2;
+}
+
+/* Black closes from the top and the bottom together. */
+.shutter {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 50.2%;
+  background: var(--ink);
+  animation: descend var(--shutter-dur, 2.8s) var(--ease-shutter) var(--shutter-start, 3s) both;
+}
+.shutterTop {
+  top: 0;
+  transform-origin: 50% 0;
+}
+.shutterBottom {
+  bottom: 0;
+  transform-origin: 50% 100%;
+}
+
+/* Guides and the name, written on the black. */
+.guides {
+  position: absolute;
+  inset: 0;
+  animation: fade 0.6s linear var(--guide-fade, 7.7s) forwards;
+}
+.guide {
+  position: absolute;
+  background: color-mix(in srgb, var(--on-ink) 16%, transparent);
+}
+.guideH {
+  left: 0;
+  right: 0;
+  height: 1px;
+  transform-origin: 0 0;
+  animation: grow-x 0.9s var(--ease-house) var(--delay) both;
+}
+.guideV {
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  transform-origin: 0 0;
+  animation: grow-y 0.9s var(--ease-house) var(--delay) both;
+}
+.nameWrap {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+}
+.nameBox {
+  position: relative;
+  display: inline-block;
+}
+.name {
+  font: 700 calc(84 * var(--s)) / 1 var(--font-display);
+  font-stretch: 125%;
+  letter-spacing: -0.03em;
+  white-space: nowrap;
+  text-transform: uppercase;
+  color: var(--on-ink);
+}
+.letter {
+  position: relative;
+  display: inline-block;
+}
+.outline {
+  display: inline-block;
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--on-ink);
+  animation: write 0.45s cubic-bezier(0.4, 0, 0.2, 1) var(--delay) both;
+}
+.fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--on-ink);
+  animation: fill-up 0.55s var(--ease-reveal) var(--delay) both;
+}
+
+/* Yellow code tags slide in from both ends once the name is written. */
+.tag {
+  position: absolute;
+  top: 0;
+  color: var(--yellow);
+}
+.tagL {
+  right: calc(100% + 0.1em);
+  animation: tag-l 0.8s var(--ease-house) var(--tags-at, 7.9s) both;
+}
+.tagR {
+  left: calc(100% + 0.1em);
+  animation: tag-r 0.8s var(--ease-house) var(--tags-at, 7.9s) both;
+}
+
+@keyframes descend {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+@keyframes curtain {
+  to {
+    transform: translateY(-100%);
+  }
+}
+@keyframes fade {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes zoomin {
+  from {
+    transform: scale(1.16);
+  }
+  to {
+    transform: none;
+  }
+}
+@keyframes grow-x {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: none;
+  }
+}
+@keyframes grow-y {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: none;
+  }
+}
+@keyframes write {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+@keyframes fill-up {
+  from {
+    clip-path: inset(100% 0 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+@keyframes tag-l {
+  from {
+    opacity: 0;
+    transform: translateX(0.9em);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes tag-r {
+  from {
+    opacity: 0;
+    transform: translateX(-0.9em);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}

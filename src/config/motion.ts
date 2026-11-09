@@ -18,9 +18,26 @@ export const launch = {
   curtainDurationMs: 900,
   readyMs: 9300,
   focusMs: 9450,
-  nameTargetWidthPx: 1060,
-  nameMinSizePx: 48,
-  nameMaxSizePx: 100,
+  /** Share of the viewport width the written name fills (1060 of 1440 on desktop). */
+  nameWidthShare: 0.736,
+  nameWidthShareMobile: 0.78,
+  fitRetriesMs: [150, 600, 1400, 2600] as readonly number[],
+  reducedMotionMs: 300,
+  /** Cut words are fitted to a width (design px) with a ceiling. */
+  word: {
+    widthPerChar: 0.92,
+    desktop: { width: 1240, max: 300 },
+    mobile: { width: 350, max: 130 },
+  },
+  guideStaggerMs: 80,
+  /** Guide lines drawn on the black before the name: axis and position in percent. */
+  guides: [
+    { axis: 'h', at: 34 },
+    { axis: 'h', at: 50 },
+    { axis: 'h', at: 66 },
+    { axis: 'v', at: 6 },
+    { axis: 'v', at: 94 },
+  ] as readonly { axis: 'h' | 'v'; at: number }[],
 } as const;
 
 export const overlay = {

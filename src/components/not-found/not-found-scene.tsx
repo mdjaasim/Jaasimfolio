@@ -8,20 +8,22 @@ export function NotFoundScene() {
   const copy = t().notFound;
   return (
     <section className={styles.scene}>
-      <div className={styles.top}>
-        <Logo />
-        <span className={styles.label}>{copy.error}</span>
+      <div className="frame">
+        <div className={styles.top}>
+          <Logo />
+          <span className={styles.label}>{copy.error}</span>
+        </div>
+        <p className={styles.sub}>
+          {copy.body}
+          <span className="highlight">{copy.accent}</span>
+        </p>
+        <h1 className={styles.code}>{copy.code}</h1>
+        <span className={styles.rolled} aria-hidden="true" />
+        <span className={styles.rolledTrail} aria-hidden="true" />
+        <Link href="/" className={styles.back} data-cursor="link">
+          {copy.back}
+        </Link>
       </div>
-      <p className={styles.sub}>
-        {copy.body}
-        <span className="highlight">{copy.accent}</span>
-      </p>
-      <h1 className={styles.code}>{copy.code}</h1>
-      <span className={styles.rolled} aria-hidden="true" />
-      <span className={styles.rolledTrail} aria-hidden="true" />
-      <Link href="/" className={styles.back} data-cursor="link">
-        {copy.back}
-      </Link>
     </section>
   );
 }

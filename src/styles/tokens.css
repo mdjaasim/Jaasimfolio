@@ -124,7 +124,7 @@
   --stage-w: 1440;
   --stage-h: 900;
   --u: min(calc(100vw / 1440), calc(100svh / 900));
-  --m: calc(100vw / 390);
+  --m: min(calc(100vw / 390), calc(100svh / 844));
   --ease-house: cubic-bezier(0.2, 0.8, 0.2, 1);
   --ease-reveal: cubic-bezier(0.7, 0, 0.2, 1);
   --ease-shutter: cubic-bezier(0.45, 0.05, 0.3, 1);

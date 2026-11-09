@@ -4,11 +4,30 @@
    Write layout as calc(N * var(--s)) with N taken from the matching design board. */
 :root {
   --s: var(--u);
+  --design-w: 1440;
+  --design-h: 900;
 }
 @media (max-width: 767px) {
   :root {
     --s: var(--m);
+    --design-w: 390;
+    --design-h: 844;
   }
+}
+:root {
+  /* Where the centred design frame starts inside the viewport. */
+  --frame-x: max(0px, calc((100vw - var(--design-w) * var(--s)) / 2));
+  --frame-y: max(0px, calc((100svh - var(--design-h) * var(--s)) / 2));
+}
+
+/* The design frame: scenes are laid out in design pixels inside it and it stays centred.
+   Grounds, panels and photographs go full-bleed outside it. */
+.frame {
+  position: absolute;
+  left: var(--frame-x);
+  top: var(--frame-y);
+  width: calc(var(--design-w) * var(--s));
+  height: calc(var(--design-h) * var(--s));
 }
 
 *,
@@ -94,4 +113,18 @@ body {
 html[data-cursor='ball'],
 html[data-cursor='ball'] * {
   cursor: none;
+}
+
+/* Subtle film grain over grounds only. */
+.grain {
+  position: relative;
+}
+.grain::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.07;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
 }
