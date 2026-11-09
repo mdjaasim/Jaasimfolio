@@ -39,7 +39,7 @@ export function Cursor() {
       toneOverride =
         (target?.closest?.('[data-cursor-tone]')?.getAttribute('data-cursor-tone') as
           'yellow' | 'ink' | null) ?? null;
-      const el = target?.closest?.('[data-cursor]');
+      const el = target?.closest?.('[data-cursor]:not(html)');
       body.moveTo(
         e.clientX,
         e.clientY,
@@ -51,6 +51,7 @@ export function Cursor() {
     window.addEventListener('pointermove', onMove, { passive: true });
     window.addEventListener('pointerdown', onDown);
     window.addEventListener('pointerup', onUp);
+    window.addEventListener('pointercancel', onUp);
 
     let raf = 0;
     let last = performance.now();
@@ -100,6 +101,7 @@ export function Cursor() {
       window.removeEventListener('pointermove', onMove);
       window.removeEventListener('pointerdown', onDown);
       window.removeEventListener('pointerup', onUp);
+      window.removeEventListener('pointercancel', onUp);
       delete root.dataset.cursor;
     };
   }, [active]);

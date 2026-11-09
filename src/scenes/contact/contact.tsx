@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { timeline } from '@/config/timeline';
+import { copyFeedbackMs } from '@/config/motion';
 import { site } from '@/config/site';
 import { fill, t } from '@/content';
 import { ease, round2, seg } from '@/engine/math';
@@ -13,7 +14,6 @@ import styles from './contact.module.css';
 
 const LINE_STAGGER = 0.12;
 const LINE_SPAN = 0.5;
-const COPIED_MS = 2400;
 
 /** Overshoot for the Say hello circle (a soft "back" ease). */
 const back = (t01: number): number => 1 + 2.7 * Math.pow(t01 - 1, 3) + 1.7 * Math.pow(t01 - 1, 2);
@@ -48,7 +48,7 @@ export function Contact({ u }: { u: number }) {
       await navigator.clipboard.writeText(site.email);
       setCopied(true);
       window.clearTimeout(timer.current);
-      timer.current = window.setTimeout(() => setCopied(false), COPIED_MS);
+      timer.current = window.setTimeout(() => setCopied(false), copyFeedbackMs);
     } catch {
       /* clipboard can be blocked; the address is still visible and selectable */
     }

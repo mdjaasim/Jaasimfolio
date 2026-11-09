@@ -44,7 +44,12 @@ export function Craft({ u }: { u: number }) {
             key={tag}
             aria-hidden="true"
             className={styles.tag}
-            style={{ left: sp(g.left), top: sp(g.top - drift * g.speed), opacity: round2(intro) }}
+            style={{
+              left: sp(g.left),
+              top: sp(g.top),
+              transform: `translateY(${sp(-drift * g.speed)})`,
+              opacity: round2(intro),
+            }}
           >
             {tag}
           </span>

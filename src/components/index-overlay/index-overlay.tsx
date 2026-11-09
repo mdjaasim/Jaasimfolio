@@ -24,7 +24,7 @@ export function IndexOverlay({ open, onClose }: IndexOverlayProps) {
   const copy = t();
   const u = useU();
   const navigate = useNavigate();
-  const { preference, setPreference, mode } = useMode();
+  const { setPreference, mode, reducedMotion } = useMode();
   const { mounted, entered } = usePresence(open, overlay.unmountDelayMs);
   const panelRef = useRef<HTMLDivElement>(null);
   const returnFocus = useRef<HTMLElement | null>(null);
@@ -139,7 +139,8 @@ export function IndexOverlay({ open, onClose }: IndexOverlayProps) {
                 type="button"
                 className={styles.option}
                 data-cursor="link"
-                aria-pressed={preference === m.value}
+                aria-pressed={mode === m.value}
+                disabled={reducedMotion && m.value === 'guided'}
                 onClick={() => setPreference(m.value)}
               >
                 <span className={styles.long}>{m.label}</span>

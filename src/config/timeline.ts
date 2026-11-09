@@ -45,6 +45,8 @@ export const timeline = {
     visible: [7.1, 9.8] as Range,
     count: [7.8, 8.8] as Range,
     highlight: [7.9, 8.5] as Range,
+    /** Each counter fades in over `fade` and rises over `rise`, staggered; both start at `start`. */
+    enter: { start: 7.4, fade: 0.6, rise: 0.8, stagger: 0.1 },
     out: [9.0, 9.6] as Range,
   },
   work: { visible: [8.9, 11.0] as Range, rowsStart: 9.0, rowStagger: 0.12, rowDuration: 0.7 },
@@ -83,7 +85,7 @@ export const timeline = {
     lab: 11.0,
     path: 13.4,
     about: 15.4,
-    contact: 17.4,
+    contact: 17.9,
   },
 } as const;
 

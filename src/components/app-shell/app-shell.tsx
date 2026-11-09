@@ -2,7 +2,7 @@
 
 import dynamic from 'next/dynamic';
 import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from 'react';
-import { chrome, useChrome } from '@/engine/chrome';
+import { anyOverlayOpen, chrome, useChrome } from '@/engine/chrome';
 import { launch } from '@/config/motion';
 import { storageKeys } from '@/config/preferences';
 import { TOTAL_SCREENS } from '@/config/timeline';
@@ -12,6 +12,7 @@ import { readStorage, writeStorage } from '@/engine/storage';
 import { SCREEN_UNIT_ATTR } from '@/engine/timeline';
 import { warmUrl } from '@/lib/image-loader';
 import { Launch } from '@/scenes/launch/launch';
+import { ContentOutline } from '../content-outline/content-outline';
 import { Stage } from '@/scenes/stage';
 import { Header } from '../header/header';
 import { NAME_FIELD_ID } from '../name-field/name-field';
@@ -69,37 +70,47 @@ export function AppShell() {
 
   const closeIndex = useCallback(() => chrome.setIndexOpen(false), []);
 
+  // Hand focus to the name field once the launch has lifted, unless the visitor has already gone elsewhere.
+  const focusTimer = useRef(0);
+  useEffect(() => () => window.clearTimeout(focusTimer.current), []);
   const onLaunchDone = useCallback(() => {
     writeStorage('session', storageKeys.launchSeen, '1');
     setLaunchDone(true);
-    window.setTimeout(
-      () => document.getElementById(NAME_FIELD_ID)?.focus({ preventScroll: true }),
-      launch.focusMs - launch.readyMs,
-    );
+    focusTimer.current = window.setTimeout(() => {
+      const idle = !document.activeElement || document.activeElement === document.body;
+      const overlay = anyOverlayOpen(chrome.get());
+      if (idle && !overlay) document.getElementById(NAME_FIELD_ID)?.focus({ preventScroll: true });
+    }, launch.focusMs - launch.readyMs);
   }, []);
+
+  // The page behind the launch or a full-screen overlay is not reachable by keyboard or screen reader.
+  const behindOverlay = launching || indexOpen || caseOpen;
 
   return (
     <>
       <h1 className="visually-hidden">{copy.hello.h1}</h1>
       {launching && <Launch onDone={onLaunchDone} />}
-      <Header onOpenIndex={() => chrome.setIndexOpen(true)} overIndex={indexOpen} />
-      {mode === 'guided' ? (
-        <div
-          className={styles.track}
-          data-mode={mode}
-          style={{ ['--screens' as string]: TOTAL_SCREENS }}
-        >
-          <div className={`${styles.stage} grain`} {...{ [SCREEN_UNIT_ATTR]: '' }}>
-            <Stage />
+      <div inert={behindOverlay}>
+        <Header onOpenIndex={() => chrome.setIndexOpen(true)} overIndex={indexOpen} />
+        {mode === 'guided' ? (
+          <div
+            className={styles.track}
+            data-mode={mode}
+            style={{ ['--screens' as string]: TOTAL_SCREENS }}
+          >
+            <div className={`${styles.stage} grain`} {...{ [SCREEN_UNIT_ATTR]: '' }}>
+              <Stage />
+            </div>
+            <ContentOutline />
           </div>
-        </div>
-      ) : (
-        <>
-          {/* Measures one screen (the viewport height) so chrome that reads scroll in screens works here too. */}
-          <div {...{ [SCREEN_UNIT_ATTR]: '' }} aria-hidden="true" className={styles.freeUnit} />
-          <FreeSite />
-        </>
-      )}
+        ) : (
+          <>
+            {/* Measures one screen (the viewport height) so chrome that reads scroll in screens works here too. */}
+            <div {...{ [SCREEN_UNIT_ATTR]: '' }} aria-hidden="true" className={styles.freeUnit} />
+            <FreeSite />
+          </>
+        )}
+      </div>
       {caseUsed && <CaseStudyOverlay />}
       {indexUsed && <IndexOverlay open={indexOpen} onClose={closeIndex} />}
     </>

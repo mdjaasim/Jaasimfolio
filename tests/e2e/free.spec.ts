@@ -47,7 +47,9 @@ test.describe('free scroll', () => {
   test('numbers count up when they scroll into view', async ({ page }) => {
     await page.goto('/');
     await page.locator('#chapter-numbers').scrollIntoViewIfNeeded();
-    await expect(page.getByLabel('4', { exact: true })).toHaveText('4', { timeout: 4000 });
+    await expect(page.locator('#chapter-numbers [aria-hidden=true]').first()).toHaveText('4', {
+      timeout: 4000,
+    });
   });
 
   test('a case study opens from the Work list', async ({ page }) => {

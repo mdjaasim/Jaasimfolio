@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useIsoLayoutEffect } from './use-reveal';
 import { useMode } from '@/engine/mode';
 
 const DURATION_MS = 900;
@@ -9,6 +10,9 @@ const DURATION_MS = 900;
 export function useCountUp(target: number, active: boolean): number {
   const { reducedMotion } = useMode();
   const [value, setValue] = useState(0);
+  // Server markup and no-JS output show the real number; only once running in the browser does it start from 0.
+  const [armed, setArmed] = useState(false);
+  useIsoLayoutEffect(() => setArmed(true), []);
 
   useEffect(() => {
     if (!active) return;
@@ -27,5 +31,5 @@ export function useCountUp(target: number, active: boolean): number {
     return () => cancelAnimationFrame(raf);
   }, [active, target, reducedMotion]);
 
-  return value;
+  return armed ? value : target;
 }

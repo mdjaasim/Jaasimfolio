@@ -20,6 +20,9 @@ export function Hello({ u }: { u: number }) {
 
   return (
     <Frame className={styles.scene}>
+      <p className="visually-hidden" role="status">
+        {name ? `${copy.wordNamed} ${name}.` : ''}
+      </p>
       <div
         style={{ opacity: 1 - away, transform: `translateY(${sp(-away * 80)})` }}
         className={styles.inner}

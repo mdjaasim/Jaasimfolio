@@ -20,6 +20,10 @@ interface TimelineStore {
   navigate: (id: ChapterId) => void;
 }
 
+/** Below this gap (in screens) the eased value snaps to the target; about 1px of scroll. */
+const SNAP_DISTANCE = 0.002;
+const SETTLE_EPSILON = 0.00001;
+
 const TimelineContext = createContext<TimelineStore | null>(null);
 
 /** Marks one screen-height; the guided stage measures scroll in multiples of it. */
@@ -30,16 +34,26 @@ export function TimelineProvider({ children }: { children: ReactNode }) {
   const uRef = useRef(0);
   const listeners = useRef(new Set<() => void>());
 
-  const unit = useCallback((): number => {
+  // One screen in px. Measured on mount and on resize, not every frame (a layout read).
+  const unitRef = useRef(0);
+  const measure = useCallback((): number => {
     const el = document.querySelector<HTMLElement>(`[${SCREEN_UNIT_ATTR}]`);
-    return el?.offsetHeight || window.innerHeight || 1;
+    unitRef.current = el?.offsetHeight || window.innerHeight || 1;
+    return unitRef.current;
   }, []);
+  const unit = useCallback((): number => unitRef.current || measure(), [measure]);
+
+  useEffect(() => {
+    measure();
+    window.addEventListener('resize', measure);
+    return () => window.removeEventListener('resize', measure);
+  }, [measure, mode]);
 
   useEffect(() => {
     if (mode !== 'guided') {
       // Free scroll: no easing. u still follows the raw scroll so chrome (header morph) stays in sync.
       const onScroll = () => {
-        uRef.current = Math.round((window.scrollY / unit()) * 1000) / 1000;
+        uRef.current = window.scrollY / unit();
         listeners.current.forEach((cb) => cb());
       };
       onScroll();
@@ -47,7 +61,7 @@ export function TimelineProvider({ children }: { children: ReactNode }) {
       return () => window.removeEventListener('scroll', onScroll);
     }
     // Start where the page already is (reload, back navigation) instead of easing in from the top.
-    uRef.current = Math.round(Math.min(TOTAL_SCREENS, window.scrollY / unit()) * 1000) / 1000;
+    uRef.current = Math.min(TOTAL_SCREENS, window.scrollY / unit());
     listeners.current.forEach((cb) => cb());
     let raf = 0;
     let last = performance.now();
@@ -55,12 +69,11 @@ export function TimelineProvider({ children }: { children: ReactNode }) {
       const dt = Math.min(0.05, Math.max(0.001, (now - last) / 1000));
       last = now;
       const target = Math.min(TOTAL_SCREENS, window.scrollY / unit());
-      const next =
-        Math.abs(target - uRef.current) > 0.0005
-          ? lerpStep(uRef.current, target, dt, SCROLL_LERP)
-          : uRef.current;
-      if (next !== uRef.current) {
-        uRef.current = Math.round(next * 1000) / 1000;
+      const gap = target - uRef.current;
+      // Ease toward the target, and settle exactly on it once it is within a hair, so the loop goes quiet.
+      if (Math.abs(gap) > SETTLE_EPSILON) {
+        uRef.current =
+          Math.abs(gap) < SNAP_DISTANCE ? target : lerpStep(uRef.current, target, dt, SCROLL_LERP);
         listeners.current.forEach((cb) => cb());
       }
       raf = requestAnimationFrame(tick);

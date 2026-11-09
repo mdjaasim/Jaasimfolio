@@ -10,10 +10,13 @@ import {
   type KeyboardEvent,
 } from 'react';
 import { overlay } from '@/config/motion';
-import { caseStudies, photos, t, type CaseStudy } from '@/content';
+import { caseStudies, photos, t, type CaseStudy, type PhotoId } from '@/content';
 import { chrome, useChrome } from '@/engine/chrome';
 import { usePresence } from '@/engine/presence';
 import styles from './case-study-overlay.module.css';
+
+/** Intrinsic size of a photograph, so the browser can reserve its space. */
+const dims = (id: PhotoId) => ({ width: photos[id].width, height: photos[id].height });
 
 const FOCUSABLE = 'button, a[href], [tabindex]:not([tabindex="-1"])';
 const NEXT_START_DELAY_MS = 60;
@@ -48,16 +51,15 @@ function CasePage({
             className={styles.coverImg}
             src={photos[study.cover].src}
             alt=""
-            width={1600}
-            height={1000}
+            width={photos[study.cover].width}
+            height={photos[study.cover].height}
             priority
           />
           <Image
             className={styles.phoneImg}
             src={photos[study.phone].src}
             alt=""
-            width={1600}
-            height={1000}
+            {...dims(study.phone)}
             priority
           />
           <h2
@@ -129,14 +131,8 @@ function CasePage({
             <p>{study.outcome}</p>
           </div>
           <div className={styles.gallery}>
-            <Image src={photos[study.phone].src} alt="" width={1600} height={1000} loading="lazy" />
-            <Image
-              src={photos[study.gallery].src}
-              alt=""
-              width={1600}
-              height={1000}
-              loading="lazy"
-            />
+            <Image src={photos[study.phone].src} alt="" {...dims(study.phone)} loading="lazy" />
+            <Image src={photos[study.gallery].src} alt="" {...dims(study.gallery)} loading="lazy" />
           </div>
         </div>
       </section>
@@ -195,18 +191,36 @@ export function CaseStudyOverlay() {
         ?.focus({ preventScroll: true });
   }, [shown, incoming, isOpen]);
 
+  const timers = useRef<number[]>([]);
+  const clearTimers = useCallback(() => {
+    timers.current.forEach(window.clearTimeout);
+    timers.current = [];
+  }, []);
+  // Closing (or unmounting) mid-slide must cancel the pending swap, or it would reopen the case study.
+  useEffect(() => {
+    if (!isOpen) clearTimers();
+    return clearTimers;
+  }, [isOpen, clearTimers]);
+  // Once fully closed, forget any half-finished slide (state adjusted during render, as React recommends).
+  if (!mounted && (incoming !== null || sliding)) {
+    setIncoming(null);
+    setSliding(false);
+  }
+
   const onNext = useCallback(() => {
     if (incoming !== null) return;
     const n = (shown + 1) % caseStudies.length;
     setIncoming(n);
     setSliding(false);
-    window.setTimeout(() => setSliding(true), NEXT_START_DELAY_MS);
-    window.setTimeout(() => {
-      setShown(n);
-      setIncoming(null);
-      setSliding(false);
-      chrome.openCase(n);
-    }, overlay.caseSwapMs);
+    timers.current.push(window.setTimeout(() => setSliding(true), NEXT_START_DELAY_MS));
+    timers.current.push(
+      window.setTimeout(() => {
+        setShown(n);
+        setIncoming(null);
+        setSliding(false);
+        chrome.openCase(n);
+      }, overlay.caseSwapMs),
+    );
   }, [incoming, shown]);
 
   if (!mounted) return null;

@@ -23,7 +23,6 @@ const MOBILE = [0, 1, 2, 3].map((i) => ({
   ty: 96 + i * 176 + 36,
 }));
 
-const STAGGER = 0.1;
 const RISE = 160;
 const LEAVE_RISE = 120;
 
@@ -44,8 +43,9 @@ export function Numbers({ u }: { u: number }) {
   };
 
   const enter = (k: number) => {
-    const a = seg(u, [7.4 + k * STAGGER, 8.0 + k * STAGGER]);
-    const b = ease(seg(u, [7.4 + k * STAGGER, 8.2 + k * STAGGER]));
+    const { start, fade, rise, stagger } = timeline.numbers.enter;
+    const a = seg(u, [start + k * stagger, start + fade + k * stagger]);
+    const b = ease(seg(u, [start + k * stagger, start + rise + k * stagger]));
     return { opacity: round2(a), transform: `translateY(${sp((1 - b) * RISE)})` };
   };
 

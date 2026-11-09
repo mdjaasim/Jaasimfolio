@@ -84,3 +84,68 @@ test.describe('guided story (desktop)', () => {
     expect(long).toEqual([]);
   });
 });
+
+test.describe('regressions found in review', () => {
+  test.skip(({ viewport }) => (viewport?.width ?? 0) < 768, 'desktop story');
+  test.beforeEach(async ({ page }) => skipLaunch(page));
+
+  test('closing a case study mid-slide does not reopen it', async ({ page }) => {
+    await page.goto('/');
+    await page.evaluate(() => window.scrollTo(0, window.innerHeight * 10.2));
+    await page.waitForTimeout(1500);
+    await page.getByRole('button', { name: /Filozo/ }).click();
+    await page
+      .getByRole('dialog', { name: 'Filozo' })
+      .getByRole('button', { name: /Next project/ })
+      .click();
+    await page.keyboard.press('Escape');
+    await page.waitForTimeout(2500);
+    await expect(page.getByRole('dialog')).toHaveCount(0);
+  });
+
+  test('Index to Contact shows the links, not an empty yellow screen', async ({ page }) => {
+    await page.goto('/');
+    await page.getByRole('button', { name: 'Index' }).click();
+    await page.getByRole('button', { name: /Contact/ }).click();
+    await expect(page.getByRole('link', { name: 'LinkedIn' })).toBeVisible({ timeout: 8000 });
+    const opacity = await page
+      .getByRole('link', { name: 'LinkedIn' })
+      .evaluate((el) => getComputedStyle(el.parentElement as HTMLElement).opacity);
+    expect(Number(opacity)).toBeGreaterThan(0.9);
+  });
+
+  test('the whole story is in the page text even before you scroll', async ({ page }) => {
+    await page.goto('/');
+    const text = await page.locator('[data-outline]').textContent();
+    for (const word of [
+      'Guidance that adapts',
+      'Borderless',
+      'Hakuna Matata',
+      'Dhaanish Ahmed',
+      '479jaasim@gmail.com',
+    ]) {
+      expect(text).toContain(word);
+    }
+  });
+
+  test('the page behind an open overlay cannot be tabbed into', async ({ page }) => {
+    await page.goto('/');
+    await page.getByRole('button', { name: 'Index' }).click();
+    await page.waitForTimeout(1200);
+    for (let i = 0; i < 14; i++) {
+      await page.keyboard.press('Tab');
+      expect(
+        await page.evaluate(() => Boolean(document.activeElement?.closest('[role=dialog]'))),
+      ).toBe(true);
+    }
+  });
+
+  test('typing only punctuation does not become a name', async ({ page }) => {
+    await page.goto('/');
+    const field = page.getByLabel('Your first name');
+    await field.fill("-'");
+    await field.press('Enter');
+    await expect(page.getByText('Priya.', { exact: true })).toHaveCount(0);
+    await expect(page.locator('[role=status]').first()).toHaveText('');
+  });
+});

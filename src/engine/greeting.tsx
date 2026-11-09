@@ -16,7 +16,9 @@ export const NAME_MAX_LENGTH = 18;
 
 /** Keep letters (any script), marks, apostrophes, hyphens and spaces; cap the length. */
 export function sanitizeName(raw: string): string {
-  return raw.replace(/[^\p{L}\p{M}' -]/gu, '').slice(0, NAME_MAX_LENGTH);
+  return Array.from(raw.replace(/[^\p{L}\p{M}' -]/gu, ''))
+    .slice(0, NAME_MAX_LENGTH)
+    .join('');
 }
 
 interface GreetingValue {
@@ -53,7 +55,8 @@ export function GreetingProvider({ children }: { children: ReactNode }) {
   const setDraft = useCallback((value: string) => setDraftState(sanitizeName(value)), []);
   const commit = useCallback(() => {
     const clean = draft.trim();
-    if (!clean) return;
+    // A name needs at least one letter; "-" or "'" alone is not a name.
+    if (!/\p{L}/u.test(clean)) return;
     setCommitted(clean);
     writeStorage('local', storageKeys.name, clean);
     listeners.forEach((cb) => cb());

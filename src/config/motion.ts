@@ -72,3 +72,6 @@ export const breakpoints = { mobileMax: 767 } as const;
 
 /** Wordmark morph geometry in em of the logo size: AASIM collapses and a slash appears. */
 export const logo = { lettersEm: 4.3, slashEm: 0.5, driftEm: 0.7, slashDriftEm: 0.4 } as const;
+
+/** How long the "Copied" pill stays after copying the email address. */
+export const copyFeedbackMs = 2400;

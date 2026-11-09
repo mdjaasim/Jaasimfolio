@@ -3,6 +3,7 @@ import type { PhotoId } from './photos';
 /** All user-facing copy lives here (English). Components receive it via `t()`; never inline strings. */
 export const en = {
   meta: {
+    jobTitle: 'Full stack mobile & web developer',
     title: 'Mohamed Jaasim · Full stack mobile & web developer',
     description:
       'Mohamed Jaasim is a full stack mobile and web developer in Dubai, leading mobile at Fuze: four live fitness apps, a shared SDK and the websites around them.',

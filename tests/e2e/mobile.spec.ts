@@ -41,7 +41,7 @@ test.describe('mobile frames', () => {
     await page.goto('/');
     await goTo(page, 10.2);
     await page.getByRole('button', { name: /Borderless/ }).click();
-    const title = page.getByRole('heading', { name: 'Borderless' });
+    const title = page.getByRole('dialog').getByRole('heading', { name: 'Borderless' });
     await expect(title).toBeVisible();
     const box = await title.boundingBox();
     expect(box).not.toBeNull();

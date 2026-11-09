@@ -9,8 +9,8 @@ test.describe('hello', () => {
     const field = page.getByLabel('Your first name');
     await field.fill('Priya');
     await field.press('Enter');
-    await expect(page.getByText('Priya.')).toBeVisible();
-    await expect(page.getByText('Hello,')).toBeVisible();
+    await expect(page.getByText('Priya.', { exact: true })).toBeVisible();
+    await expect(page.getByText('Hello,', { exact: true })).toBeVisible();
   });
 
   test('commits the name when the field loses focus and remembers it', async ({ page }) => {
@@ -18,9 +18,9 @@ test.describe('hello', () => {
     const field = page.getByLabel('Your first name');
     await field.fill('Sam');
     await field.blur();
-    await expect(page.getByText('Sam.')).toBeVisible();
+    await expect(page.getByText('Sam.', { exact: true })).toBeVisible();
     await page.reload();
-    await expect(page.getByText('Sam.')).toBeVisible();
+    await expect(page.getByText('Sam.', { exact: true })).toBeVisible();
   });
 
   test('strips characters that are not part of a name', async ({ page }) => {

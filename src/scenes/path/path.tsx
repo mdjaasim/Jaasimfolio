@@ -60,8 +60,18 @@ export function Path({ u }: { u: number }) {
         }}
       >
         <div className={styles.world} style={{ transform: `translateY(${sp(-drawn * g.shift)})` }}>
-          <div className={styles.line} style={{ left: sp(g.lineX), height: sp(length) }} />
-          <i className={styles.head} style={{ left: sp(g.lineX - 6), top: sp(length - 7) }} />
+          <div
+            className={styles.line}
+            style={{
+              left: sp(g.lineX),
+              height: sp(g.length),
+              transform: `scaleY(${round2(drawn)})`,
+            }}
+          />
+          <i
+            className={styles.head}
+            style={{ left: sp(g.lineX - 6), transform: `translateY(${sp(length - 7)})` }}
+          />
 
           {copy.entries.map((e, i) => {
             const y = g.entryY[i] ?? 0;

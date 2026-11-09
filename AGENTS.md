@@ -26,7 +26,7 @@ Mohamed Jaasim's personal portfolio. It is a personal project: not part of FuzeA
 
 - **No hardcoding.** Copy lives in `src/content/` (read it through `t()`), contact facts in `src/config/site.ts`, timings in `src/config/`, colours/type/spacing/radii from `src/styles/tokens.css`. No magic numbers, colours or strings in components.
 - Scale with `calc(N * var(--s))`: `--s` is `--u` (desktop stage, designed at 1440x900) and switches to `--m` (mobile, designed at 390 wide) under 768px. Take N from the matching design board; write a separate mobile rule when the mobile layout differs. Do not add fixed px layout values outside the tokens.
-- Every component file has a named export and `export default`.
+- Every component file has a named export and `export default`. Next route files (`page`, `layout`, `error`, `not-found`) only need the default export the framework requires.
 - Scenes are pure functions of the eased scroll position `u` (see `src/engine/`). Animate only `transform`, `opacity` and `clip-path`.
 - Photographs go through `npm run photos` and the custom image loader (`src/lib/image-loader.ts`); never reference a photo file directly.
 - Accessibility is part of done: semantic headings, labelled controls, visible focus, keyboard reachable, `Esc` closes overlays and focus returns, `prefers-reduced-motion` respected.

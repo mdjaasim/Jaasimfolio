@@ -16,4 +16,8 @@ describe('timeline config', () => {
     };
     walk(timeline);
   });
+
+  it('every chapter target lands after its own content has finished arriving', () => {
+    expect(timeline.chapters.contact).toBeGreaterThanOrEqual(timeline.contact.button[1]);
+  });
 });

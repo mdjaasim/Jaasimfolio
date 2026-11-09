@@ -204,3 +204,20 @@
     display: none;
   }
 }
+
+.option:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel {
+    transition-duration: 0.2s;
+  }
+  .item,
+  .side {
+    transition-delay: 0s !important;
+    transition-duration: 0.2s;
+    transform: none !important;
+  }
+}

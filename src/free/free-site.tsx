@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 import { Phone } from '@/components/phone/phone';
 import { NameField } from '@/components/name-field/name-field';
+import { copyFeedbackMs } from '@/config/motion';
 import { site } from '@/config/site';
 import { timeline } from '@/config/timeline';
 import { caseStudies, fill, photos, t } from '@/content';
@@ -25,6 +26,9 @@ function Hello() {
   const { name, greeted } = useGreeting();
   return (
     <section id="chapter-hello" data-tone="light" className={`${styles.sec} ${styles.hello}`}>
+      <p className="visually-hidden" role="status">
+        {name ? `${copy.wordNamed} ${name}.` : ''}
+      </p>
       <div className={styles.helloRow}>
         <p className={styles.helloWord}>
           {greeted ? (name ? copy.wordNamed : copy.wordAnon) : copy.word}
@@ -105,8 +109,9 @@ function Counter({ item }: { item: { value: number; title: string; body: string 
   const value = useCountUp(item.value, revealed);
   return (
     <div ref={ref} className={styles.counter}>
-      <p className={styles.counterValue} aria-label={String(item.value)}>
-        {value}
+      <p className={styles.counterValue}>
+        <span aria-hidden="true">{value}</span>
+        <span className="visually-hidden">{item.value}</span>
       </p>
       <p className={styles.counterBody}>
         <b className="label muted">{item.title}</b>
@@ -271,7 +276,7 @@ function Contact() {
       await navigator.clipboard.writeText(site.email);
       setCopied(true);
       window.clearTimeout(timer.current);
-      timer.current = window.setTimeout(() => setCopied(false), 2400);
+      timer.current = window.setTimeout(() => setCopied(false), copyFeedbackMs);
     } catch {
       /* clipboard can be blocked; the address stays visible */
     }

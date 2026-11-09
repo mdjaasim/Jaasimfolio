@@ -2,7 +2,7 @@
 
 import { useState, type KeyboardEvent } from 'react';
 import { t } from '@/content';
-import { useGreeting } from '@/engine/greeting';
+import { NAME_MAX_LENGTH, useGreeting } from '@/engine/greeting';
 import styles from './name-field.module.css';
 
 export const NAME_FIELD_ID = 'first-name';
@@ -34,7 +34,7 @@ export function NameField() {
           id={NAME_FIELD_ID}
           className={styles.input}
           type="text"
-          maxLength={18}
+          maxLength={NAME_MAX_LENGTH}
           autoComplete="off"
           spellCheck={false}
           aria-label={copy.fieldLabel}

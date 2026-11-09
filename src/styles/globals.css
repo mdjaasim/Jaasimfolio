@@ -151,3 +151,8 @@ html[data-cursor='ball'] * {
   background-size: 0 1px;
   background-position: 100% 100%;
 }
+
+/* Set by an inline script for returning visitors so the launch overlay never flashes. */
+html[data-launch-seen] [data-launch] {
+  display: none !important;
+}

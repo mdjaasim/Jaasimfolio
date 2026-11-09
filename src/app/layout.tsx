@@ -4,6 +4,7 @@ import { site } from '@/config/site';
 import { t } from '@/content';
 import '@/styles/globals.css';
 import { Providers } from '@/components/providers/providers';
+import { storageKeys } from '@/config/preferences';
 import { fontVariables } from './fonts';
 
 const copy = t();
@@ -32,7 +33,7 @@ const personJsonLd = {
   name: site.name,
   url: site.url,
   email: `mailto:${site.email}`,
-  jobTitle: 'Full stack mobile & web developer',
+  jobTitle: copy.meta.jobTitle,
   homeLocation: { '@type': 'Place', name: site.city },
   sameAs: [site.linkedin, site.github],
 };
@@ -45,6 +46,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <noscript>
           <style>{'[data-launch]{display:none!important}'}</style>
         </noscript>
+        {/* Returning visitors skip the launch: hide its overlay before first paint. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{if(sessionStorage.getItem('${storageKeys.launchSeen}')==='1')document.documentElement.dataset.launchSeen='1'}catch(e){}`,
+          }}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
