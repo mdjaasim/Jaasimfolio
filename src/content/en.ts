@@ -53,6 +53,7 @@ export const en = {
   },
   craft: {
     label: '02 / Craft',
+    beatWord: 'beat',
     ghost: 'Craft',
     tags: ['React Native', 'Expo', 'Node.js', 'Prisma'],
     beats: [

@@ -1,0 +1,209 @@
+.root {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: var(--ink);
+  overflow: hidden;
+  clip-path: inset(34% 30% 34% 30% round var(--radius-lg));
+  transition: clip-path 1s var(--ease-reveal);
+}
+.root[data-entered='true'] {
+  clip-path: inset(0 0 0 0 round 0);
+}
+
+.layer {
+  position: absolute;
+  inset: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: none;
+  background: var(--surface);
+  color: var(--ink);
+}
+.layer::-webkit-scrollbar {
+  display: none;
+}
+
+.cover {
+  position: relative;
+  height: max(100svh, calc(var(--design-h) * var(--s)));
+  background: var(--ink);
+  color: var(--on-ink);
+  border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+  overflow: hidden;
+}
+.caseNo {
+  position: absolute;
+  left: calc(32 * var(--s));
+  top: calc(92 * var(--s));
+  color: var(--on-ink-muted);
+  animation: rise 0.9s var(--ease-house) 0.5s both;
+}
+.coverImg,
+.phoneImg {
+  position: absolute;
+  object-fit: cover;
+  animation: rise 1s var(--ease-house) both;
+}
+.coverImg {
+  left: calc(360 * var(--s));
+  top: calc(130 * var(--s));
+  width: calc(760 * var(--s));
+  height: calc(430 * var(--s));
+  border-radius: var(--radius-lg);
+  animation-delay: 0.35s;
+}
+.phoneImg {
+  left: calc(1000 * var(--s));
+  top: calc(260 * var(--s));
+  width: calc(230 * var(--s));
+  height: calc(440 * var(--s));
+  border-radius: var(--radius-xl);
+  animation-delay: 0.5s;
+}
+.title {
+  position: absolute;
+  left: calc(24 * var(--s));
+  bottom: calc(40 * var(--s));
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-stretch: 125%;
+  letter-spacing: -0.06em;
+  white-space: nowrap;
+  animation: rise 1.1s var(--ease-house) 0.45s both;
+}
+.back,
+.link,
+.next {
+  all: unset;
+  cursor: pointer;
+}
+.back {
+  position: absolute;
+  left: calc(32 * var(--s));
+  top: calc(28 * var(--s));
+  font: var(--text-label);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.back:focus-visible,
+.link:focus-visible,
+.next:focus-visible {
+  outline: 2px solid currentcolor;
+  outline-offset: 4px;
+}
+
+.body {
+  display: grid;
+  grid-template-columns: calc(300 * var(--s)) 1fr;
+  gap: calc(96 * var(--s));
+  width: calc(var(--design-w) * var(--s));
+  margin: 0 auto;
+  padding: calc(96 * var(--s)) calc(32 * var(--s)) calc(40 * var(--s));
+  box-sizing: border-box;
+}
+.meta {
+  margin: 0;
+  animation: rise 1s var(--ease-house) 0.7s both;
+}
+.meta dt {
+  margin: 0 0 6px;
+  font: var(--text-label);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+.meta dd {
+  margin: 0 0 calc(28 * var(--s));
+  font: 500 17px / 24px var(--font-sans);
+}
+.meta a {
+  color: inherit;
+}
+.link {
+  font: var(--text-label);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.story {
+  animation: rise 1s var(--ease-house) 0.8s both;
+}
+.section {
+  margin-bottom: calc(44 * var(--s));
+}
+.section h3 {
+  margin: 0 0 12px;
+  font: var(--text-label);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+.section p {
+  margin: 0;
+  max-width: 56ch;
+  font: 400 calc(20 * var(--s)) / calc(30 * var(--s)) var(--font-sans);
+}
+.gallery {
+  display: grid;
+  grid-template-columns: 1fr calc(240 * var(--s));
+  gap: calc(20 * var(--s));
+}
+.gallery img {
+  width: 100%;
+  height: calc(300 * var(--s));
+  object-fit: cover;
+  border-radius: var(--radius-lg);
+}
+
+.next {
+  display: block;
+  position: relative;
+  width: 100%;
+  height: calc(300 * var(--s));
+  margin-top: calc(60 * var(--s));
+  background: var(--ink);
+  color: var(--on-ink);
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  overflow: hidden;
+}
+.nextLabel {
+  position: absolute;
+  left: calc(32 * var(--s));
+  top: calc(32 * var(--s));
+  color: var(--on-ink-muted);
+}
+.nextTitle {
+  position: absolute;
+  left: calc(24 * var(--s));
+  bottom: calc(28 * var(--s));
+  font: 700 calc(170 * var(--s)) / calc(150 * var(--s)) var(--font-display);
+  font-stretch: 125%;
+  letter-spacing: -0.05em;
+  white-space: nowrap;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(48px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .root {
+    transition-duration: 0.01ms;
+  }
+  .caseNo,
+  .coverImg,
+  .phoneImg,
+  .title,
+  .meta,
+  .story {
+    animation: none;
+  }
+}

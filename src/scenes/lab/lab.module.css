@@ -1,0 +1,48 @@
+/* The track travels sideways inside the design frame, so it is clipped to it. */
+.clip {
+  overflow: hidden;
+}
+.track {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+}
+.panel {
+  position: absolute;
+  top: calc(130 * var(--s));
+  width: calc(600 * var(--s));
+  padding-right: calc(32 * var(--s));
+}
+.title {
+  margin: calc(24 * var(--s)) 0 calc(28 * var(--s));
+  font: 700 calc(84 * var(--s)) / calc(80 * var(--s)) var(--font-display);
+  font-stretch: 125%;
+  letter-spacing: -0.03em;
+  will-change: transform;
+}
+.body {
+  margin: 0;
+  max-width: 34ch;
+  font: 400 calc(17 * var(--s)) / calc(26 * var(--s)) var(--font-sans);
+  color: var(--on-ink-muted);
+}
+.stack {
+  margin: calc(24 * var(--s)) 0 0;
+  font: var(--text-label);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.plate {
+  position: absolute;
+  top: calc(500 * var(--s));
+  width: calc(540 * var(--s));
+  height: calc(240 * var(--s));
+  border-radius: var(--radius-lg);
+  background: var(--ink-soft);
+  overflow: hidden;
+}
+/* Photographs travel faster than the plate that frames them; they are wider by the travel so no edge shows. */
+.plateImg {
+  object-fit: cover;
+  will-change: transform;
+}

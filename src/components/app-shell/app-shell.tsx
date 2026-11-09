@@ -1,15 +1,17 @@
 'use client';
 
-import { useCallback, useState, useSyncExternalStore } from 'react';
+import { useCallback, useEffect, useState, useSyncExternalStore } from 'react';
+import { chrome, useChrome } from '@/engine/chrome';
 import { launch } from '@/config/motion';
 import { storageKeys } from '@/config/preferences';
 import { TOTAL_SCREENS } from '@/config/timeline';
-import { t } from '@/content';
+import { photos, t } from '@/content';
 import { useMode } from '@/engine/mode';
 import { readStorage, writeStorage } from '@/engine/storage';
 import { SCREEN_UNIT_ATTR } from '@/engine/timeline';
 import { Launch } from '@/scenes/launch/launch';
 import { Stage } from '@/scenes/stage';
+import { CaseStudyOverlay } from '../case-study/case-study-overlay';
 import { Header } from '../header/header';
 import { IndexOverlay } from '../index-overlay/index-overlay';
 import { NAME_FIELD_ID } from '../name-field/name-field';
@@ -22,10 +24,26 @@ const launchSeen = () => readStorage('session', storageKeys.launchSeen) === '1';
 export function AppShell() {
   const copy = t();
   const { mode } = useMode();
-  const [indexOpen, setIndexOpen] = useState(false);
+  const indexOpen = useChrome((c) => c.indexOpen);
   const [launchDone, setLaunchDone] = useState(false);
   const seenThisSession = useSyncExternalStore(noopSubscribe, launchSeen, () => false);
   const launching = !seenThisSession && !launchDone;
+
+  // Warm every photograph while the browser is idle so scenes never open onto an empty frame.
+  useEffect(() => {
+    const warm = () =>
+      Object.values(photos).forEach((p) => Object.assign(new window.Image(), { src: p.src }));
+    const idle = window.requestIdleCallback as
+      ((cb: () => void, opts?: { timeout: number }) => number) | undefined;
+    if (idle) {
+      const id = idle.call(window, warm, { timeout: 4000 });
+      return () => window.cancelIdleCallback(id);
+    }
+    const id = window.setTimeout(warm, 1500);
+    return () => window.clearTimeout(id);
+  }, []);
+
+  const closeIndex = useCallback(() => chrome.setIndexOpen(false), []);
 
   const onLaunchDone = useCallback(() => {
     writeStorage('session', storageKeys.launchSeen, '1');
@@ -40,7 +58,7 @@ export function AppShell() {
     <>
       <h1 className="visually-hidden">{copy.hello.h1}</h1>
       {launching && <Launch onDone={onLaunchDone} />}
-      <Header onOpenIndex={() => setIndexOpen(true)} overIndex={indexOpen} />
+      <Header onOpenIndex={() => chrome.setIndexOpen(true)} overIndex={indexOpen} />
       <div
         className={styles.track}
         data-mode={mode}
@@ -50,7 +68,8 @@ export function AppShell() {
           <Stage />
         </div>
       </div>
-      <IndexOverlay open={indexOpen} onClose={() => setIndexOpen(false)} />
+      <CaseStudyOverlay />
+      <IndexOverlay open={indexOpen} onClose={closeIndex} />
     </>
   );
 }

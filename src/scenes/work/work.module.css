@@ -1,0 +1,83 @@
+.scene {
+  position: absolute;
+  inset: 0;
+}
+.label {
+  position: absolute;
+  left: calc(32 * var(--s));
+  top: calc(92 * var(--s));
+}
+.list {
+  position: absolute;
+  left: calc(32 * var(--s));
+  right: calc(72 * var(--s));
+  top: calc(150 * var(--s));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.row {
+  all: unset;
+  display: grid;
+  grid-template-columns: calc(64 * var(--s)) 1fr auto;
+  align-items: baseline;
+  gap: calc(24 * var(--s));
+  padding: calc(28 * var(--s)) 0;
+  width: 100%;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: opacity 0.4s;
+}
+.row:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: -2px;
+}
+.title {
+  font: 700 calc(96 * var(--s)) / calc(84 * var(--s)) var(--font-display);
+  font-stretch: 125%;
+  letter-spacing: -0.04em;
+  transition: transform 0.6s var(--ease-house);
+}
+.meta {
+  text-align: right;
+}
+
+/* The photograph that follows the pointer (fixed, so it uses viewport pixels). */
+.preview {
+  --px: -999px;
+  --py: -999px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 6;
+  width: calc(260 * var(--s));
+  height: calc(330 * var(--s));
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--ink);
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(calc(var(--px) - 130 * var(--s)), calc(var(--py) - 165 * var(--s)))
+    rotate(-3deg) scale(0.86);
+  transition:
+    transform 0.35s var(--ease-house),
+    opacity 0.35s;
+}
+.preview[data-on='true'] {
+  opacity: 1;
+  transform: translate(calc(var(--px) - 130 * var(--s)), calc(var(--py) - 165 * var(--s)))
+    rotate(-3deg) scale(1);
+}
+.previewImg {
+  object-fit: cover;
+  transition: opacity 0.25s;
+}
+.previewCaption {
+  position: absolute;
+  left: calc(18 * var(--s));
+  bottom: calc(18 * var(--s));
+  font: var(--text-label);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--on-ink);
+}

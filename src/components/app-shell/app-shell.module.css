@@ -2,7 +2,7 @@
   position: relative;
 }
 .track[data-mode='guided'] {
-  height: calc(var(--screens) * 100svh);
+  height: calc((var(--screens) + 1) * 100svh);
 }
 .stage {
   position: sticky;

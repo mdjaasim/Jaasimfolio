@@ -4,17 +4,18 @@ import { useEffect, useRef } from 'react';
 import { cursor as cfg } from '@/config/motion';
 import { t } from '@/content';
 import { CursorBody, type CursorKind } from '@/engine/cursor-physics';
+import { anyOverlayOpen, useChrome } from '@/engine/chrome';
+import { headerTone } from '@/engine/math';
 import { useMode } from '@/engine/mode';
+import { useUSelect } from '@/engine/timeline';
 import styles from './cursor.module.css';
 
-interface CursorProps {
-  /** Ink instead of yellow (on the yellow Contact ground). */
-  ink?: boolean;
-}
-
 /** The yellow ball. Fine pointers only; off under reduced motion (native cursor returns). */
-export function Cursor({ ink = false }: CursorProps) {
-  const { reducedMotion, finePointer } = useMode();
+export function Cursor() {
+  const { reducedMotion, finePointer, mode } = useMode();
+  const onYellow = useUSelect((u) => headerTone(u) === 'yellow');
+  const overlay = useChrome(anyOverlayOpen);
+  const ink = mode === 'guided' && onYellow && !overlay;
   const active = finePointer && !reducedMotion;
   const ballRef = useRef<HTMLSpanElement>(null);
   const labelRef = useRef<HTMLSpanElement>(null);

@@ -1,0 +1,101 @@
+.thanks {
+  position: absolute;
+  left: calc(32 * var(--s));
+  top: calc(92 * var(--s));
+}
+.headline {
+  position: absolute;
+  left: calc(32 * var(--s));
+  top: calc(120 * var(--s));
+  margin: 0;
+  font: 700 calc(140 * var(--s)) / calc(128 * var(--s)) var(--font-display);
+  font-stretch: 125%;
+  letter-spacing: -0.035em;
+}
+.mask {
+  display: block;
+  overflow: hidden;
+  /* Room below the baseline so descenders (g, y) are not clipped by the reveal mask. */
+  height: calc(128 * var(--s));
+  padding-bottom: calc(26 * var(--s));
+  margin-bottom: calc(-26 * var(--s));
+}
+.mask > span {
+  display: block;
+  will-change: transform;
+}
+.maskAccent {
+  height: calc(150 * var(--s));
+  padding-top: calc(12 * var(--s));
+}
+/* The accent line is ink with a yellow word: the only inversion on the yellow ground. */
+.accent {
+  display: inline-block;
+  padding: 0 0.14em;
+  border-radius: 0.14em;
+  background: var(--ink);
+  color: var(--yellow);
+  font: italic 400 calc(120 * var(--s)) / 1.05 var(--font-accent);
+  letter-spacing: -0.02em;
+}
+.cta {
+  position: absolute;
+  right: calc(96 * var(--s));
+  top: calc(470 * var(--s));
+  width: calc(230 * var(--s));
+  height: calc(230 * var(--s));
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--yellow);
+  display: grid;
+  place-items: center;
+  text-align: center;
+  text-decoration: none;
+  font: 700 calc(26 * var(--s)) / 1 var(--font-display);
+  font-stretch: 125%;
+  letter-spacing: -0.02em;
+  will-change: transform;
+}
+.cta:focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: 6px;
+}
+.links {
+  position: absolute;
+  left: calc(32 * var(--s));
+  bottom: calc(92 * var(--s));
+  display: flex;
+  gap: calc(40 * var(--s));
+  align-items: center;
+}
+.links :global(.text-link) {
+  font-size: 15px;
+}
+.copied {
+  display: inline-block;
+  min-width: 0;
+  padding: 0;
+  border-radius: 99px;
+  background: var(--ink);
+  color: var(--yellow);
+  font: var(--text-label);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity 0.4s var(--ease-house),
+    transform 0.5s var(--ease-house);
+}
+.copied[data-on='true'] {
+  padding: 4px 10px;
+  opacity: 1;
+  transform: none;
+}
+.foot {
+  position: absolute;
+  bottom: calc(28 * var(--s));
+  display: flex;
+  gap: calc(28 * var(--s));
+  margin: 0;
+}

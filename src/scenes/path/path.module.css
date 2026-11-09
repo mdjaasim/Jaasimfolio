@@ -1,0 +1,87 @@
+.scene {
+  position: absolute;
+  inset: 0;
+}
+.world {
+  position: absolute;
+  left: 0;
+  top: calc(130 * var(--s));
+  width: calc(1440 * var(--s));
+  will-change: transform;
+}
+.line {
+  position: absolute;
+  top: 0;
+  width: 1px;
+  background: var(--ink);
+  opacity: 0.28;
+}
+.head {
+  position: absolute;
+  width: calc(14 * var(--s));
+  height: calc(14 * var(--s));
+  border-radius: 50%;
+  background: var(--yellow);
+}
+.date {
+  position: absolute;
+  left: calc(32 * var(--s));
+}
+.node {
+  position: absolute;
+  left: calc(516 * var(--s));
+  width: calc(9 * var(--s));
+  height: calc(9 * var(--s));
+  border-radius: 50%;
+  background: var(--ink);
+}
+.entry {
+  position: absolute;
+  left: calc(600 * var(--s));
+  width: calc(700 * var(--s));
+}
+.entry h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-stretch: 125%;
+  letter-spacing: -0.03em;
+}
+.role {
+  display: block;
+  margin: calc(12 * var(--s)) 0 calc(10 * var(--s));
+}
+.body {
+  margin: 0;
+  max-width: 54ch;
+  font: 400 calc(17 * var(--s)) / calc(26 * var(--s)) var(--font-sans);
+}
+.subDot {
+  position: absolute;
+  left: calc(517 * var(--s));
+  width: calc(7 * var(--s));
+  height: calc(7 * var(--s));
+  border-radius: 50%;
+  border: 1.5px solid var(--ink);
+  background: var(--surface);
+}
+.cat {
+  position: absolute;
+  left: calc(600 * var(--s));
+  width: calc(150 * var(--s));
+}
+.subBody {
+  position: absolute;
+  left: calc(760 * var(--s));
+  width: calc(540 * var(--s));
+  margin: 0;
+  font: 400 calc(17 * var(--s)) / calc(26 * var(--s)) var(--font-sans);
+}
+.edu {
+  position: absolute;
+  left: calc(32 * var(--s));
+  bottom: calc(28 * var(--s));
+  width: calc(380 * var(--s));
+  margin: 0;
+  line-height: 16px;
+}

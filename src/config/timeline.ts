@@ -35,6 +35,8 @@ export const timeline = {
     visible: [2.4, 7.9] as Range,
     intro: [2.8, 3.4] as Range,
     shake: [5.8, 6.1] as Range,
+    /** Screen at which the ghost word and labels start drifting. */
+    driftOrigin: 2.5,
     beats: [4.0, 4.8, 5.6] as readonly number[],
     sheet: [6.1, 6.5] as Range,
     brands: [6.7, 7.0] as readonly number[],

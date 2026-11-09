@@ -1,0 +1,33 @@
+.value {
+  position: absolute;
+  font: 700 calc(220 * var(--s)) / 1 var(--font-display);
+  font-stretch: 125%;
+  letter-spacing: -0.05em;
+  will-change: transform, opacity;
+}
+.digits {
+  position: relative;
+  display: inline-block;
+  padding: 0 0.08em;
+  isolation: isolate;
+}
+/* Flat yellow highlighter wiping in behind the first counter. */
+.mark {
+  position: absolute;
+  inset: 0;
+  background: var(--yellow);
+  border-radius: 0.08em;
+  transform-origin: left center;
+  z-index: -1;
+}
+.caption {
+  position: absolute;
+  width: calc(300 * var(--s));
+  margin: 0;
+  font: 400 calc(17 * var(--s)) / calc(26 * var(--s)) var(--font-sans);
+  will-change: transform, opacity;
+}
+.caption b {
+  display: block;
+  margin-bottom: calc(8 * var(--s));
+}

@@ -42,6 +42,14 @@ export function IndexOverlay({ open, onClose }: IndexOverlayProps) {
     };
   }, [open]);
 
+  // Esc closes from anywhere inside the page while the overlay is open.
+  useEffect(() => {
+    if (!open) return;
+    const onEsc = (e: globalThis.KeyboardEvent) => e.key === 'Escape' && onClose();
+    document.addEventListener('keydown', onEsc);
+    return () => document.removeEventListener('keydown', onEsc);
+  }, [open, onClose]);
+
   if (!mounted) return null;
 
   const active = mode === 'guided' ? currentChapter(u) : -1;
@@ -52,11 +60,6 @@ export function IndexOverlay({ open, onClose }: IndexOverlayProps) {
   });
 
   const onKeyDown = (e: KeyboardEvent) => {
-    if (e.key === 'Escape') {
-      e.stopPropagation();
-      onClose();
-      return;
-    }
     if (e.key !== 'Tab') return;
     const nodes = Array.from(panelRef.current?.querySelectorAll<HTMLElement>(FOCUSABLE) ?? []);
     const first = nodes[0];

@@ -1,0 +1,14 @@
+.panel {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+}
+.ink {
+  background: var(--ink);
+}
+.bone {
+  background: var(--surface);
+}
+.yellow {
+  background: var(--yellow);
+}

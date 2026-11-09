@@ -46,6 +46,9 @@ export function TimelineProvider({ children }: { children: ReactNode }) {
       window.addEventListener('scroll', onScroll, { passive: true });
       return () => window.removeEventListener('scroll', onScroll);
     }
+    // Start where the page already is (reload, back navigation) instead of easing in from the top.
+    uRef.current = Math.round(Math.min(TOTAL_SCREENS, window.scrollY / unit()) * 1000) / 1000;
+    listeners.current.forEach((cb) => cb());
     let raf = 0;
     let last = performance.now();
     const tick = (now: number) => {
@@ -98,6 +101,19 @@ function useStore(): TimelineStore {
 export function useU(): number {
   const store = useStore();
   return useSyncExternalStore(store.subscribe, store.get, () => 0);
+}
+
+/**
+ * Subscribe to a derived value of u. Re-renders only when the selected primitive changes,
+ * so chrome that cares about one threshold does not re-render every frame.
+ */
+export function useUSelect<T extends string | number | boolean>(select: (u: number) => T): T {
+  const store = useStore();
+  return useSyncExternalStore(
+    store.subscribe,
+    () => select(store.get()),
+    () => select(0),
+  );
 }
 
 /** Travel to a chapter (smooth scroll; instant under reduced motion). */

@@ -29,3 +29,10 @@ Scenes are laid out in design pixels inside `.frame` (`src/components/frame`), a
 ## Launch and greeting
 
 `src/scenes/launch` plays once per session (`sessionStorage`); reduced motion shows the wordmark for 300ms. Timings come from `src/config/motion.ts` and `launch-schedule.ts`. The visitor's first name is sanitised, kept only in `localStorage` and returns in Contact (`src/engine/greeting.tsx`).
+
+## Performance notes
+
+- One rAF loop eases scroll into `u`; React subscribers re-render only when `u` changes by more than 0.0005. Chrome that reads a single threshold uses `useUSelect` and re-renders only when that value flips.
+- Each scene returns `null` outside its range, so only the visible scenes exist in the DOM. Only `transform`, `opacity` and `clip-path` are animated; `will-change` is set only on moving elements.
+- Photographs are warmed while the browser is idle; below-the-fold case images are lazy.
+- `tests/e2e/story.spec.ts` fails if a long task (over 120ms) appears while scrolling the whole story.

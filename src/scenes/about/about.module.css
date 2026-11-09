@@ -1,0 +1,62 @@
+.scene {
+  position: absolute;
+  inset: 0;
+}
+.portrait {
+  position: absolute;
+  left: calc(32 * var(--s));
+  top: calc(96 * var(--s));
+  width: calc(380 * var(--s));
+  height: calc(480 * var(--s));
+  border-radius: var(--radius-xl);
+  background: var(--ink);
+  color: var(--on-ink);
+  overflow: hidden;
+}
+.slot {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: end start;
+  padding: calc(24 * var(--s));
+  font: var(--text-label);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.bio {
+  position: absolute;
+  left: calc(500 * var(--s));
+  top: calc(120 * var(--s));
+  width: calc(760 * var(--s));
+}
+.heading {
+  margin: calc(20 * var(--s)) 0 0;
+  font: 700 calc(46 * var(--s)) / calc(54 * var(--s)) var(--font-display);
+  font-stretch: 125%;
+  letter-spacing: -0.03em;
+}
+.education {
+  margin: calc(28 * var(--s)) 0 0;
+  max-width: 52ch;
+  font: 400 calc(17 * var(--s)) / calc(26 * var(--s)) var(--font-sans);
+  color: var(--ink-muted);
+}
+.marquee {
+  position: absolute;
+  left: 0;
+  white-space: nowrap;
+  font: 700 calc(72 * var(--s)) / 1 var(--font-display);
+  font-stretch: 125%;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  will-change: transform;
+}
+.marquee em {
+  font-style: normal;
+  margin: 0 0.35em;
+  color: var(--ink-muted);
+}
+.outline {
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--ink);
+}
