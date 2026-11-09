@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Craft, workout engine</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/jaasim/tokens.css">
+<link rel="stylesheet" href="ds/jaasim/components/bundle.css">
+<link rel="stylesheet" href="screens.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..800&family=Fraunces:ital,opsz,wght@1,9..144,400&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap">
+<style>body{margin:0}.beats{position:absolute;right:96px;top:300px;margin:0;padding:0;list-style:none;width:300px}.beats li{display:flex;gap:16px;align-items:center;padding:14px 0;border-top:1px solid var(--ink-soft);font:500 12px/16px var(--font-mono);letter-spacing:1px;text-transform:uppercase;color:var(--on-ink-muted)}.beats li[aria-current]{color:var(--on-ink)}.beats li[aria-current]::after{content:"";width:11px;height:11px;border-radius:50%;background:var(--yellow);border:1.5px solid var(--ink);margin-left:auto}.day{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font:500 10px var(--font-mono);color:var(--ink-muted);border:1px solid var(--hairline)}.day.on{background:var(--ink);color:var(--on-ink);border-color:var(--ink)}.day.done{border-color:var(--ink);color:var(--ink)}.ex{height:48px;border-radius:16px;background:var(--surface);margin-bottom:8px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;font:500 10px var(--font-mono);letter-spacing:1px;text-transform:uppercase;color:var(--ink-muted)}.ex i{display:block;width:44px;height:6px;border-radius:9px;background:var(--hairline)}</style>
+</helmet>
+<div class="pg dark">
+  <div class="pg-hd">
+    <span class="jc-wm" style="--wm:26px">Jaasim</span>
+    <div class="r"><span>Dubai 14:32</span><span>Index</span></div>
+  </div>
+  <div style="position:absolute;left:-30px;top:200px;font:700 430px/1 var(--font-display);font-stretch:125%;letter-spacing:-.05em;color:var(--ink-soft);white-space:nowrap;text-transform:uppercase">Craft</div>
+  <div style="position:absolute;left:32px;top:300px;width:420px">
+    <span class="lb mut">02 / Craft · beat 01</span>
+    <h2 style="font-size:52px;line-height:56px;margin-top:20px">Complex programs, planned on a <span class="jc-hl">calendar.</span></h2>
+    <p class="body17" style="margin-top:24px;color:var(--on-ink-muted)">A workout engine that handles complex programs and calendar scheduling for fitness apps.</p>
+  </div>
+  <div class="jc-phone" style="left:570px;top:140px;transform:rotate(-2deg)">
+    <div class="scr">
+      <span class="t">Workout engine · placeholder</span>
+      <div style="position:absolute;top:96px;left:22px;right:22px;display:flex;justify-content:space-between"><span class="day done">M</span><span class="day done">T</span><span class="day on">W</span><span class="day">T</span><span class="day">F</span><span class="day">S</span><span class="day">S</span></div>
+      <div style="position:absolute;top:150px;left:22px;right:22px">
+        <div style="font:500 10px var(--font-mono);letter-spacing:1px;text-transform:uppercase;color:var(--ink-muted);margin-bottom:10px">Today · program placeholder</div>
+        <div class="ex">Block 1<i></i></div><div class="ex">Block 2<i></i></div><div class="ex">Block 3<i></i></div><div class="ex">Block 4<i></i></div>
+      </div>
+      <div class="tab" style="display:grid;place-items:center;color:var(--on-ink);font:500 11px var(--font-mono);letter-spacing:1px;text-transform:uppercase">Start</div>
+    </div>
+  </div>
+  <ol class="beats"><li aria-current="true">01 Workout engine</li><li>02 Personalisation</li><li>03 Performance</li><li>04 Bug-report SDK</li></ol>
+  <div class="pg-no">02 / Craft</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Cursor ball</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/jaasim/tokens.css">
+<link rel="stylesheet" href="ds/jaasim/components/bundle.css">
+<link rel="stylesheet" href="screens.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..800&family=Fraunces:ital,opsz,wght@1,9..144,400&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap">
+<style>body{margin:0}.row{display:flex;justify-content:space-between;align-items:baseline;padding:22px 0;border-top:1px solid var(--hairline);font:700 64px/1 var(--font-display);font-stretch:125%;letter-spacing:-.04em}.spec li{margin:0 0 10px;font:400 15px/22px var(--font-sans)}.spec b{font-weight:600}</style>
+</helmet>
+<div class="pg jc-grain" data-stage style="height:700px">
+  <div class="pg-hd"><span class="jc-wm" style="--wm:26px">Jaasim</span><div class="r"><span>Cursor ball</span></div></div>
+  <p class="lb mut" style="position:absolute;left:32px;top:92px;margin:0">Move fast, click, hold, hover the targets</p>
+  <div style="position:absolute;left:32px;top:140px;width:820px">
+    <div class="row" data-c="view">Filozo <span class="lb mut" style="font-size:12px">Hover: View</span></div>
+    <div class="row" data-c="view">Borderless <span class="lb mut" style="font-size:12px">Hover: View</span></div>
+    <div style="padding:26px 0;border-top:1px solid var(--hairline)"><a class="jc-link" data-c="link" href="#">Say hello →</a> <span class="lb mut" style="margin-left:24px">Hover a link: 2.6x</span></div>
+  </div>
+  <ul class="spec" style="position:absolute;right:72px;top:140px;width:420px;margin:0;padding:0;list-style:none">
+    <li><b>Shape.</b> Solid yellow circle, 14 px, with no border and no shadow.</li>
+    <li><b>Follow.</b> Eases softly toward the pointer, stretches along its path and leaves a trail of shades that fades out gradually, when it moves fast and when it bounces.</li>
+    <li><b>Press.</b> Shrinks to 68 percent and gathers down a few pixels.</li>
+    <li><b>Release.</b> The ball is tossed up about 70 px, falls under gravity, squashes softly on landing and bounces three or four times, each lower than the last, like a game ball.</li>
+    <li><b>Hover.</b> 2.6x on links, 5.2x with the label View on work rows.</li>
+    <li><b>On yellow.</b> The ball turns ink.</li>
+    <li><b>Reduced motion.</b> No trail, stretch or bounce; the native cursor returns.</li>
+  </ul>
+  <dc-import name="Ball" hint-size="1440px,700px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":700}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

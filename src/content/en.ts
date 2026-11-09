@@ -1,0 +1,246 @@
+import type { PhotoId } from './photos';
+
+/** All user-facing copy lives here (English). Components receive it via `t()`; never inline strings. */
+export const en = {
+  meta: {
+    title: 'Mohamed Jaasim · Full stack mobile & web developer',
+    description:
+      'Mohamed Jaasim is a full stack mobile and web developer in Dubai, leading mobile at Fuze: four live fitness apps, a shared SDK and the websites around them.',
+  },
+  header: { index: 'Index', close: 'Close', time: 'Dubai' },
+  launch: {
+    words: [
+      'AI',
+      'MOBILE',
+      'BUILD',
+      'CODE',
+      'SHIP',
+      'AI-DRIVEN',
+      'SCALE',
+      'OPEN SOURCE',
+      'CLOUD',
+      'ROBOTICS',
+      'FUTURE',
+      'STARTUPS',
+      'FULL STACK',
+      'INNOVATE',
+      'DEPLOY',
+    ],
+    name: 'MOHAMED JAASIM',
+    tagOpen: '<',
+    tagClose: '>',
+    replay: 'Replay launch',
+  },
+  hello: {
+    word: 'Hello',
+    wordNamed: 'Hello,',
+    wordAnon: 'Hello.',
+    fieldPlaceholder: 'first name',
+    fieldLabel: 'Your first name',
+    intro: "I'm Mohamed Jaasim. Full stack mobile & web developer, leading mobile at Fuze.",
+    stored: 'Stored only in your browser',
+  },
+  hero: {
+    first: 'Mohamed',
+    last: 'Jaasim',
+    sub: {
+      before: 'Full stack mobile & web developer. Leading ',
+      accent: 'mobile',
+      after: ' at Fuze.',
+    },
+    strip: ['Available for projects', '4 apps live'],
+  },
+  craft: {
+    label: '02 / Craft',
+    ghost: 'Craft',
+    tags: ['React Native', 'Expo', 'Node.js', 'Prisma'],
+    beats: [
+      {
+        nav: '01 Workout engine',
+        pre: 'Complex programs, planned on a ',
+        accent: 'calendar.',
+        body: 'A workout engine that handles complex programs and calendar scheduling.',
+      },
+      {
+        nav: '02 Personalisation',
+        pre: 'Guidance that adapts to ',
+        accent: 'you.',
+        body: 'AI-driven guidance, workout programs and video classes.',
+      },
+      {
+        nav: '03 Performance',
+        pre: 'Smooth because the ',
+        accent: 'threads are tuned.',
+        body: 'UI and JS threads refined for smoother FPS, with database query warm-ups and faster load times.',
+      },
+      {
+        nav: '04 Bug-report SDK',
+        pre: 'Built once, themed for ',
+        accent: 'every brand.',
+        body: 'A bug-report SDK with shake-to-report, a bottom sheet and annotation tools. It restyles itself to the hosting brand.',
+      },
+    ],
+  },
+  numbers: {
+    label: '03 / By the numbers',
+    items: [
+      {
+        value: 4,
+        title: 'Apps live',
+        body: 'On the App Store and Play Store, built with React Native and Expo.',
+      },
+      {
+        value: 5,
+        title: 'Websites shipped',
+        body: 'Fuze.us and four brand sites, designed and built in-house.',
+      },
+      { value: 1, title: 'SDK', body: 'One bug-report SDK, deployed across every internal brand.' },
+      {
+        value: 3,
+        title: 'Companies',
+        body: 'Fuze, Hakuna Matata Solutions and ZYSI Tech since 2023.',
+      },
+    ],
+  },
+  work: {
+    label: '04 / Work',
+    open: 'View',
+    back: '← Work',
+    next: 'Next project →',
+    roles: 'Role',
+    stack: 'Stack',
+    year: 'Year',
+    live: 'Live',
+    problem: 'Problem',
+    built: 'What I built',
+    outcome: 'Outcome',
+    caseLabel: 'Case study',
+  },
+  lab: {
+    label: '05 / Lab',
+    items: [
+      {
+        title: ['3D', 'Portfolio'],
+        body: 'A fully immersive, 3D animated storytelling site with custom GLSL shaders and an AI assistant.',
+        stack: 'Next.js · React Three Fiber · GSAP · Lenis',
+        photo: 'ai-network' as PhotoId,
+      },
+      {
+        title: ['Football', 'Live Stats'],
+        body: 'Real-time scores, fixtures and standings for top leagues, with filtering and live updates.',
+        stack: 'React · API-Football · Tailwind',
+        photo: 'code-blue' as PhotoId,
+      },
+      {
+        title: ['Story', 'Books'],
+        body: 'Secure authentication and interactive story creation and sharing.',
+        stack: 'Node · Express · MongoDB · OAuth',
+        photo: 'monitors' as PhotoId,
+      },
+    ],
+  },
+  path: {
+    label: '06 / Path',
+    entries: [
+      {
+        date: 'Dec 2023 – Jan 2024',
+        title: 'ZYSI Tech',
+        role: 'Software developer intern',
+        body: 'Built features for an employee-management system and added Tesseract OCR to cut manual data entry.',
+      },
+      {
+        date: 'Aug – Nov 2025',
+        title: 'Hakuna Matata',
+        role: 'Full stack developer',
+        body: 'Delivered a bidding application end to end on the PERN stack, with real-time bidding and authentication.',
+      },
+      {
+        date: 'Nov 2025 – now',
+        title: 'Fuze',
+        role: 'Mobile & web lead · Dubai',
+        body: 'Leading mobile for a UK-based fitness company: four live apps, an SDK shared by every brand, the release process and the websites.',
+      },
+    ],
+    fuze: [
+      {
+        cat: 'Mobile',
+        body: 'Four live apps on the App Store and Play Store, built with React Native and Expo.',
+      },
+      {
+        cat: 'SDK',
+        body: 'A bug-report SDK with shake-to-report, a bottom sheet, annotation tools and brand theming, deployed across every brand.',
+      },
+      {
+        cat: 'Release',
+        body: 'Builds, OTA updates and PR management, with staging and live kept in sync and CAB approvals from product managers.',
+      },
+      {
+        cat: 'Web',
+        body: 'Fuze.us and four brand sites, designed and built in-house, with Mixpanel analytics and Stripe subscriptions.',
+      },
+      {
+        cat: 'Backend',
+        body: 'Node.js, Express, Prisma and MySQL behind the CRM dashboard that manages product content.',
+      },
+      {
+        cat: 'Speed',
+        body: 'UI and JS threads refined for smoother FPS, with database query warm-ups and shorter load times.',
+      },
+    ],
+    education: 'B.E. Computer Science · Dhaanish Ahmed College of Engineering',
+  },
+  about: {
+    label: '07 / About',
+    bio: {
+      before:
+        "I'm Mohamed Jaasim, a full stack developer at Fuze in Dubai. I build mobile apps and the ",
+      accent: 'websites',
+      after: ' around them.',
+    },
+    education: 'B.E. in Computer Science, Dhaanish Ahmed College of Engineering.',
+    portraitSlot: 'Duotone portrait · placeholder',
+    marqueeTop: ['JavaScript', 'TypeScript', 'Python', 'Java', 'SQL'],
+    marqueeBottom: ['React Native', 'Next.js', 'Node', 'Prisma', 'PostgreSQL'],
+  },
+  contact: {
+    label: '08 / Contact',
+    thanksNamed: 'Thanks, {name}.',
+    thanksAnon: 'Thank you for visiting.',
+    lines: ["Let's build", 'something'],
+    accent: 'slowly.',
+    cta: 'Say hello →',
+    copied: 'Copied',
+    local: 'Local time',
+    credit: 'Designed and built by Jaasim',
+    linkedin: 'LinkedIn',
+    github: 'GitHub',
+  },
+  index: {
+    chapters: [
+      { id: 'hello', label: 'Hello' },
+      { id: 'craft', label: 'Craft' },
+      { id: 'numbers', label: 'By the numbers' },
+      { id: 'work', label: 'Work' },
+      { id: 'lab', label: 'Lab' },
+      { id: 'path', label: 'Path' },
+      { id: 'about', label: 'About' },
+      { id: 'contact', label: 'Contact' },
+    ],
+    pace: 'Pace',
+    guided: 'Guided story',
+    free: 'Free scroll',
+    email: 'Email',
+    elsewhere: 'Elsewhere',
+    hint: 'Select a chapter to travel there',
+  },
+  notFound: {
+    code: '404',
+    error: 'Error 404',
+    body: "This page isn't here. ",
+    accent: 'It rolled away.',
+    back: 'Back home',
+  },
+  a11y: { skip: 'Skip to content', mainLabel: 'Portfolio' },
+} as const;
+
+export type Content = typeof en;

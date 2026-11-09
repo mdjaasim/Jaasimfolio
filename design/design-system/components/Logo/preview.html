@@ -1,0 +1,28 @@
+<!-- @dsCard group="Identity" height=640 width=960 subtitle="Wordmark and short mark in code tags, with the scroll morph" -->
+<!doctype html>
+<html data-theme="light"><head><meta charset="utf-8">
+<style>
+ body{margin:0;padding:32px;width:960px;box-sizing:border-box;display:grid;grid-template-columns:1fr 1fr;gap:20px}
+ .t{border-radius:var(--radius-lg);display:grid;place-items:center;min-height:170px;background:var(--surface-raised);color:var(--ink)}
+ .wide{grid-column:1/3;min-height:200px}
+ .dark{background:var(--ink);color:var(--on-ink)}.dark .jc-wm,.dark .jc-mark{color:var(--on-ink)}
+ .yel{background:var(--yellow);color:var(--on-yellow)}
+ .lbl{font:500 11px/14px var(--font-mono);letter-spacing:1px;text-transform:uppercase;color:var(--ink-muted);margin:0 0 8px}
+ .sizes{display:flex;gap:28px;align-items:center;justify-content:center}
+ .fav{display:grid;place-items:center;background:var(--ink);color:var(--on-ink);border-radius:22%}.fav .jc-mark{color:var(--on-ink)}
+</style></head>
+<body>
+ <div class="t wide"><span class="jc-wm" style="--wm:112px">Jaasim</span></div>
+ <div class="t dark"><span class="jc-wm" style="--wm:60px">Jaasim</span></div>
+ <div class="t yel"><span class="jc-wm" style="--wm:60px">Jaasim</span></div>
+ <div class="t"><div><p class="lbl" style="text-align:center">Header morph, on a loop</p><span class="jc-wm jc-wm--morph" id="m" style="--wm:50px">J<span class="jc-wm__x">AASIM</span><span class="jc-wm__s">/</span></span></div></div>
+ <div class="t"><div class="sizes">
+   <span class="jc-mark" style="--wm:56px">J</span><span class="jc-mark" style="--wm:32px">J</span><span class="jc-mark" style="--wm:20px">J</span>
+   <span class="fav" style="width:64px;height:64px"><span class="jc-mark" style="--wm:22px">J</span></span>
+   <span class="fav" style="width:32px;height:32px"><span class="jc-mark" style="--wm:11px">J</span></span>
+ </div></div>
+<script>
+ var m=document.getElementById('m'),s=false;
+ setInterval(function(){s=!s;m.classList.toggle('is-short',s)},2400);
+</script>
+</body></html>

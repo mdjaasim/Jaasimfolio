@@ -1,0 +1,287 @@
+{
+  "v": 3,
+  "attachments": {},
+  "boards": {
+    "About.dc.html": {
+      "h": 900,
+      "title": "07 About and stack",
+      "w": 1440,
+      "x": 3040,
+      "y": 2520
+    },
+    "Case.dc.html": {
+      "h": 1900,
+      "title": "Case study, Filozo",
+      "w": 1440,
+      "x": 3040,
+      "y": 3780
+    },
+    "Contact.dc.html": {
+      "h": 900,
+      "title": "08 Contact",
+      "w": 1440,
+      "x": 4560,
+      "y": 2520
+    },
+    "Craft1.dc.html": {
+      "h": 900,
+      "title": "02a Craft, beat 1",
+      "w": 1440,
+      "x": 0,
+      "y": 1260
+    },
+    "Craft4.dc.html": {
+      "h": 900,
+      "title": "02b Craft, beat 4",
+      "w": 1440,
+      "x": 1520,
+      "y": 1260
+    },
+    "HelloEmpty.dc.html": {
+      "h": 900,
+      "is_interactive": true,
+      "title": "01a Hello {{ your name }}",
+      "w": 1440,
+      "x": 1520,
+      "y": 0
+    },
+    "HelloGreeted.dc.html": {
+      "h": 900,
+      "title": "01b Hello, Priya",
+      "w": 1440,
+      "x": 3040,
+      "y": 0
+    },
+    "Index.dc.html": {
+      "h": 900,
+      "title": "Index overlay",
+      "w": 1440,
+      "x": 0,
+      "y": 3780
+    },
+    "Lab.dc.html": {
+      "h": 900,
+      "title": "05 Lab",
+      "w": 1440,
+      "x": 0,
+      "y": 2520
+    },
+    "LaunchStoryboard.dc.html": {
+      "h": 900,
+      "title": "00 Launch storyboard",
+      "w": 1440,
+      "x": 0,
+      "y": 0
+    },
+    "Main.dc.html": {
+      "h": 900,
+      "title": "01c Hero",
+      "w": 1440,
+      "x": 4560,
+      "y": 0
+    },
+    "MobCase.dc.html": {
+      "h": 844,
+      "title": "M Case study",
+      "w": 390,
+      "x": 1880,
+      "y": 6040
+    },
+    "MobContact.dc.html": {
+      "h": 844,
+      "title": "M Contact",
+      "w": 390,
+      "x": 2350,
+      "y": 6040
+    },
+    "MobCraft.dc.html": {
+      "h": 844,
+      "title": "M Craft",
+      "w": 390,
+      "x": 940,
+      "y": 6040
+    },
+    "MobHello.dc.html": {
+      "h": 844,
+      "title": "M Hello",
+      "w": 390,
+      "x": 0,
+      "y": 6040
+    },
+    "MobHero.dc.html": {
+      "h": 844,
+      "title": "M Hero",
+      "w": 390,
+      "x": 470,
+      "y": 6040
+    },
+    "MobIndex.dc.html": {
+      "h": 844,
+      "title": "M Index",
+      "w": 390,
+      "x": 2820,
+      "y": 6040
+    },
+    "MobWork.dc.html": {
+      "h": 844,
+      "title": "M Work",
+      "w": 390,
+      "x": 1410,
+      "y": 6040
+    },
+    "MotionSpec.dc.html": {
+      "h": 1700,
+      "title": "Motion spec and self-audit",
+      "w": 1440,
+      "x": 1955,
+      "y": 7251
+    },
+    "NotFound.dc.html": {
+      "h": 900,
+      "title": "404",
+      "w": 1440,
+      "x": 1520,
+      "y": 3780
+    },
+    "Numbers.dc.html": {
+      "h": 900,
+      "title": "03 By the numbers",
+      "w": 1440,
+      "x": 3040,
+      "y": 1260
+    },
+    "Path.dc.html": {
+      "h": 900,
+      "title": "06 Path",
+      "w": 1440,
+      "x": 1520,
+      "y": 2520
+    },
+    "Work.dc.html": {
+      "h": 900,
+      "title": "04 Work",
+      "w": 1440,
+      "x": 4560,
+      "y": 1260
+    },
+    "FullSite.dc.html": {
+      "x": 0,
+      "y": 7244,
+      "w": 1440,
+      "h": 900,
+      "title": "Full site, scroll story",
+      "is_interactive": true
+    },
+    "CursorLab.dc.html": {
+      "x": 0,
+      "y": 8264,
+      "w": 1440,
+      "h": 700,
+      "title": "Cursor ball",
+      "is_interactive": true
+    },
+    "Ball.dc.html": {
+      "x": 1480,
+      "y": 8264,
+      "w": 360,
+      "h": 240,
+      "title": "Cursor component"
+    }
+  },
+  "createdOnFiles": {
+    "at": "2026-11-12T10:00:00Z",
+    "v": 1
+  },
+  "designSystems": [
+    {
+      "artifact": "https://claude.ai/artifact/6g8CTKzkQriyAEdV8DJTLg",
+      "copiedAt": "2026-11-14T10:00:00Z",
+      "namespace": "jaasim",
+      "title": "Jaasim Portfolio",
+      "version": "1794239936-f1fa"
+    }
+  ],
+  "launch": {
+    "view": "canvas"
+  },
+  "notes": {
+    "r1": {
+      "kind": "title1",
+      "maxW": 6000,
+      "text": "Launch and greeting",
+      "w": 240,
+      "x": 0,
+      "y": -300
+    },
+    "r2": {
+      "kind": "title1",
+      "maxW": 6000,
+      "text": "Scenes 02 to 04",
+      "w": 240,
+      "x": 0,
+      "y": 960
+    },
+    "r3": {
+      "kind": "title1",
+      "maxW": 6000,
+      "text": "Scenes 05 to 08",
+      "w": 240,
+      "x": 0,
+      "y": 2220
+    },
+    "r4": {
+      "kind": "title1",
+      "maxW": 4480,
+      "text": "Index, 404 and case study",
+      "w": 240,
+      "x": 0,
+      "y": 3480
+    },
+    "r5": {
+      "kind": "title1",
+      "maxW": 3210,
+      "text": "Mobile, 390 wide",
+      "w": 240,
+      "x": 0,
+      "y": 5740
+    },
+    "r6": {
+      "kind": "title1",
+      "maxW": 2960,
+      "text": "Full site, cursor, motion spec and audit",
+      "w": 240,
+      "x": 0,
+      "y": 6944
+    }
+  },
+  "order": [
+    "LaunchStoryboard.dc.html",
+    "HelloEmpty.dc.html",
+    "HelloGreeted.dc.html",
+    "Main.dc.html",
+    "Craft1.dc.html",
+    "Craft4.dc.html",
+    "Numbers.dc.html",
+    "Work.dc.html",
+    "Lab.dc.html",
+    "Path.dc.html",
+    "About.dc.html",
+    "Contact.dc.html",
+    "Index.dc.html",
+    "NotFound.dc.html",
+    "Case.dc.html",
+    "MobHello.dc.html",
+    "MobHero.dc.html",
+    "MobCraft.dc.html",
+    "MobWork.dc.html",
+    "MobCase.dc.html",
+    "MobContact.dc.html",
+    "MobIndex.dc.html",
+    "FullSite.dc.html",
+    "MotionSpec.dc.html",
+    "CursorLab.dc.html",
+    "Ball.dc.html"
+  ],
+  "pages": [],
+  "title": "Jaasim Portfolio Screens"
+}

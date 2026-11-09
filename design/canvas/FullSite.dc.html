@@ -1,0 +1,716 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Full site, scroll story</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/jaasim/tokens.css">
+<link rel="stylesheet" href="ds/jaasim/components/bundle.css">
+<link rel="stylesheet" href="screens.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..800&family=Fraunces:ital,opsz,wght@1,9..144,400&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap">
+<style>
+body{margin:0}
+.pg .sx{transition:none !important}
+.scroller::-webkit-scrollbar,.cs::-webkit-scrollbar{display:none}
+@keyframes show{from{opacity:0}to{opacity:1}}
+@keyframes descend{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+@keyframes tagL{from{opacity:0;transform:translateX(.9em)}to{opacity:1;transform:none}}
+@keyframes tagR{from{opacity:0;transform:translateX(-.9em)}to{opacity:1;transform:none}}
+@keyframes zoomin{from{transform:scale(1.16)}to{transform:none}}
+@keyframes rise{from{opacity:0;transform:translateY(48px)}to{opacity:1;transform:none}}
+@keyframes expand{from{clip-path:inset(34% 30% 34% 30% round 28px)}to{clip-path:inset(0 0 0 0 round 0)}}
+.nm{font:700 98px/1 var(--font-display);font-stretch:125%;letter-spacing:-.03em;white-space:nowrap;text-transform:uppercase}
+.hdbtn{all:unset;font:500 12px/16px var(--font-mono);letter-spacing:1px;text-transform:uppercase}
+.hdbtn:focus-visible{outline:2px solid var(--focus);outline-offset:4px}
+.day{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font:500 10px var(--font-mono);color:var(--ink-muted);border:1px solid var(--hairline)}
+.day.on{background:var(--ink);color:var(--on-ink);border-color:var(--ink)}
+.ex{height:48px;border-radius:16px;background:var(--surface);margin-bottom:8px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;font:500 10px var(--font-mono);letter-spacing:1px;text-transform:uppercase;color:var(--ink-muted)}
+.ex i{display:block;width:44px;height:6px;border-radius:9px;background:var(--hairline)}
+.chip{display:inline-block;padding:6px 10px;border:1px solid currentColor;border-radius:99px;font:500 9px var(--font-mono);letter-spacing:1px;text-transform:uppercase;margin-right:4px;opacity:.65}
+.chip.on{opacity:1;background:currentColor}.chip.on span{color:var(--surface)}
+.rowb{all:unset;display:grid;grid-template-columns:64px 1fr auto;align-items:baseline;gap:24px;padding:28px 0;width:100%;box-sizing:border-box;transition:opacity .4s}
+.rowb:focus-visible{outline:2px solid var(--focus);outline-offset:-2px}
+.rowb .t{font:700 96px/84px var(--font-display);font-stretch:125%;letter-spacing:-.04em;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.idxb{all:unset;display:flex;gap:24px;align-items:baseline;width:900px;padding:8px 0;font:700 60px/54px var(--font-display);font-stretch:125%;letter-spacing:-.04em;color:var(--on-ink-muted);transition:color .4s,padding .4s}
+.idxb .n{font:500 12px/16px var(--font-mono);letter-spacing:1px}
+.idxb:hover,.idxb.on{color:var(--on-ink);padding-left:16px}
+.idxb.on::after{content:"";width:14px;height:14px;border-radius:50%;background:var(--yellow);align-self:center}
+.idxb:focus-visible{outline:2px solid var(--on-ink);outline-offset:2px}
+.mq{position:absolute;left:0;white-space:nowrap;font:700 72px/1 var(--font-display);font-stretch:125%;letter-spacing:-.03em;text-transform:uppercase}
+.mq s{text-decoration:none;color:transparent;-webkit-text-stroke:1.5px var(--ink)}
+.mq em{font-style:normal;margin:0 .35em;color:var(--ink-muted)}
+.lab-p{position:absolute;top:130px;width:600px;padding:0 32px;box-sizing:border-box}
+.lab-p h2{font-size:84px;line-height:80px;margin:24px 0 28px}
+.lab-p p{margin:0;max-width:34ch;font:400 17px/26px var(--font-sans);color:var(--on-ink-muted)}
+.lab-p .tg{margin-top:24px;font:500 12px/20px var(--font-mono);letter-spacing:1px;text-transform:uppercase}
+.plate{position:absolute;left:32px;top:500px;width:540px;height:240px;border-radius:28px;background:var(--ink-soft);overflow:hidden}
+.plate div{position:absolute;left:-60px;right:-60px;top:0;bottom:0;display:grid;place-items:end start;padding:20px 92px;font:500 10px var(--font-mono);letter-spacing:1px;text-transform:uppercase;color:var(--on-ink-muted)}
+.k{margin:0 0 6px;font:500 11px/14px var(--font-mono);letter-spacing:1px;text-transform:uppercase;color:var(--ink-muted)}
+.v{margin:0 0 28px;font:500 17px/24px var(--font-sans)}
+.sec h3{margin:0 0 12px;font:500 11px/14px var(--font-mono);letter-spacing:1px;text-transform:uppercase;color:var(--ink-muted)}
+.sec p{margin:0;font:400 20px/30px var(--font-sans);max-width:56ch}.sec{margin-bottom:44px}
+.cbtn{all:unset;font:500 12px/16px var(--font-mono);letter-spacing:1px;text-transform:uppercase}
+.cbtn:focus-visible{outline:2px solid var(--focus);outline-offset:4px}
+.ptag{position:absolute;font:500 11px/14px var(--font-mono);letter-spacing:1px;text-transform:uppercase;color:var(--on-ink-muted)}
+.plw{position:absolute;inset:0;overflow:hidden;background:var(--surface)}
+.wordf{position:absolute;inset:0;background:var(--ink);display:grid;place-items:center;font-family:var(--font-display);font-weight:700;font-stretch:125%;letter-spacing:-.05em;color:var(--on-ink);line-height:1;white-space:nowrap}
+</style>
+</helmet>
+
+<div class="pg" data-stage style="background:var(--surface)" onMouseMove="{{onRootMove}}">
+
+  <!-- ===== scrolling story ===== -->
+  <div class="scroller" tabindex="0" onScroll="{{onScroll}}" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow-x:hidden;overflow-y:{{scrollMode}};scrollbar-width:none;outline:none">
+    <div style="position:sticky;top:0;height:900px;overflow:hidden;background:var(--surface)" class="jc-grain">
+
+      <!-- HELLO -->
+      <sc-if value="{{showHello}}" hint-placeholder-val="{{true}}">
+        <div style="position:absolute;inset:0;z-index:1;{{helloStyle}}">
+          <sc-if value="{{askName}}" hint-placeholder-val="{{true}}">
+            <div style="position:absolute;left:6%;top:50%;transform:translateY(-50%);display:flex;align-items:baseline;gap:36px">
+              <h1 class="hello-h" style="font-size:190px">Hello</h1>
+              <label for="pn" data-c="link" style="display:inline-flex;align-items:baseline;gap:.55ch;font:400 46px/1.2 var(--font-mono);position:relative">
+                <span style="color:{{brCol}};transition:color .25s">{{lb}}</span>
+                <span style="position:relative;display:inline-block">
+                  <input id="pn" type="text" maxlength="18" autocomplete="off" spellcheck="false" aria-label="Your first name" value="{{name}}" onChange="{{onName}}" onFocus="{{onFocus}}" onBlur="{{onBlur}}" onKeyDown="{{onKey}}" style="all:unset;display:block;font:inherit;color:var(--ink);caret-color:var(--ink);width:{{wch}}ch">
+                  <sc-if value="{{fake}}" hint-placeholder-val="{{true}}"><span style="position:absolute;left:0;top:0;pointer-events:none;color:var(--ink-muted);white-space:nowrap"><i style="display:inline-block;width:2px;height:.95em;background:var(--ink);vertical-align:-.12em;margin-right:4px;animation:blink 1s steps(1) infinite"></i>{{phName}}</span></sc-if>
+                </span>
+                <span style="color:{{brCol}};transition:color .25s">{{rb}}</span>
+              </label>
+            </div>
+          </sc-if>
+          <sc-if value="{{greeted}}" hint-placeholder-val="{{false}}">
+            <div style="position:absolute;left:6%;top:50%;transform:translateY(-62%);display:flex;align-items:baseline;gap:36px">
+              <h1 class="hello-h" style="font-size:190px;animation:show .6s both">{{helloWord}}</h1>
+              <sc-if value="{{hasName}}" hint-placeholder-val="{{true}}">
+                <p style="margin:0;font:italic 400 190px/1 var(--font-accent);letter-spacing:-.03em;background:var(--yellow);color:var(--on-yellow);padding:0 .1em;border-radius:.1em;animation:show .7s both">{{nameDot}}</p>
+              </sc-if>
+            </div>
+            <p class="sub" style="position:absolute;left:6%;top:610px;width:540px;animation:show .8s .2s both">I'm Mohamed Jaasim. Full stack mobile &amp; web developer, leading mobile at Fuze.</p>
+          </sc-if>
+        </div>
+      </sc-if>
+
+      <!-- HERO -->
+      <sc-if value="{{showHero}}" hint-placeholder-val="{{false}}">
+        <div style="position:absolute;inset:0;z-index:1">
+          <h1 style="position:absolute;left:32px;top:150px;font-size:176px;line-height:160px;white-space:nowrap;{{heroNameL}}"><sc-for list="{{heroA}}" as="l" hint-placeholder-count="7"><span style="display:inline-block;{{l.style}}">{{l.c}}</span></sc-for></h1>
+          <h1 style="position:absolute;right:48px;top:310px;font-size:176px;line-height:160px;white-space:nowrap;{{heroNameR}}"><sc-for list="{{heroB}}" as="l" hint-placeholder-count="6"><span style="display:inline-block;{{l.style}}">{{l.c}}</span></sc-for></h1>
+          <p class="sub" style="position:absolute;left:32px;top:540px;width:520px;{{heroSub}}">Full stack mobile &amp; web developer. Leading <span class="jc-hl">mobile</span> at Fuze.</p>
+          <div class="lb mut" style="position:absolute;left:32px;bottom:28px;display:flex;gap:28px;{{heroSub}}"><span>Dubai 14:32</span><span>Available for projects</span><span>4 apps live</span></div>
+        </div>
+      </sc-if>
+
+      <!-- ground panels -->
+      <div style="position:absolute;inset:0;z-index:2;background:var(--ink);{{pInk1}}"></div>
+      <div style="position:absolute;inset:0;z-index:4;background:var(--surface);{{pBone2}}"></div>
+      <div style="position:absolute;inset:0;z-index:6;background:var(--ink);{{pInk3}}"></div>
+      <div style="position:absolute;inset:0;z-index:8;background:var(--surface);{{pBone4}}"></div>
+      <div style="position:absolute;inset:0;z-index:10;background:var(--yellow);{{pYel}}"></div>
+
+      <!-- CRAFT content -->
+      <sc-if value="{{showCraft}}" hint-placeholder-val="{{false}}">
+        <div style="position:absolute;inset:0;z-index:3;color:var(--on-ink)">
+          <div style="position:absolute;left:0;top:200px;font:700 430px/1 var(--font-display);font-stretch:125%;letter-spacing:-.05em;color:var(--ink-soft);white-space:nowrap;text-transform:uppercase;{{ghostStyle}}">Craft</div>
+          <span class="ptag" style="left:925px;top:{{tagA}}px;opacity:{{craftOp}}">React Native</span>
+          <span class="ptag" style="left:1010px;top:{{tagB}}px;opacity:{{craftOp}}">Expo</span>
+          <span class="ptag" style="left:470px;top:{{tagC}}px;opacity:{{craftOp}}">Node.js</span>
+          <span class="ptag" style="left:960px;top:{{tagD}}px;opacity:{{craftOp}}">Prisma</span>
+          <div style="position:absolute;left:32px;top:300px;width:420px;{{craftIn}}">
+            <span class="lb mut">02 / Craft · beat 0{{beat}}</span>
+            <div style="position:relative;height:300px;margin-top:20px">
+              <sc-for list="{{caps}}" as="c" hint-placeholder-count="4">
+                <div style="position:absolute;left:0;top:0;width:420px;{{c.style}}">
+                  <h2 style="font-size:52px;line-height:56px;margin:0">{{c.pre}}<span class="jc-hl">{{c.hl}}</span></h2>
+                  <p class="body17" style="margin-top:24px;color:var(--on-ink-muted)">{{c.body}}</p>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+          <ol style="position:absolute;right:96px;top:300px;margin:0;padding:0;list-style:none;width:300px;{{craftIn}}">
+            <sc-for list="{{beatList}}" as="b" hint-placeholder-count="4"><li style="display:flex;gap:16px;align-items:center;padding:14px 0;font:500 12px/16px var(--font-mono);letter-spacing:1px;text-transform:uppercase;color:{{b.color}}">{{b.label}}<i style="margin-left:auto;width:11px;height:11px;border-radius:50%;background:var(--yellow);opacity:{{b.dot}}"></i></li></sc-for>
+          </ol>
+        </div>
+      </sc-if>
+
+      <!-- PHONE: one phone from the hero through Craft -->
+      <sc-if value="{{showPhone}}" hint-placeholder-val="{{true}}">
+        <div class="jc-phone" style="left:0;top:0;z-index:3;{{phoneStyle}}">
+          <div class="scr">
+            <div style="position:absolute;inset:0;opacity:{{s1}};transition:opacity .6s">
+              <span class="t">Workout · placeholder</span>
+              <div style="position:absolute;top:96px;left:22px;right:22px;display:flex;justify-content:space-between"><span class="day">M</span><span class="day">T</span><span class="day on">W</span><span class="day">T</span><span class="day">F</span><span class="day">S</span><span class="day">S</span></div>
+              <div style="position:absolute;top:150px;left:22px;right:22px"><div class="ex">Block 1<i></i></div><div class="ex">Block 2<i></i></div><div class="ex">Block 3<i></i></div><div class="ex">Block 4<i></i></div></div>
+              <div class="tab"></div>
+            </div>
+            <div style="position:absolute;inset:0;opacity:{{s2}};transition:opacity .6s">
+              <span class="t">Personalisation · placeholder</span>
+              <div style="position:absolute;top:92px;left:22px;right:22px;height:150px;border-radius:20px;background:var(--surface);display:grid;place-items:end start;padding:14px;font:500 10px var(--font-mono);letter-spacing:1px;text-transform:uppercase;color:var(--ink-muted)">Video class</div>
+              <div style="position:absolute;top:262px;left:22px;right:22px"><div class="ex">Guidance<i></i></div><div class="ex">Programs<i></i></div><div class="ex">Classes<i></i></div></div>
+              <div class="tab"></div>
+            </div>
+            <div style="position:absolute;inset:0;opacity:{{s3}};transition:opacity .6s">
+              <span class="t">Performance · placeholder</span>
+              <div style="position:absolute;top:110px;left:22px;right:22px;height:280px;display:flex;gap:10px;align-items:flex-end"><i style="flex:1;height:60%;background:var(--hairline);border-radius:10px 10px 0 0"></i><i style="flex:1;height:75%;background:var(--hairline);border-radius:10px 10px 0 0"></i><i style="flex:1;height:90%;background:var(--ink);border-radius:10px 10px 0 0"></i><i style="flex:1;height:90%;background:var(--ink);border-radius:10px 10px 0 0"></i></div>
+              <div style="position:absolute;top:400px;left:22px;right:22px;display:flex;justify-content:space-between;font:500 9px var(--font-mono);letter-spacing:1px;text-transform:uppercase;color:var(--ink-muted)"><span>Before</span><span>After</span></div>
+              <div class="tab"></div>
+            </div>
+            <div style="position:absolute;inset:0;opacity:{{s4}};transition:opacity .6s">
+              <span class="t">App · placeholder</span>
+              <div class="ring" style="top:80px;opacity:.5"></div>
+              <div style="position:absolute;left:0;right:0;bottom:0;height:58%;border-radius:28px 28px 0 0;padding:14px 18px;box-shadow:0 -10px 30px -12px rgba(20,19,15,.35);{{sheetCol}};{{sheetStyle}}">
+                <i style="display:block;width:40px;height:4px;border-radius:9px;background:currentColor;opacity:.3;margin:0 auto 14px"></i>
+                <div style="font:500 10px var(--font-mono);letter-spacing:1px;text-transform:uppercase;opacity:.7">Report a bug</div>
+                <div style="margin:10px 0;height:60px;border-radius:14px;background:currentColor;opacity:.1"></div>
+                <div style="margin-bottom:10px"><span class="chip on"><span>Pen</span></span><span class="chip"><span>Box</span></span><span class="chip"><span>Blur</span></span></div>
+                <div style="font:500 9px var(--font-mono);letter-spacing:1px;text-transform:uppercase;opacity:.7;margin-bottom:6px">Brand · placeholder</div>
+                <sc-for list="{{brands}}" as="b" hint-placeholder-count="3"><span class="{{b.cls}}"><span>{{b.label}}</span></span></sc-for>
+              </div>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- NUMBERS -->
+      <sc-if value="{{showNumbers}}" hint-placeholder-val="{{false}}">
+        <div style="position:absolute;inset:0;z-index:5;{{numOut}}">
+          <div style="position:absolute;left:32px;top:130px;font:700 220px/1 var(--font-display);font-stretch:125%;letter-spacing:-.05em;{{n1y}}"><span style="display:inline-block;padding:0 .08em;border-radius:.08em;background-color:transparent;background-image:linear-gradient(var(--yellow),var(--yellow));background-repeat:no-repeat;background-size:{{hlPct}}% 100%">{{n1}}</span></div>
+          <p style="position:absolute;left:330px;top:230px;margin:0;width:300px;font:400 17px/26px var(--font-sans);{{n1y}}"><b class="k" style="display:block;margin-bottom:8px">Apps live</b>On the App Store and Play Store, built with React Native and Expo.</p>
+          <div style="position:absolute;left:760px;top:130px;font:700 220px/1 var(--font-display);font-stretch:125%;letter-spacing:-.05em;{{n2y}}">{{n2}}</div>
+          <p style="position:absolute;left:1020px;top:230px;margin:0;width:300px;font:400 17px/26px var(--font-sans);{{n2y}}"><b class="k" style="display:block;margin-bottom:8px">Websites shipped</b>Fuze.us and four brand sites, designed and built in-house.</p>
+          <div style="position:absolute;left:32px;top:480px;font:700 220px/1 var(--font-display);font-stretch:125%;letter-spacing:-.05em;{{n3y}}">{{n3}}</div>
+          <p style="position:absolute;left:330px;top:590px;margin:0;width:300px;font:400 17px/26px var(--font-sans);{{n3y}}"><b class="k" style="display:block;margin-bottom:8px">SDK</b>One bug-report SDK, deployed across every internal brand.</p>
+          <div style="position:absolute;left:760px;top:480px;font:700 220px/1 var(--font-display);font-stretch:125%;letter-spacing:-.05em;{{n4y}}">{{n4}}</div>
+          <p style="position:absolute;left:1020px;top:590px;margin:0;width:300px;font:400 17px/26px var(--font-sans);{{n4y}}"><b class="k" style="display:block;margin-bottom:8px">Companies</b>Fuze, Hakuna Matata Solutions and ZYSI Tech since 2023.</p>
+        </div>
+      </sc-if>
+
+      <!-- WORK -->
+      <sc-if value="{{showWork}}" hint-placeholder-val="{{false}}">
+        <div style="position:absolute;inset:0;z-index:5">
+          <span class="lb mut" style="position:absolute;left:32px;top:92px">04 / Work</span>
+          <div style="position:absolute;left:32px;right:72px;top:150px">
+            <sc-for list="{{rows}}" as="r" hint-placeholder-count="4">
+              <div style="{{r.enter}}">
+                <button class="rowb" data-c="view" style="opacity:{{r.op}}" onMouseEnter="{{r.hover}}" onMouseLeave="{{r.leave}}" onClick="{{r.open}}">
+                  <span class="lb mut">{{r.n}}</span><span class="t" style="transform:{{r.tx}}">{{r.t}}</span><span class="lb mut" style="text-align:right">{{r.m}}</span>
+                </button>
+              </div>
+            </sc-for>
+          </div>
+            <div style="position:absolute;left:0;top:0;width:260px;height:330px;opacity:{{pvOp}};border-radius:28px;background:var(--ink);color:var(--on-ink);padding:18px;box-sizing:border-box;display:flex;align-items:flex-end;font:500 10px var(--font-mono);letter-spacing:1px;text-transform:uppercase;pointer-events:none;z-index:6;overflow:hidden;transition:transform .35s cubic-bezier(.2,.8,.2,1),opacity .35s;{{pvPos}}"><img src="{{pvSrc}}" alt="" style="position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover"><span style="position:relative;color:var(--on-ink)">{{pvCap}}</span></div>
+        </div>
+      </sc-if>
+
+      <!-- LAB -->
+      <sc-if value="{{showLab}}" hint-placeholder-val="{{false}}">
+        <div style="position:absolute;inset:0;z-index:7;color:var(--on-ink)">
+          <div style="position:absolute;left:0;top:0;width:2000px;height:900px;{{labTrack}}">
+            <div class="lab-p" style="left:32px;padding-left:0"><span class="lb mut">01 / 03</span><h2 style="{{labH}}">3D<br>Portfolio</h2><p>A fully immersive, 3D animated storytelling site with custom GLSL shaders and an AI assistant.</p><div class="tg">Next.js · React Three Fiber · GSAP · Lenis</div></div>
+            <div class="plate"><img src="/_blob/296c866e3f78ad8db0ddfedecec81fcc" alt="" style="position:absolute;left:-60px;top:0;width:calc(100% + 120px);height:100%;object-fit:cover;{{labP}}"></div>
+            <div class="lab-p" style="left:660px"><span class="lb mut">02 / 03</span><h2 style="{{labH}}">Football<br>Live Stats</h2><p>Real-time scores, fixtures and standings for top leagues, with filtering and live updates.</p><div class="tg">React · API-Football · Tailwind</div></div>
+            <div class="plate" style="left:692px"><img src="/_blob/2b30b8c5ffc926b7f62e60d6bce1cdc0" alt="" style="position:absolute;left:-60px;top:0;width:calc(100% + 120px);height:100%;object-fit:cover;{{labP}}"></div>
+            <div class="lab-p" style="left:1290px"><span class="lb mut">03 / 03</span><h2 style="{{labH}}">Story<br>Books</h2><p>Secure authentication and interactive story creation and sharing.</p><div class="tg">Node · Express · MongoDB · OAuth</div></div>
+            <div class="plate" style="left:1322px"><img src="/_blob/8acff3bef737ebd5a5d1af209d692510" alt="" style="position:absolute;left:-60px;top:0;width:calc(100% + 120px);height:100%;object-fit:cover;{{labP}}"></div>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- PATH, with the Fuze timeline -->
+      <sc-if value="{{showPath}}" hint-placeholder-val="{{false}}">
+        <div style="position:absolute;inset:0;z-index:9;{{pathOut}}">
+          <div style="position:absolute;left:0;top:130px;width:1440px;transform:translateY({{pathShift}}px)">
+            <div style="position:absolute;left:520px;top:0;width:1px;height:{{lineH}}px;background:var(--ink);opacity:.28"></div>
+            <i style="position:absolute;left:514px;top:{{headY}}px;width:14px;height:14px;border-radius:50%;background:var(--yellow);box-shadow:0 2px 8px rgba(20,19,15,.28)"></i>
+            <sc-for list="{{ents}}" as="e" hint-placeholder-count="3">
+              <div style="opacity:{{e.op}};transform:translateY({{e.shift}}px)">
+                <span class="lb mut" style="position:absolute;left:32px;top:{{e.dy}}px">{{e.date}}</span>
+                <i style="position:absolute;left:516px;top:{{e.ny}}px;width:9px;height:9px;border-radius:50%;background:var(--ink)"></i>
+                <div style="position:absolute;left:600px;top:{{e.y}}px;width:700px">
+                  <h2 style="font-size:{{e.fs}}px;line-height:{{e.fs}}px">{{e.t}}</h2>
+                  <span class="lb mut" style="display:block;margin:12px 0 10px">{{e.role}}</span>
+                  <p class="body17" style="max-width:54ch">{{e.body}}</p>
+                </div>
+              </div>
+            </sc-for>
+            <sc-for list="{{subs}}" as="m" hint-placeholder-count="6">
+              <div style="opacity:{{m.op}};transform:translateY({{m.shift}}px)">
+                <i style="position:absolute;left:517px;top:{{m.dot}}px;width:7px;height:7px;border-radius:50%;border:1.5px solid var(--ink);box-sizing:border-box;background:var(--surface)"></i>
+                <span class="lb" style="position:absolute;left:600px;top:{{m.ly}}px;width:150px">{{m.cat}}</span>
+                <p class="body17" style="position:absolute;left:760px;top:{{m.y}}px;width:540px;margin:0">{{m.body}}</p>
+              </div>
+            </sc-for>
+          </div>
+          <div class="lb mut" style="position:absolute;left:32px;bottom:28px;width:380px;line-height:16px;opacity:{{eduOp}}">B.E. Computer Science · Dhaanish Ahmed College of Engineering</div>
+        </div>
+      </sc-if>
+
+      <!-- ABOUT -->
+      <sc-if value="{{showAbout}}" hint-placeholder-val="{{false}}">
+        <div style="position:absolute;inset:0;z-index:9;{{aboutIn}}">
+          <div style="position:absolute;left:32px;top:96px;width:380px;height:480px;border-radius:40px;background:var(--ink);color:var(--on-ink);overflow:hidden;{{portraitClip}}"><div style="position:absolute;inset:0;display:grid;place-items:end start;padding:24px;font:500 11px var(--font-mono);letter-spacing:1px;text-transform:uppercase;transform:scale({{portraitScale}})">Duotone portrait · placeholder</div></div>
+          <div style="position:absolute;left:500px;top:120px;width:760px;{{bioStyle}}">
+            <span class="lb mut">07 / About</span>
+            <h2 style="font-size:46px;line-height:54px;margin-top:20px">I'm Mohamed Jaasim, a full stack developer at Fuze in Dubai. I build mobile apps and the <span class="jc-hl">websites</span> around them.</h2>
+            <p class="body17" style="margin-top:28px;max-width:52ch;color:var(--ink-muted)">B.E. in Computer Science, Dhaanish Ahmed College of Engineering.</p>
+          </div>
+          <div class="mq" style="top:620px;transform:translateX({{mq1}}px)">JavaScript<em>/</em><s>TypeScript</s><em>/</em>Python<em>/</em><s>Java</s><em>/</em>SQL<em>/</em><s>JavaScript</s><em>/</em>Python<em>/</em><s>TypeScript</s></div>
+          <div class="mq" style="top:730px;transform:translateX({{mq2}}px)"><s>React Native</s><em>/</em>Next.js<em>/</em><s>Node</s><em>/</em>Prisma<em>/</em><s>PostgreSQL</s><em>/</em>React Native<em>/</em><s>Next.js</s><em>/</em>Node</div>
+        </div>
+      </sc-if>
+
+      <!-- CONTACT -->
+      <sc-if value="{{showContact}}" hint-placeholder-val="{{false}}">
+        <div style="position:absolute;inset:0;z-index:11;color:var(--on-yellow)">
+          <span class="lb" style="position:absolute;left:32px;top:92px;opacity:{{cOp}}">{{thanks}}</span>
+          <div style="position:absolute;left:32px;top:120px;font:700 140px/128px var(--font-display);font-stretch:125%;letter-spacing:-.035em">
+            <div style="overflow:hidden;height:128px"><div style="transform:translateY({{c1}}%)">Let's build</div></div>
+            <div style="overflow:hidden;height:128px"><div style="transform:translateY({{c2}}%)">something</div></div>
+            <div style="overflow:hidden;height:150px;padding-top:12px"><div style="transform:translateY({{c3}}%)"><span class="jc-hl" style="display:inline-block;line-height:1.05;background:var(--ink);color:var(--yellow);font-size:120px">slowly.</span></div></div>
+          </div>
+          <a data-c="link" href="mailto:479jaasim@gmail.com" style="position:absolute;right:96px;top:470px;width:230px;height:230px;border-radius:50%;background:var(--ink);color:var(--yellow);display:grid;place-items:center;font:700 26px/1 var(--font-display);font-stretch:125%;letter-spacing:-.02em;text-decoration:none;transform:scale({{btnScale}})">Say hello →</a>
+          <div style="position:absolute;left:32px;bottom:92px;display:flex;gap:40px;align-items:center;font:500 15px/20px var(--font-sans);opacity:{{cOp}}">
+            <button class="jc-link" data-c="link" onClick="{{copy}}">479jaasim@gmail.com</button>
+            <sc-if value="{{copied}}" hint-placeholder-val="{{false}}"><span style="animation:rise .5s cubic-bezier(.2,.8,.2,1) both;display:inline-block;padding:4px 10px;border-radius:99px;background:var(--ink);color:var(--yellow);font:500 11px var(--font-mono);letter-spacing:1px;text-transform:uppercase">Copied</span></sc-if>
+            <a class="jc-link" data-c="link" href="https://www.linkedin.com/in/mohamed-jaasim-2k04/">LinkedIn</a>
+            <a class="jc-link" data-c="link" href="https://github.com/MohamedJaasim">GitHub</a>
+          </div>
+          <div class="lb" style="position:absolute;left:32px;bottom:28px;display:flex;gap:28px;opacity:{{cOp}}"><span>Local time 14:32</span><span>Designed and built by Jaasim</span></div>
+        </div>
+      </sc-if>
+    </div>
+    <div style="height:{{trackH}}px"></div>
+  </div>
+
+  <!-- ===== persistent header (does not scroll) ===== -->
+  <div style="position:absolute;left:32px;right:32px;top:28px;display:flex;justify-content:space-between;align-items:center;z-index:30;color:{{hdInk}};--dot:{{hdDot}}">
+    <span class="jc-wm" style="--wm:26px;align-items:flex-end;color:{{hdInk}}">J<span style="display:inline-block;overflow:hidden;white-space:nowrap;max-width:{{wmW}}px;opacity:{{wmO}}"><span style="display:inline-block;transform:translateX({{wmX}}px)">AASIM</span></span><span style="display:inline-block;overflow:hidden;white-space:nowrap;max-width:{{slW}}px;opacity:{{slO}}"><span style="display:inline-block;transform:translateX({{slX}}px)">/</span></span></span>
+    <div style="display:flex;gap:28px;align-items:center;font:500 12px/16px var(--font-mono);letter-spacing:1px;text-transform:uppercase"><span>Dubai 14:32</span><button class="hdbtn" data-c="link" style="color:{{hdInk}}" onClick="{{openMenu}}">Index</button></div>
+  </div>
+
+  <!-- ===== LAUNCH: accelerating cut between black words and plates, black falls from the top, then the name is written ===== -->
+  <sc-if value="{{isLaunch}}" hint-placeholder-val="{{false}}">
+    <div style="position:absolute;inset:0;z-index:60;border-radius:0 0 40px 40px;overflow:hidden;animation:curtain .9s cubic-bezier(.7,0,.2,1) 8.4s forwards">
+      <!-- the cut: black words and photographs, faster and faster -->
+      <sc-if value="{{fWord}}" hint-placeholder-val="{{false}}"><div class="wordf" style="font-size:{{wsize}}px">{{word}}</div></sc-if>
+      <sc-if value="{{fPhoto}}" hint-placeholder-val="{{false}}"><div class="plw" style="background:var(--ink)"><img src="{{photo}}" alt="" style="position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover;animation:zoomin .9s cubic-bezier(.2,.8,.2,1) both"><span class="lb" style="position:absolute;left:32px;bottom:28px;color:var(--on-ink)">{{photoCap}}</span></div></sc-if>
+      <!-- black closes from the top and the bottom at once -->
+      <div style="position:absolute;left:0;right:0;top:0;height:50.2%;background:var(--ink);transform-origin:50% 0;animation:descend 2.8s cubic-bezier(.45,.05,.3,1) 3s both"></div>
+      <div style="position:absolute;left:0;right:0;bottom:0;height:50.2%;background:var(--ink);transform-origin:50% 100%;animation:descend 2.8s cubic-bezier(.45,.05,.3,1) 3s both"></div>
+      <sc-if value="{{hasCount}}" hint-placeholder-val="{{false}}"><span class="lb" style="position:absolute;right:32px;top:28px;color:var(--on-ink);z-index:2">{{fcount}}</span></sc-if>
+      <!-- guides and the name, written on the black -->
+      <div style="position:absolute;inset:0;animation:gfade .6s linear 7.7s forwards">
+        <div style="position:absolute;left:0;right:0;top:34%;height:1px;background:rgba(241,238,232,.16);transform-origin:0 0;animation:gh .9s cubic-bezier(.2,.8,.2,1) 5.9s both"></div>
+        <div style="position:absolute;left:0;right:0;top:50%;height:1px;background:rgba(241,238,232,.16);transform-origin:0 0;animation:gh .9s cubic-bezier(.2,.8,.2,1) 5.98s both"></div>
+        <div style="position:absolute;left:0;right:0;top:66%;height:1px;background:rgba(241,238,232,.16);transform-origin:0 0;animation:gh .9s cubic-bezier(.2,.8,.2,1) 6.06s both"></div>
+        <div style="position:absolute;top:0;bottom:0;left:6%;width:1px;background:rgba(241,238,232,.16);transform-origin:0 0;animation:gv .9s cubic-bezier(.2,.8,.2,1) 6.14s both"></div>
+        <div style="position:absolute;top:0;bottom:0;left:94%;width:1px;background:rgba(241,238,232,.16);transform-origin:0 0;animation:gv .9s cubic-bezier(.2,.8,.2,1) 6.22s both"></div>
+      </div>
+      <div style="position:absolute;inset:0;display:grid;place-items:center">
+        <div style="position:relative;display:inline-block">
+          <div class="nm" style="color:var(--on-ink);font-size:{{nmSize}}px">
+            <sc-for list="{{letters}}" as="l" hint-placeholder-count="14">
+              <span style="position:relative;display:inline-block"><span style="display:inline-block;color:transparent;-webkit-text-stroke:1.5px var(--on-ink);{{l.o}}">{{l.c}}</span><span style="position:absolute;left:0;top:0;color:var(--on-ink);{{l.f}}">{{l.c}}</span></span>
+            </sc-for>
+          </div>
+          <span class="nm" style="position:absolute;right:calc(100% + .1em);top:0;color:var(--yellow);font-size:{{nmSize}}px;animation:tagL .8s cubic-bezier(.2,.8,.2,1) 7.9s both">{{tl}}</span>
+          <span class="nm" style="position:absolute;left:calc(100% + .1em);top:0;color:var(--yellow);font-size:{{nmSize}}px;animation:tagR .8s cubic-bezier(.2,.8,.2,1) 7.9s both">{{tr}}</span>
+        </div>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ===== Index overlay ===== -->
+  <sc-if value="{{menuM}}" hint-placeholder-val="{{false}}">
+    <div style="position:absolute;inset:0;z-index:40;background:var(--ink);color:var(--on-ink);border-radius:40px 40px 0 0;transform:translateY({{menuY}}%);transition:transform .9s cubic-bezier(.7,0,.2,1)">
+      <div style="position:absolute;left:32px;right:32px;top:28px;display:flex;justify-content:space-between;align-items:center"><span class="jc-wm" style="--wm:26px;color:var(--on-ink)">Jaasim</span><button class="hdbtn" data-c="link" style="color:var(--on-ink)" onClick="{{closeMenu}}">Close</button></div>
+      <div style="position:absolute;left:32px;top:100px;display:flex;flex-direction:column">
+        <sc-for list="{{menuItems}}" as="m" hint-placeholder-count="8"><button class="{{m.cls}}" data-c="link" style="{{m.st}}" onClick="{{m.go}}"><span class="n">{{m.n}}</span>{{m.t}}</button></sc-for>
+      </div>
+      <div style="position:absolute;right:72px;top:150px;width:300px;{{menuSide}}">
+        <p class="k" style="color:var(--on-ink-muted)">Email</p><p class="v">479jaasim@gmail.com</p>
+        <p class="k" style="color:var(--on-ink-muted)">Elsewhere</p><p class="v">LinkedIn<br>GitHub</p>
+        <p class="k" style="color:var(--on-ink-muted)">Prototype only</p><button class="cbtn" data-c="link" style="color:var(--on-ink)" onClick="{{open404}}">Preview the 404 page →</button>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ===== Case study: opens like a card expanding, and the next project slides up over it ===== -->
+  <sc-if value="{{caseM}}" hint-placeholder-val="{{false}}">
+    <div style="position:absolute;inset:0;z-index:50;background:var(--ink);clip-path:{{caseClip}};transition:clip-path 1s cubic-bezier(.7,0,.2,1)">
+      <sc-for list="{{layers}}" as="L" hint-placeholder-count="1">
+        <div class="cs" style="position:absolute;inset:0;background:var(--surface);color:var(--ink);overflow-y:auto;scrollbar-width:none;{{L.st}}">
+          <section style="position:relative;height:900px;background:var(--ink);color:var(--on-ink);border-radius:0 0 40px 40px;overflow:hidden">
+            <span class="lb" style="position:absolute;left:32px;top:92px;color:var(--on-ink-muted);animation:rise .9s cubic-bezier(.2,.8,.2,1) .5s both">Case study · {{L.cs.no}}</span>
+            <img src="{{L.cs.img}}" alt="" style="position:absolute;left:360px;top:130px;width:760px;height:430px;object-fit:cover;border-radius:28px;animation:rise 1s cubic-bezier(.2,.8,.2,1) .35s both">
+            <img src="{{L.cs.img2}}" alt="" style="position:absolute;left:1000px;top:260px;width:230px;height:440px;object-fit:cover;border-radius:40px;animation:rise 1s cubic-bezier(.2,.8,.2,1) .5s both">
+            <h1 style="position:absolute;left:24px;bottom:40px;margin:0;font:700 {{L.cs.fs}}px/{{L.cs.lh}}px var(--font-display);font-stretch:125%;letter-spacing:-.06em;white-space:nowrap;animation:rise 1.1s cubic-bezier(.2,.8,.2,1) .45s both">{{L.cs.t}}</h1>
+            <button class="hdbtn" data-c="link" style="position:absolute;left:32px;top:28px;color:var(--on-ink)" onClick="{{closeCase}}">← Work</button>
+          </section>
+          <section style="display:grid;grid-template-columns:300px 1fr;gap:96px;padding:96px 32px 40px">
+            <dl style="margin:0;animation:rise 1s cubic-bezier(.2,.8,.2,1) .7s both">
+              <dt class="k">Role</dt><dd class="v" style="margin-bottom:28px">{{L.cs.role}}</dd>
+              <dt class="k">Stack</dt><dd class="v" style="margin-bottom:28px">{{L.cs.stack}}</dd>
+              <dt class="k">Year</dt><dd class="v" style="margin-bottom:28px">[YEAR]</dd>
+              <dt class="k">Live</dt><dd class="v" style="margin-bottom:28px">[LIVE LINK] →</dd>
+              <dd class="v" style="margin:0"><button class="hdbtn" data-c="link" style="color:var(--ink)" onClick="{{closeCase}}">← Work</button></dd>
+            </dl>
+            <div style="animation:rise 1s cubic-bezier(.2,.8,.2,1) .8s both">
+              <div class="sec"><h3>Problem</h3><p>{{L.cs.problem}}</p></div>
+              <div class="sec"><h3>What I built</h3><p>{{L.cs.built}}</p></div>
+              <div class="sec"><h3>Outcome</h3><p>{{L.cs.outcome}}</p></div>
+              <div style="display:grid;grid-template-columns:1fr 240px;gap:20px"><img src="{{L.cs.img2}}" alt="" style="width:100%;height:300px;object-fit:cover;border-radius:28px"><img src="{{L.cs.img3}}" alt="" style="width:100%;height:300px;object-fit:cover;border-radius:28px"></div>
+            </div>
+          </section>
+          <button data-c="link" onClick="{{nextCase}}" style="all:unset;display:block;position:relative;height:300px;background:var(--ink);color:var(--on-ink);border-radius:40px 40px 0 0;overflow:hidden;margin-top:60px;width:100%">
+            <span class="lb" style="position:absolute;left:32px;top:32px;color:var(--on-ink-muted)">Next project →</span>
+            <span style="position:absolute;left:24px;bottom:28px;font:700 170px/150px var(--font-display);font-stretch:125%;letter-spacing:-.05em">{{L.cs.next}}</span>
+          </button>
+        </div>
+      </sc-for>
+    </div>
+  </sc-if>
+
+  <!-- ===== 404 ===== -->
+  <sc-if value="{{nfM}}" hint-placeholder-val="{{false}}">
+    <div style="position:absolute;inset:0;z-index:50;background:var(--surface);overflow:hidden;border-radius:40px 40px 0 0;transform:translateY({{nfY}}%);transition:transform .9s cubic-bezier(.7,0,.2,1)" class="jc-grain">
+      <div style="position:absolute;left:32px;top:28px;right:32px;display:flex;justify-content:space-between"><span class="jc-wm" style="--wm:26px">Jaasim</span><span class="lb">Error 404</span></div>
+      <p style="position:absolute;left:24px;top:210px;margin:0;font:700 460px/1 var(--font-display);font-stretch:125%;letter-spacing:-.06em">404</p>
+      <p class="sub" style="position:absolute;left:32px;top:130px;margin:0;width:420px">This page isn't here. <span class="jc-hl">It rolled away.</span></p>
+      <div style="position:absolute;left:760px;top:640px;width:30px;height:30px;border-radius:50%;background:var(--yellow);box-shadow:0 2px 8px rgba(20,19,15,.25);opacity:.9"></div>
+      <div style="position:absolute;left:720px;top:650px;width:12px;height:12px;border-radius:50%;background:var(--yellow);opacity:.45"></div>
+      <button data-c="link" onClick="{{backHome}}" style="all:unset;position:absolute;left:1000px;top:520px;width:190px;height:190px;border-radius:50%;background:var(--yellow);box-shadow:0 6px 24px rgba(20,19,15,.25);display:grid;place-items:center;text-align:center;color:var(--on-yellow);font:600 13px/1.3 var(--font-mono);letter-spacing:1px;text-transform:uppercase;animation:roll 1.2s cubic-bezier(.4,0,.6,1) both">Back<br>home</button>
+    </div>
+  </sc-if>
+
+  <!-- prototype control, not part of the site -->
+  <button class="hdbtn" data-c="link" style="position:absolute;right:24px;bottom:28px;z-index:55;font-size:10px;opacity:.5;color:{{hdInk}}" onClick="{{replay}}">Replay launch</button>
+
+  <dc-import name="Ball" ink="{{ballInk}}" hint-size="1440px,900px"></dc-import>
+</div>
+</x-dc>
+
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { u: 0, phase: 'launch', lf: 0, name: '', focus: false, greeted: false, menuM: false, menuS: false, caseM: false, caseS: false, nfM: false, nfS: false, inc: -1, incGo: false, row: -1, rowLast: 0, nmSize: 84, sel: 0, copied: false, mx: 700, my: 400 };
+    this.tu = 0;
+    this.timers = [];
+    this.lastT = 0;
+    this.tick = this.tick.bind(this);
+  }
+  fitName() {
+    const el = document.querySelector('.nm');
+    if (!el) return;
+    const w = el.scrollWidth || el.getBoundingClientRect().width;
+    if (!w) return;
+    const cur = this.state.nmSize;
+    const next = Math.max(48, Math.min(100, Math.floor(cur * 1060 / w)));
+    if (Math.abs(next - cur) > 1) this.setState({ nmSize: next });
+  }
+  componentDidMount() {
+    [150, 600, 1400, 2600].forEach((t) => this.timers.push(setTimeout(() => this.fitName(), t)));
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => this.fitName());
+    this.startLaunch();
+    this.raf = requestAnimationFrame(this.tick);
+  }
+  componentWillUnmount() {
+    cancelAnimationFrame(this.raf);
+    this.clearT();
+  }
+  show(k) { this.setState({ [k + 'M']: true }); setTimeout(() => this.setState({ [k + 'S']: true }), 40); }
+  hide(k) { this.setState({ [k + 'S']: false }); setTimeout(() => this.setState({ [k + 'M']: false }), 1000); }
+  clearT() { this.timers.forEach(clearTimeout); this.timers = []; }
+  startLaunch() {
+    this.clearT();
+    const DUR = Array.from({ length: 20 }, () => 150).concat(Array.from({ length: 46 }, (_, i) => Math.round(35 + 110 * Math.pow(0.91, i))));
+    this.setState({ phase: 'launch', lf: 0 });
+    let acc = 0;
+    DUR.forEach((d, i) => {
+      acc += d;
+      this.timers.push(setTimeout(() => this.setState({ lf: i + 1 < DUR.length ? i + 1 : -1 }), acc));
+    });
+    this.timers.push(setTimeout(() => this.setState({ phase: 'ready' }), 9300));
+    this.timers.push(setTimeout(() => { const el = document.getElementById('pn'); if (el && el.focus) el.focus(); }, 9450));
+  }
+  tick(now) {
+    const dt = Math.min(0.05, Math.max(0.001, (now - (this.lastT || now)) / 1000));
+    this.lastT = now;
+    const d = this.tu - this.state.u;
+    if (Math.abs(d) > 0.0005) this.setState({ u: this.state.u + d * (1 - Math.exp(-dt * 6)) });
+    this.raf = requestAnimationFrame(this.tick);
+  }
+  scrollTo(u) {
+    const sc = document.querySelector('.scroller');
+    if (sc && sc.scrollTo) sc.scrollTo({ top: u * 900, behavior: 'smooth' });
+  }
+  renderVals() {
+    const s = this.state;
+    const u = s.u;
+    const clamp = (x) => Math.min(1, Math.max(0, x));
+    const seg = (a, b) => clamp((u - a) / (b - a));
+    const ease = (t) => 1 - Math.pow(1 - t, 3);
+    const px = (n) => (Math.round(n * 100) / 100);
+    const U = 18.0;
+    const name = s.name.trim();
+    const greeted = s.greeted || u > 0.2;
+
+    const panel = (a, b) => { const e = ease(seg(a, b)); const r = 40 * (1 - e); return 'transform:translateY(' + px((1 - e) * 100) + '%);border-radius:' + px(r) + 'px ' + px(r) + 'px 0 0'; };
+
+    // hello and hero
+    const hs = seg(0.3, 0.8);
+    const sp = ease(seg(1.4, 2.5));
+    const subOut = seg(1.8, 2.4);
+    const heroIn = (word, off) => word.split('').map((c, i) => {
+      const e = ease(seg(0.85 + off + i * 0.05, 1.35 + off + i * 0.05));
+      return { c: c, style: 'opacity:' + px(e) + ';transform:translateY(' + px((1 - e) * 70) + 'px)' };
+    });
+
+    // phone
+    const rise = ease(seg(0.9, 1.5)), up = ease(seg(1.5, 2.9)), out = seg(7.2, 7.8);
+    const py = 900 - 250 * rise - 510 * up - 1100 * out;
+    const sh = (u >= 5.8 && u <= 6.1) ? Math.sin((u - 5.8) * 90) * 5 * (1 - seg(5.8, 6.1)) : 0;
+    const rot = -2 * up + sh;
+    const beat = u < 4.0 ? 1 : u < 4.8 ? 2 : u < 5.6 ? 3 : 4;
+    const brand = u >= 7.0 ? 3 : u >= 6.7 ? 2 : 1;
+    const sheetCols = { 1: 'background:var(--surface);color:var(--ink)', 2: 'background:var(--yellow);color:var(--on-yellow)', 3: 'background:var(--ink);color:var(--on-ink)' };
+    const ci = ease(seg(2.8, 3.4));
+    const caps = [
+      ['Complex programs, planned on a ', 'calendar.', 'A workout engine that handles complex programs and calendar scheduling.'],
+      ['Guidance that adapts to ', 'you.', 'AI-driven guidance, workout programs and video classes.'],
+      ['Smooth because the ', 'threads are tuned.', 'UI and JS threads refined for smoother FPS, with database query warm-ups and faster load times.'],
+      ['Built once, themed for ', 'every brand.', 'A bug-report SDK with shake-to-report, a bottom sheet and annotation tools. It restyles itself to the hosting brand.']
+    ].map((c, i) => ({ pre: c[0], hl: c[1], body: c[2], style: 'opacity:' + (beat === i + 1 ? 1 : 0) + ';transform:translateY(' + (beat === i + 1 ? 0 : (beat > i + 1 ? -24 : 24)) + 'px);transition:opacity .6s cubic-bezier(.2,.8,.2,1),transform .6s cubic-bezier(.2,.8,.2,1)' }));
+    const beatLabels = ['01 Workout engine', '02 Personalisation', '03 Performance', '04 Bug-report SDK'];
+    const cu = u - 2.5;
+
+    // numbers
+    const ec = ease(seg(7.8, 8.8));
+    const ny = (k) => 'opacity:' + px(ease(seg(7.4 + k * 0.1, 8.0 + k * 0.1))) + ';transform:translateY(' + px((1 - ease(seg(7.4 + k * 0.1, 8.2 + k * 0.1))) * 160) + 'px)';
+
+    // work
+    const rowsData = [
+      { t: 'Filozo', m: 'Next.js · TypeScript' },
+      { t: 'Borderless', m: 'Borderless Creatives · Figma to code' },
+      { t: 'KEM', m: 'KEM Collections · Klaviyo' },
+      { t: 'Fuze', m: 'React Native · Expo · 4 apps live' }
+    ];
+
+    // lab
+    const lt = seg(11.0, 12.8);
+    const labFade = ease(seg(10.6, 11.2));
+
+    // path with the Fuze timeline
+    const drawn = seg(13.4, 15.2);
+    const PH = 1330;
+    const lineLen = drawn * PH;
+    const pathShift = -drawn * 620;
+    const entData = [
+      { date: 'Dec 2023 – Jan 2024', t: 'ZYSI Tech', role: 'Software developer intern', body: 'Built features for an employee-management system and added Tesseract OCR to cut manual data entry.', y: 0, fs: 56 },
+      { date: 'Aug – Nov 2025', t: 'Hakuna Matata', role: 'Full stack developer', body: 'Delivered a bidding application end to end on the PERN stack, with real-time bidding and authentication.', y: 230, fs: 56 },
+      { date: 'Nov 2025 – now', t: 'Fuze', role: 'Mobile & web lead · Dubai', body: 'Leading mobile for a UK-based fitness company: four live apps, an SDK shared by every brand, the release process and the websites.', y: 470, fs: 88 }
+    ];
+    const subData = [
+      ['Mobile', 'Four live apps on the App Store and Play Store, built with React Native and Expo.'],
+      ['SDK', 'A bug-report SDK with shake-to-report, a bottom sheet, annotation tools and brand theming, deployed across every brand.'],
+      ['Release', 'Builds, OTA updates and PR management, with staging and live kept in sync and CAB approvals from product managers.'],
+      ['Web', 'Fuze.us and four brand sites, designed and built in-house, with Mixpanel analytics and Stripe subscriptions.'],
+      ['Backend', 'Node.js, Express, Prisma and MySQL behind the CRM dashboard that manages product content.'],
+      ['Speed', 'UI and JS threads refined for smoother FPS, with database query warm-ups and shorter load times.']
+    ];
+
+    // about
+    const ab = ease(seg(15.2, 15.8));
+    const pc = ease(seg(15.4, 16.2));
+
+    // contact
+    const cl = (i) => px((1 - ease(seg(17.2 + i * 0.12, 17.7 + i * 0.12))) * 115);
+    const bt = seg(17.4, 17.8);
+    const back = 1 + 2.7 * Math.pow(bt - 1, 3) + 1.7 * Math.pow(bt - 1, 2);
+
+    // chrome
+    const darkHd = (u > 3.0 && u < 7.4) || (u > 10.7 && u < 13.0) || s.menuS;
+    const hdInk = darkHd ? 'var(--on-ink)' : 'var(--ink)';
+    const yel = u > 16.9 && !s.menuS && !s.caseS && !s.nfS;
+
+    const cases = [
+      { fs: 280, lh: 240, img: '/_blob/20e37ea20101f01b5b4ea12d74c61a34', img2: '/_blob/8acff3bef737ebd5a5d1af209d692510', img3: '/_blob/66fb839c928f145c1c0a161e7d68999d', t: 'Filozo', no: '01 / 04', next: 'Borderless', role: 'Architecture and front-end development', stack: 'Next.js, React, TypeScript, Tailwind CSS', problem: 'A financial services business needed one platform for GST filing, corporate registrations and Virtual CFO services, quick to use on any device.', built: 'A high-performance, modular multi-page platform in React and Tailwind CSS, with responsive patterns that keep navigation and load times fast.', outcome: 'Each release was refined with the stakeholders to match their business goals and compliance standards, and the structure is ready for future features.' },
+      { fs: 228, lh: 196, img: '/_blob/733151c704bfc7a2be8ad4e8f827730e', img2: '/_blob/316c53ec62b5de6b3373d4a35fd82302', img3: '/_blob/f72c1b0be60413c6ef9c76b7fe21a3bf', t: 'Borderless', no: '02 / 04', next: 'KEM', role: 'Front-end development', stack: 'Next.js, React, TypeScript, Tailwind CSS', problem: 'A senior Canadian UI/UX designer needed a portfolio site that matched complex Figma design systems pixel for pixel.', built: 'A scalable component library so every interactive element mirrors the design intent, with a focus on front-end performance and accessibility.', outcome: 'The whole cycle, from design translation to deployment, with detail-oriented implementation of complex layouts.' },
+      { fs: 280, lh: 240, img: '/_blob/a2f59d17049d35ce6170f8108faa5216', img2: '/_blob/c68044102d329d6a6eef2e418a0d88db', img3: '/_blob/296c866e3f78ad8db0ddfedecec81fcc', t: 'KEM', no: '03 / 04', next: 'Fuze', role: 'Build and launch', stack: 'Klaviyo, HTML/CSS, JavaScript', problem: 'A new apparel brand needed a pre-launch landing platform to build its audience before the full storefront.', built: 'Klaviyo marketing workflows to capture interest, manage email subscriptions and automate launch announcements, with custom signup forms.', outcome: 'A functional marketing foundation that passed smoothly to the internal team for full-scale development.' },
+      { fs: 280, lh: 240, img: '/_blob/66fb839c928f145c1c0a161e7d68999d', img2: '/_blob/2b30b8c5ffc926b7f62e60d6bce1cdc0', img3: '/_blob/8acff3bef737ebd5a5d1af209d692510', t: 'Fuze', no: '04 / 04', next: 'Filozo', role: 'Mobile and web lead', stack: 'React Native, Expo, Node.js, Prisma', problem: 'Fitness apps needed complex workout engines, calendar scheduling and AI-driven personalisation across several brands.', built: 'Four live apps on the App Store and Play Store, a shared bug-report SDK, the release lifecycle, and the in-house websites with Mixpanel and Stripe.', outcome: 'Smoother FPS from UI and JS thread work, faster loads, and release flows kept in sync between staging and live.' }
+    ];
+    const menuMap = [['01', 'Hello', 0], ['02', 'Craft', 2.9], ['03', 'Numbers', 7.9], ['04', 'Work', 9.6], ['05', 'Lab', 11.0], ['06', 'Path', 13.4], ['07', 'About', 15.4], ['08', 'Contact', 17.4]];
+    const cur = u < 2.5 ? 0 : u < 7.2 ? 1 : u < 9.0 ? 2 : u < 10.4 ? 3 : u < 12.8 ? 4 : u < 15.0 ? 5 : u < 16.6 ? 6 : 7;
+
+    // launch frames
+    const lf = s.lf;
+    const WORDS = ['AI', 'MOBILE', 'BUILD', 'CODE', 'SHIP', 'AI-DRIVEN', 'SCALE', 'OPEN SOURCE', 'CLOUD', 'ROBOTICS', 'FUTURE', 'STARTUPS', 'FULL STACK', 'INNOVATE', 'DEPLOY'];
+    const PHOTOS = ['/_blob/296c866e3f78ad8db0ddfedecec81fcc', '/_blob/66fb839c928f145c1c0a161e7d68999d', '/_blob/20e37ea20101f01b5b4ea12d74c61a34', '/_blob/316c53ec62b5de6b3373d4a35fd82302', '/_blob/c68044102d329d6a6eef2e418a0d88db', '/_blob/a2f59d17049d35ce6170f8108faa5216', '/_blob/733151c704bfc7a2be8ad4e8f827730e', '/_blob/2b30b8c5ffc926b7f62e60d6bce1cdc0', '/_blob/f72c1b0be60413c6ef9c76b7fe21a3bf', '/_blob/8acff3bef737ebd5a5d1af209d692510', '/_blob/90bf9535db553c612e97c45fe3556904', '/_blob/1573dc67508fc611f9ad3cb5c39e6fe9', '/_blob/a685252d8ff5b0d179214ba26d21b818', '/_blob/065fd563e8ea90daa2b80ad114fe4984', '/_blob/dbed94c00311fa90d7685353ceb16bd3', '/_blob/4a4024bd88a1a8fe52e2522b32540071'];
+    const CAP = ['Artificial intelligence', 'Code', 'Architecture', 'Interfaces', 'Infrastructure', 'Circuits', 'Structure', 'Systems', 'Innovation', 'Engineering', 'Ship it', 'Robotics', 'Immersive worlds', 'Scale', 'Startups', 'Machine intelligence'];
+    const fWord = lf >= 0 && lf % 2 === 0;
+    const fPhoto = lf >= 0 && lf % 2 === 1;
+    const wi = Math.floor(Math.max(lf, 0) / 2);
+    const word = WORDS[wi % WORDS.length];
+    const pi = (wi * 5 + 1) % PHOTOS.length;
+    const rowImgs = ['/_blob/20e37ea20101f01b5b4ea12d74c61a34', '/_blob/733151c704bfc7a2be8ad4e8f827730e', '/_blob/a2f59d17049d35ce6170f8108faa5216', '/_blob/66fb839c928f145c1c0a161e7d68999d'];
+    const nameLen = s.name.length;
+
+    return {
+      nmSize: s.nmSize, tl: '<', tr: '>',
+      scrollMode: s.phase === 'launch' ? 'hidden' : 'scroll',
+      trackH: Math.round(U * 900),
+      onScroll: (e) => { this.tu = e.target.scrollTop / 900; },
+      isLaunch: s.phase === 'launch',
+      fWord: fWord, word: word, wsize: Math.min(300, Math.floor(1240 / (word.length * 0.92))),
+      fPhoto: fPhoto, photo: PHOTOS[pi], photoCap: CAP[pi], hasCount: lf >= 0, fcount: String(lf + 1).padStart(2, '0'),
+      letters: 'MOHAMED JAASIM'.split('').map((c, i) => ({
+        c: c === ' ' ? ' ' : c,
+        o: 'animation:wr .45s cubic-bezier(.4,0,.2,1) ' + (6.1 + i * 0.06).toFixed(2) + 's both',
+        f: 'animation:fillup .55s cubic-bezier(.7,0,.2,1) ' + (6.45 + i * 0.06).toFixed(2) + 's both'
+      })),
+      // hello
+      showHello: u < 0.95,
+      askName: !greeted, greeted: greeted, hasName: !!name,
+      helloWord: name ? 'Hello,' : 'Hello.',
+      nameDot: name + '.',
+      lb: '{{', rb: '}}', phName: 'first name',
+      fake: !s.focus && !nameLen,
+      brCol: (s.focus || nameLen) ? 'var(--ink)' : 'var(--ink-muted)',
+      wch: nameLen ? nameLen + 0.6 : (s.focus ? 1.2 : 11.5),
+      onFocus: () => this.setState({ focus: true }),
+      onBlur: () => { const n = this.state.name.trim(); this.setState({ focus: false, greeted: n ? true : this.state.greeted }); },
+      name: s.name,
+      onName: (e) => this.setState({ name: e.target.value.replace(/[^\p{L}\p{M}' -]/gu, '').slice(0, 18) }),
+      onKey: (e) => { if (e.key === 'Enter' && this.state.name.trim()) this.setState({ greeted: true }); },
+      helloStyle: 'opacity:' + px(1 - hs) + ';transform:translateY(' + px(-hs * 80) + 'px)',
+      // hero
+      showHero: u > 0.7 && u < 3.3,
+      heroA: heroIn('MOHAMED'.charAt(0) + 'ohamed', 0),
+      heroB: heroIn('Jaasim', 0.25),
+      heroNameL: 'transform:translate(' + px(-sp * 26) + 'px,' + px(-sp * 50) + 'px)',
+      heroNameR: 'transform:translate(' + px(sp * 40) + 'px,' + px(-sp * 50) + 'px)',
+      heroSub: 'opacity:' + px(ease(seg(1.3, 1.8)) * (1 - subOut)) + ';transform:translateY(' + px((1 - ease(seg(1.3, 1.8))) * 40 - subOut * 40) + 'px)',
+      // panels
+      pInk1: panel(2.5, 3.1), pBone2: panel(7.2, 7.8), pInk3: panel(10.4, 11.0), pBone4: panel(12.8, 13.4), pYel: panel(16.6, 17.2),
+      // craft
+      showCraft: u > 2.4 && u < 7.9,
+      craftIn: 'opacity:' + px(ci) + ';transform:translateY(' + px((1 - ci) * 40) + 'px)',
+      craftOp: px(ci),
+      ghostStyle: 'transform:translateX(' + px(-cu * 55 - 30) + 'px)',
+      tagA: px(700 - cu * 36), tagB: px(780 - cu * 62), tagC: px(150 - cu * 28), tagD: px(210 - cu * 50),
+      beat: beat, caps: caps,
+      beatList: beatLabels.map((l, i) => ({ label: l, color: beat === i + 1 ? 'var(--on-ink)' : 'var(--on-ink-muted)', dot: beat === i + 1 ? 1 : 0 })),
+      // phone
+      showPhone: u > 0.8 && u < 7.9,
+      phoneStyle: 'transform:translate(570px,' + px(py) + 'px) rotate(' + px(rot) + 'deg)',
+      s1: u < 4.0 ? 1 : 0, s2: beat === 2 ? 1 : 0, s3: beat === 3 ? 1 : 0, s4: beat === 4 ? 1 : 0,
+      sheetCol: sheetCols[brand],
+      sheetStyle: 'transform:translateY(' + px((1 - ease(seg(6.1, 6.5))) * 100) + '%)',
+      brands: ['Brand 1', 'Brand 2', 'Brand 3'].map((l, i) => ({ label: l, cls: 'chip' + (brand === i + 1 ? ' on' : '') })),
+      // numbers
+      showNumbers: u > 7.1 && u < 9.8,
+      numOut: 'opacity:' + px(1 - seg(9.0, 9.5)) + ';transform:translateY(' + px(-seg(9.0, 9.6) * 120) + 'px)',
+      n1: Math.round(4 * ec), n2: Math.round(5 * ec), n3: Math.round(1 * ec), n4: Math.round(3 * ec),
+      n1y: ny(0), n2y: ny(1), n3y: ny(2), n4y: ny(3),
+      hlPct: px(seg(7.9, 8.5) * 100),
+      // work
+      showWork: u > 8.9 && u < 11.0,
+      rows: rowsData.map((r, i) => {
+        const e = ease(seg(9.0 + i * 0.12, 9.7 + i * 0.12));
+        return {
+          n: '0' + (i + 1), t: r.t, m: r.m,
+          enter: 'opacity:' + px(e) + ';transform:translateY(' + px((1 - e) * 160) + 'px)',
+          op: s.row >= 0 && s.row !== i ? 0.3 : 1,
+          tx: s.row === i ? 'translateX(16px)' : 'none',
+          hover: () => this.setState({ row: i, rowLast: i }),
+          leave: () => this.setState({ row: -1 }),
+          open: () => { this.setState({ sel: i, row: -1, inc: -1, incGo: false }); this.show('case'); }
+        };
+      }),
+      pvOp: s.row >= 0 ? 1 : 0,
+      pvSrc: rowImgs[s.rowLast], pvCap: rowsData[s.rowLast].t,
+      pvPos: 'transform:translate(' + px(s.mx - 130) + 'px,' + px(s.my - 165) + 'px) rotate(-3deg) scale(' + (s.row >= 0 ? 1 : 0.86) + ')',
+      // lab
+      showLab: u > 10.3 && u < 13.5,
+      labTrack: 'opacity:' + px(labFade) + ';transform:translateX(' + px(-lt * 1260) + 'px)',
+      labH: 'transform:translateX(' + px(-lt * 70) + 'px)',
+      labP: 'transform:translateX(' + px(-lt * 90) + 'px)',
+      // path
+      showPath: u > 12.7 && u < 15.9,
+      pathOut: 'opacity:' + px(1 - seg(15.3, 15.7)) + ';transform:translateY(' + px(-seg(15.2, 15.8) * 140) + 'px)',
+      pathShift: px(pathShift),
+      lineH: px(lineLen), headY: px(lineLen - 7),
+      ents: entData.map((e) => {
+        const a = clamp((lineLen - e.y) / 110);
+        return { date: e.date, t: e.t, role: e.role, body: e.body, fs: e.fs, y: e.y, dy: e.y + 8, ny: e.y + 20, op: px(a), shift: px((1 - a) * 30) };
+      }),
+      subs: subData.map((m, i) => {
+        const y = 700 + i * 96;
+        const a = clamp((lineLen - y) / 90);
+        return { cat: m[0], body: m[1], y: y, ly: y + 2, dot: y + 10, op: px(a), shift: px((1 - a) * 26) };
+      }),
+      eduOp: px(seg(14.8, 15.2)),
+      // about
+      showAbout: u > 15.1 && u < 17.3,
+      aboutIn: 'opacity:' + px(ab) + ';transform:translateY(' + px((1 - ab) * 100) + '%)',
+      portraitClip: 'clip-path:inset(' + px((1 - pc) * 100) + '% 0 0 0 round 40px)',
+      portraitScale: px(1.08 - 0.08 * pc),
+      bioStyle: 'opacity:' + px(ease(seg(15.6, 16.1))) + ';transform:translateY(' + px((1 - ease(seg(15.6, 16.1))) * 40) + 'px)',
+      mq1: px(-(u - 15.2) * 260), mq2: px(-1200 + (u - 15.2) * 260),
+      // contact
+      showContact: u > 16.5,
+      thanks: name ? 'Thanks, ' + name + '.' : 'Thank you for visiting.',
+      c1: cl(0), c2: cl(1), c3: cl(2),
+      btnScale: px(0.4 + 0.6 * back),
+      cOp: px(seg(17.4, 17.8)),
+      copied: s.copied, copy: () => this.setState({ copied: true }),
+      // chrome
+      hdInk: hdInk, hdDot: yel ? 'var(--ink)' : 'var(--yellow)',
+      wmW: px((1 - ease(seg(0.04, 0.5))) * 112), wmO: px(clamp(1 - ease(seg(0.04, 0.5)) * 1.25)), wmX: px(-ease(seg(0.04, 0.5)) * 18),
+      slW: px(ease(seg(0.1, 0.55)) * 16), slO: px(clamp(ease(seg(0.1, 0.55)) * 1.3)), slX: px((1 - ease(seg(0.1, 0.55))) * -10),
+      // overlays: every one slides or expands in and out
+      menuM: s.menuM, menuY: s.menuS ? 0 : 100,
+      menuSide: 'opacity:' + (s.menuS ? 1 : 0) + ';transform:translateY(' + (s.menuS ? 0 : 30) + 'px);transition:opacity .8s cubic-bezier(.2,.8,.2,1) .45s,transform .8s cubic-bezier(.2,.8,.2,1) .45s',
+      openMenu: () => this.show('menu'),
+      closeMenu: () => this.hide('menu'),
+      menuItems: menuMap.map((m, i) => ({
+        n: m[0], t: m[1], cls: 'idxb' + (cur === i ? ' on' : ''),
+        st: 'opacity:' + (s.menuS ? 1 : 0) + ';transform:translateY(' + (s.menuS ? 0 : 44) + 'px);transition:opacity .8s cubic-bezier(.2,.8,.2,1) ' + (0.25 + i * 0.05).toFixed(2) + 's,transform .9s cubic-bezier(.2,.8,.2,1) ' + (0.25 + i * 0.05).toFixed(2) + 's,color .4s,padding .4s',
+        go: () => { this.hide('menu'); setTimeout(() => this.scrollTo(m[2]), 350); }
+      })),
+      open404: () => { this.hide('menu'); setTimeout(() => this.show('nf'), 500); },
+      nfM: s.nfM, nfY: s.nfS ? 0 : 100,
+      backHome: () => { this.hide('nf'); setTimeout(() => this.scrollTo(0), 300); },
+      caseM: s.caseM,
+      caseClip: s.caseS ? 'inset(0px 0px 0px 0px round 0px)' : 'inset(34% 30% 34% 30% round 28px)',
+      layers: [{ cs: cases[s.sel], st: s.inc >= 0 ? 'transform:translateY(' + (s.incGo ? -14 : 0) + '%);transition:transform 1.1s cubic-bezier(.7,0,.2,1)' : 'transform:none' }].concat(s.inc >= 0 ? [{ cs: cases[s.inc], st: 'z-index:2;transform:translateY(' + (s.incGo ? 0 : 100) + '%);transition:transform 1.1s cubic-bezier(.7,0,.2,1)' }] : []),
+      closeCase: () => this.hide('case'),
+      nextCase: () => {
+        if (this.state.inc >= 0) return;
+        const n = (this.state.sel + 1) % 4;
+        this.setState({ inc: n, incGo: false });
+        setTimeout(() => this.setState({ incGo: true }), 60);
+        setTimeout(() => { this.setState({ sel: n, inc: -1, incGo: false }); const c = document.querySelector('.cs'); if (c) c.scrollTop = 0; }, 1250);
+      },
+      replay: () => {
+        const sc = document.querySelector('.scroller');
+        if (sc) sc.scrollTop = 0;
+        this.tu = 0;
+        this.setState({ u: 0, greeted: false, name: '', menuM: false, menuS: false, caseM: false, caseS: false, nfM: false, nfS: false, inc: -1, incGo: false, row: -1 });
+        this.setState({ phase: 'none' });
+        setTimeout(() => this.startLaunch(), 60);
+      },
+      ballInk: yel,
+      onRootMove: (e) => { if (this.state.row < 0) return; const r = e.currentTarget.getBoundingClientRect(); const k = 1440 / (r.width || 1440); this.setState({ mx: (e.clientX - r.left) * k, my: (e.clientY - r.top) * k }); }
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,152 @@
+{
+  "v": 3,
+  "assetGroups": {
+    "Photography": {
+      "name": "Photography",
+      "tile": "l",
+      "order": [
+        "ai-network.jpg",
+        "code-dark.jpg",
+        "tower-up.jpg",
+        "code-laptop.jpg",
+        "server-blue.jpg",
+        "circuit.jpg",
+        "facade.jpg",
+        "code-blue.jpg",
+        "tower-night.jpg",
+        "monitors.jpg",
+        "rocket.jpg",
+        "robot.jpg",
+        "vr.jpg",
+        "city.jpg",
+        "team.jpg",
+        "robot2.jpg"
+      ],
+      "files": {
+        "ai-network.jpg": {
+          "name": "ai-network.jpg",
+          "blob": "2be1f2afc2e97adc539087b1aff38054",
+          "size": 76797,
+          "type": "image/jpeg"
+        },
+        "code-dark.jpg": {
+          "name": "code-dark.jpg",
+          "blob": "9ffd14c91bc9fed50962af6157fbc63d",
+          "size": 81582,
+          "type": "image/jpeg"
+        },
+        "tower-up.jpg": {
+          "name": "tower-up.jpg",
+          "blob": "35d86e76868fad4ab20c438b89c8eab4",
+          "size": 163700,
+          "type": "image/jpeg"
+        },
+        "code-laptop.jpg": {
+          "name": "code-laptop.jpg",
+          "blob": "b1519940abbadbcb0ccd4567a7f73994",
+          "size": 98025,
+          "type": "image/jpeg"
+        },
+        "server-blue.jpg": {
+          "name": "server-blue.jpg",
+          "blob": "b52c54ace25cbfe02c4a7038e2533c3c",
+          "size": 96173,
+          "type": "image/jpeg"
+        },
+        "circuit.jpg": {
+          "name": "circuit.jpg",
+          "blob": "fe24701a1f5d85ec63b5ea4cfb698216",
+          "size": 161451,
+          "type": "image/jpeg"
+        },
+        "facade.jpg": {
+          "name": "facade.jpg",
+          "blob": "65379752e7205fee4a1af0c0c7f2b1cb",
+          "size": 131083,
+          "type": "image/jpeg"
+        },
+        "code-blue.jpg": {
+          "name": "code-blue.jpg",
+          "blob": "6a0ac275ace131090a7d37909d9db711",
+          "size": 94359,
+          "type": "image/jpeg"
+        },
+        "tower-night.jpg": {
+          "name": "tower-night.jpg",
+          "blob": "5d92b7ef12013c5b1f99234b41706af6",
+          "size": 127110,
+          "type": "image/jpeg"
+        },
+        "monitors.jpg": {
+          "name": "monitors.jpg",
+          "blob": "3476cdaed45780ed8111b9d5f32bc1e7",
+          "size": 117947,
+          "type": "image/jpeg"
+        },
+        "rocket.jpg": {
+          "name": "rocket.jpg",
+          "blob": "c757cfec1842e925a74d34e6373d1440",
+          "size": 115002,
+          "type": "image/jpeg"
+        },
+        "robot.jpg": {
+          "name": "robot.jpg",
+          "blob": "ee475962fc37daab9de938d9c4eb79c4",
+          "size": 135506,
+          "type": "image/jpeg"
+        },
+        "vr.jpg": {
+          "name": "vr.jpg",
+          "blob": "681ab31f98a04e36691ee953ec0ac69c",
+          "size": 110645,
+          "type": "image/jpeg"
+        },
+        "city.jpg": {
+          "name": "city.jpg",
+          "blob": "24c47115ff5add398704e5e9f2ff5685",
+          "size": 364201,
+          "type": "image/jpeg"
+        },
+        "team.jpg": {
+          "name": "team.jpg",
+          "blob": "c9b06e42da7dcd0b660b129c1a411b56",
+          "size": 129066,
+          "type": "image/jpeg"
+        },
+        "robot2.jpg": {
+          "name": "robot2.jpg",
+          "blob": "245b7fcda761ce8c980fd55a4c06b8b9",
+          "size": 110397,
+          "type": "image/jpeg"
+        }
+      }
+    }
+  },
+  "blobs": {},
+  "createdOnFiles": {
+    "at": "2026-11-08T12:00:00Z",
+    "v": 1
+  },
+  "docs": {
+    "readme": "project/README.md",
+    "sections": [
+      "project/motion.md",
+      "project/references.md",
+      "project/storyboard.md"
+    ]
+  },
+  "groups": [
+    "Photography"
+  ],
+  "lastChange": {
+    "at": "2026-11-13T10:00:00Z",
+    "by": "Mohamed Jaasim",
+    "via": "Claude Code",
+    "note": "Code-tag logo with scroll morph, cursor, launch, name field, case study, photography, motion rules"
+  },
+  "layout": "files",
+  "libraries": [],
+  "namespace": "Jaasim",
+  "sections": {},
+  "title": "Jaasim Portfolio"
+}

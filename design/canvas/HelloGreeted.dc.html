@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Hello, greeted by name</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/jaasim/tokens.css">
+<link rel="stylesheet" href="ds/jaasim/components/bundle.css">
+<link rel="stylesheet" href="screens.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..800&family=Fraunces:ital,opsz,wght@1,9..144,400&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap">
+<style>body{margin:0}.nm2{font:italic 400 190px/1 var(--font-accent);letter-spacing:-.03em;background:var(--yellow);color:var(--on-yellow);padding:0 .1em;border-radius:.1em;margin:0}</style>
+</helmet>
+<div class="pg jc-grain">
+  
+  
+  <div class="pg-hd">
+    <span class="jc-wm" style="--wm:26px">Jaasim</span>
+    <div class="r"><span>Dubai 14:32</span><span>Index</span></div>
+  </div>
+  <div style="position:absolute;left:6%;top:50%;transform:translateY(-62%);display:flex;align-items:baseline;gap:36px">
+    <h1 class="hello-h" style="font-size:190px">Hello,</h1>
+    <p class="nm2">Priya.</p>
+  </div>
+  <p class="sub" style="position:absolute;left:6%;top:610px;width:540px">I'm Mohamed Jaasim. Full stack mobile &amp; web developer, leading mobile at Fuze.</p>
+  <div class="pg-no" style="left:auto;right:72px">Stored only in your browser</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

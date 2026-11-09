@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Mobile, Hello</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/jaasim/tokens.css">
+<link rel="stylesheet" href="ds/jaasim/components/bundle.css">
+<link rel="stylesheet" href="screens.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..800&family=Fraunces:ital,opsz,wght@1,9..144,400&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap">
+<style>body{margin:0}.nl{display:inline-flex;align-items:baseline;gap:.55ch;font:400 30px/1.2 var(--font-mono);cursor:text}.br{color:var(--ink-muted);transition:color .25s}.nl:focus-within .br{color:var(--ink)}.fw{position:relative;display:inline-block}.fw input{all:unset;display:block;font:inherit;color:var(--ink);caret-color:var(--ink);field-sizing:content;min-width:1.2ch}.fw input::placeholder{color:var(--ink-muted);opacity:1;padding-left:6px}.fw input:focus::placeholder{color:transparent}.fc{position:absolute;left:0;top:.18em;width:2px;height:.95em;background:var(--ink);animation:blink 1s steps(1) infinite;pointer-events:none}.nl:focus-within .fc{display:none}.fw input:not(:placeholder-shown)~.fc{display:none}</style>
+</helmet>
+<div class="mb jc-grain">
+  
+  <div class="mb-hd"><span class="jc-wm" style="--wm:18px">Jaasim</span><div class="r"><span>Index</span></div></div>
+  <h1 style="position:absolute;left:16px;top:250px;font-size:104px;line-height:100px">Hello</h1>
+  <div style="position:absolute;left:16px;right:16px;top:392px">
+    <label for="nm" class="nl"><span class="br">{{lb}}</span><span class="fw"><input id="nm" type="text" maxlength="18" autocomplete="off" spellcheck="false" aria-label="Your first name" placeholder="first name"><i class="fc"></i></span><span class="br">{{rb}}</span></label>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() { return { lb: '{{', rb: '}}' }; }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!-- @dsCard group="Signature moments" height=600 width=960 subtitle="Launch, about 9.3 s: ten word and photo pairs, black closes top and bottom while the cut speeds up, the name is written, tags, curtain. Press Replay." -->
+<!doctype html>
+<html data-theme="light"><head><meta charset="utf-8">
+<style>
+ body{margin:0;height:600px;position:relative;overflow:hidden;background:var(--surface)}
+ #sc{position:absolute;left:0;top:0;width:1440px;height:900px;transform:scale(.6667);transform-origin:0 0;overflow:hidden}
+ #hello{position:absolute;left:0;top:0;right:0;bottom:0;display:flex;align-items:baseline;justify-content:flex-start;padding:400px 0 0 86px;gap:36px;box-sizing:border-box}
+ .h{margin:0;font:700 190px/1 var(--font-display);font-stretch:125%;letter-spacing:-.04em}
+ .jc-nl{font-size:46px}
+ #ov{position:absolute;left:0;top:0;right:0;bottom:0;z-index:5;border-radius:0 0 40px 40px;overflow:hidden}
+ .wordf{position:absolute;inset:0;background:var(--ink);display:grid;place-items:center;font-family:var(--font-display);font-weight:700;font-stretch:125%;letter-spacing:-.05em;color:var(--on-ink);line-height:1;white-space:nowrap}
+ .pl{position:absolute;inset:0;background:var(--ink);overflow:hidden}
+ .pl img{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover;animation:zoomin .9s cubic-bezier(.2,.8,.2,1) both}
+ .pl span{position:absolute;left:32px;bottom:28px;font:500 12px var(--font-mono);letter-spacing:1px;text-transform:uppercase;color:var(--on-ink)}
+ .sh{position:absolute;left:0;right:0;height:50.2%;background:var(--ink)}
+ .cnt{position:absolute;right:32px;top:28px;font:500 12px var(--font-mono);letter-spacing:1px;color:var(--on-ink);z-index:3}
+ .nm{font:700 84px/1 var(--font-display);font-stretch:125%;letter-spacing:-.03em;white-space:nowrap;text-transform:uppercase}
+ .g{position:absolute;background:rgba(241,238,232,.16)}
+ .rp{position:absolute;right:16px;top:10px;z-index:9;font:500 11px var(--font-mono);letter-spacing:1px;text-transform:uppercase;background:none;border:0;border-bottom:1px solid currentColor;color:var(--ink);cursor:pointer}
+ @keyframes gh{from{transform:scaleX(0)}to{transform:none}}
+ @keyframes gv{from{transform:scaleY(0)}to{transform:none}}
+ @keyframes gfade{to{opacity:0}}
+ @keyframes wr{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+ @keyframes fillup{from{clip-path:inset(100% 0 0 0)}to{clip-path:inset(0 0 0 0)}}
+ @keyframes descend{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+ @keyframes curtain{to{transform:translateY(-100%)}}
+ @keyframes tagL{from{opacity:0;transform:translateX(.9em)}to{opacity:1;transform:none}}
+ @keyframes tagR{from{opacity:0;transform:translateX(-.9em)}to{opacity:1;transform:none}}
+ @keyframes zoomin{from{transform:scale(1.16)}to{transform:none}}
+</style></head>
+<body>
+<button class="rp" id="rp">Replay</button>
+<div id="sc">
+ <div id="hello"><h1 class="h">Hello</h1><label class="jc-nl"><span class="br">{{</span><span class="fw"><span style="display:inline-block;width:11.5ch"></span><span class="ph"><i></i>first name</span></span><span class="br">}}</span></label></div>
+ <div id="ov"></div>
+</div>
+<script>
+(function(){
+ var DUR=[],i;for(i=0;i<20;i++)DUR.push(150);for(i=0;i<46;i++)DUR.push(Math.round(35+110*Math.pow(.91,i)));
+ var WORDS=['AI','MOBILE','BUILD','CODE','SHIP','AI-DRIVEN','SCALE','OPEN SOURCE','CLOUD','ROBOTICS','FUTURE','STARTUPS','FULL STACK','INNOVATE','DEPLOY'];
+ var PH=['/_blob/2be1f2afc2e97adc539087b1aff38054','/_blob/9ffd14c91bc9fed50962af6157fbc63d','/_blob/35d86e76868fad4ab20c438b89c8eab4','/_blob/b1519940abbadbcb0ccd4567a7f73994','/_blob/b52c54ace25cbfe02c4a7038e2533c3c','/_blob/fe24701a1f5d85ec63b5ea4cfb698216','/_blob/65379752e7205fee4a1af0c0c7f2b1cb','/_blob/6a0ac275ace131090a7d37909d9db711','/_blob/5d92b7ef12013c5b1f99234b41706af6','/_blob/3476cdaed45780ed8111b9d5f32bc1e7','/_blob/c757cfec1842e925a74d34e6373d1440','/_blob/ee475962fc37daab9de938d9c4eb79c4','/_blob/681ab31f98a04e36691ee953ec0ac69c','/_blob/24c47115ff5add398704e5e9f2ff5685','/_blob/c9b06e42da7dcd0b660b129c1a411b56','/_blob/245b7fcda761ce8c980fd55a4c06b8b9'];
+ var CAP=['Artificial intelligence','Code','Architecture','Interfaces','Infrastructure','Circuits','Structure','Systems','Innovation','Engineering','Ship it','Robotics','Immersive worlds','Scale','Startups','Machine intelligence'];
+ var NAME='MOHAMED JAASIM',timers=[],ov=document.getElementById('ov');
+ function T(fn,ms){timers.push(setTimeout(fn,ms))}
+ function tpl(){
+  var g='';
+  [['top:34%;height:1px;left:0;right:0','gh','5.9'],['top:50%;height:1px;left:0;right:0','gh','5.98'],['top:66%;height:1px;left:0;right:0','gh','6.06'],['top:0;bottom:0;left:6%;width:1px','gv','6.14'],['top:0;bottom:0;left:94%;width:1px','gv','6.22']].forEach(function(a){g+='<div class="g" style="'+a[0]+';transform-origin:0 0;animation:'+a[1]+' .9s cubic-bezier(.2,.8,.2,1) '+a[2]+'s both"></div>'});
+  return '<div class="wordf" style="display:none"></div><div class="pl" style="display:none"><img alt=""><span></span></div>'+
+   '<div class="sh" style="top:0;transform-origin:50% 0;animation:descend 2.8s cubic-bezier(.45,.05,.3,1) 3s both"></div>'+
+   '<div class="sh" style="bottom:0;transform-origin:50% 100%;animation:descend 2.8s cubic-bezier(.45,.05,.3,1) 3s both"></div>'+
+   '<div class="cnt"></div>'+
+   '<div style="position:absolute;inset:0;animation:gfade .6s linear 7.7s forwards">'+g+'</div>'+
+   '<div style="position:absolute;inset:0;display:grid;place-items:center"><div class="nmw" style="position:relative;display:inline-block"><div class="nm" style="color:var(--on-ink)"></div></div></div>';
+ }
+ function play(){
+  timers.forEach(clearTimeout);timers=[];
+  ov.style.animation='none';ov.innerHTML=tpl();void ov.offsetWidth;ov.style.animation='curtain .9s cubic-bezier(.7,0,.2,1) 8.4s forwards';
+  var wd=ov.querySelector('.wordf'),pl=ov.querySelector('.pl'),im=pl.querySelector('img'),cap=pl.querySelector('span'),cnt=ov.querySelector('.cnt'),nm=ov.querySelector('.nm'),wrap=ov.querySelector('.nmw');
+  NAME.split('').forEach(function(c,k){
+   var w=document.createElement('span');w.style.cssText='position:relative;display:inline-block';
+   var o=document.createElement('span');o.textContent=c===' '?'\u00a0':c;o.style.cssText='display:inline-block;color:transparent;-webkit-text-stroke:1.5px var(--on-ink);animation:wr .45s cubic-bezier(.4,0,.2,1) '+(6.1+k*.06).toFixed(2)+'s both';
+   var f=document.createElement('span');f.textContent=c===' '?'\u00a0':c;f.style.cssText='position:absolute;left:0;top:0;color:var(--on-ink);animation:fillup .55s cubic-bezier(.7,0,.2,1) '+(6.45+k*.06).toFixed(2)+'s both';
+   w.appendChild(o);w.appendChild(f);nm.appendChild(w);
+  });
+  var tl=document.createElement('span'),tr=document.createElement('span');tl.className=tr.className='nm';tl.textContent='<';tr.textContent='>';
+  tl.style.cssText='position:absolute;right:calc(100% + .1em);top:0;color:var(--yellow);animation:tagL .8s cubic-bezier(.2,.8,.2,1) 7.9s both';
+  tr.style.cssText='position:absolute;left:calc(100% + .1em);top:0;color:var(--yellow);animation:tagR .8s cubic-bezier(.2,.8,.2,1) 7.9s both';
+  wrap.appendChild(tl);wrap.appendChild(tr);
+  function fit(){var w=nm.scrollWidth;if(!w)return;var s=Math.max(48,Math.min(100,Math.floor(84*1060/w)));[nm,tl,tr].forEach(function(e){e.style.fontSize=s+'px'})}
+  fit();if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fit);T(fit,400);
+  function frame(lf){
+   if(lf<0){wd.style.display='none';pl.style.display='none';cnt.style.display='none';return}
+   cnt.textContent=('0'+(lf+1)).slice(-2);
+   if(lf%2===0){var w=WORDS[Math.floor(lf/2)%WORDS.length];wd.textContent=w;wd.style.fontSize=Math.min(300,Math.floor(1240/(w.length*.92)))+'px';wd.style.display='grid';pl.style.display='none'}
+   else{var pi=(Math.floor(lf/2)*5+1)%PH.length;im.src=PH[pi];cap.textContent=CAP[pi];im.style.animation='none';void im.offsetWidth;im.style.animation='';pl.style.display='block';wd.style.display='none'}
+  }
+  frame(0);var acc=0;DUR.forEach(function(d,k){acc+=d;T(function(){frame(k+1<DUR.length?k+1:-1)},acc)});
+ }
+ document.getElementById('rp').onclick=play;play();
+})();
+</script>
+</body></html>

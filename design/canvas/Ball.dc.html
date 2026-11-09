@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Cursor component</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>body{margin:0;font-family:Geist,system-ui,sans-serif}</style>
+</helmet>
+<div style="position:absolute;left:0;top:0;right:0;bottom:0;pointer-events:none;z-index:999;overflow:hidden">
+  <sc-for list="{{ghosts}}" as="g" hint-placeholder-count="12"><i style="position:absolute;left:0;top:0;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;{{g.style}}"></i></sc-for>
+  <i style="position:absolute;left:0;top:0;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;{{ballStyle}}"></i>
+  <span style="position:absolute;left:0;top:0;font:600 11px/1 'Geist Mono',ui-monospace,monospace;letter-spacing:1px;text-transform:uppercase;transition:opacity .25s;{{labelStyle}}">{{label}}</span>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"ink":{"editor":"boolean","default":false},"$preview":{"width":360,"height":240}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { t: 0 };
+    // physics in px and seconds
+    this.s = { x: -200, y: -200, tx: -200, ty: -200, px: -200, py: -200, by: 0, bv: 0, air: false, sq: 0, sqv: 0, sc: 1, scv: 0, pr: 0, down: false, k: '', seen: false, ghosts: [], sp: 0, ang: 0, st: 1, t0: 0 };
+    this.loop = this.loop.bind(this);
+    this.onMove = this.onMove.bind(this);
+    this.onDown = this.onDown.bind(this);
+    this.onUp = this.onUp.bind(this);
+    this.reduce = false;
+  }
+  componentDidMount() {
+    this.reduce = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+    window.addEventListener('mousemove', this.onMove);
+    window.addEventListener('mousedown', this.onDown);
+    window.addEventListener('mouseup', this.onUp);
+    this.raf = requestAnimationFrame(this.loop);
+  }
+  componentWillUnmount() {
+    window.removeEventListener('mousemove', this.onMove);
+    window.removeEventListener('mousedown', this.onDown);
+    window.removeEventListener('mouseup', this.onUp);
+    cancelAnimationFrame(this.raf);
+  }
+  onMove(e) {
+    const s = this.s;
+    const st = document.querySelector('[data-stage]');
+    let x = e.clientX, y = e.clientY;
+    if (st) {
+      const r = st.getBoundingClientRect();
+      const k = (st.offsetWidth || r.width) / (r.width || 1);
+      x = (e.clientX - r.left) * k;
+      y = (e.clientY - r.top) * k;
+    }
+    if (!s.seen) { s.seen = true; s.x = s.px = x; s.y = s.py = y; }
+    s.tx = x; s.ty = y;
+    const el = document.elementFromPoint(e.clientX, e.clientY);
+    const c = el && el.closest ? el.closest('[data-c]') : null;
+    s.k = c ? c.getAttribute('data-c') : '';
+  }
+  onDown() { this.s.down = true; }
+  onUp() {
+    const s = this.s;
+    if (!s.down) return;
+    s.down = false;
+    if (this.reduce) return;
+    // toss the ball up; gravity brings it back and it bounces, each bounce lower
+    const G = 2300, H = 68;
+    s.bv = -Math.sqrt(2 * G * H);
+    s.air = true;
+  }
+  loop(now) {
+    const s = this.s;
+    const t = now || performance.now();
+    let dt = (t - (s.t0 || t)) / 1000;
+    s.t0 = t;
+    if (!(dt > 0)) dt = 0.016;
+    if (dt > 0.033) dt = 0.033;
+    const G = 2300, REST = 0.56;
+
+    // follow the pointer with a soft, frame-rate independent lag
+    const f = 1 - Math.exp(-dt * 15);
+    const ox = s.x, oy = s.y + s.by;
+    s.x += (s.tx - s.x) * f;
+    s.y += (s.ty - s.y) * f;
+
+    // press: gather down a few pixels
+    s.pr += ((s.down ? 1 : 0) - s.pr) * (1 - Math.exp(-dt * 16));
+
+    // vertical toss and bounce
+    if (s.air) {
+      s.bv += G * dt;
+      s.by += s.bv * dt;
+      if (s.by >= 0) {
+        const imp = s.bv;
+        s.by = 0;
+        if (imp > 150) {
+          s.bv = -imp * REST;
+          s.sqv += imp * 0.0011;
+        } else {
+          s.bv = 0; s.air = false;
+        }
+      }
+    }
+    // soft squash on landing (spring back to zero)
+    s.sqv += (-s.sq * 300 - s.sqv * 17) * dt;
+    s.sq += s.sqv * dt;
+    if (s.sq > 0.42) s.sq = 0.42;
+    if (s.sq < -0.18) s.sq = -0.18;
+
+    // scale spring: hover grows, press shrinks
+    const hs = s.k === 'view' ? 5.2 : s.k === 'link' ? 2.6 : 1;
+    const goal = s.down ? hs * 0.68 : hs;
+    s.scv += ((goal - s.sc) * 240 - s.scv * 24) * dt;
+    s.sc += s.scv * dt;
+
+    // motion stretch from pointer speed and vertical speed
+    const vx = (s.x - ox) / dt, vy = ((s.y + s.by) - oy) / dt;
+    s.sp = Math.hypot(vx, vy);
+    if (s.sp > 60) s.ang = Math.atan2(vy, vx) * 180 / Math.PI;
+    const stT = 1 + Math.min(s.sp / 2600, 0.7);
+    s.st += (stT - s.st) * (1 - Math.exp(-dt * 18));
+
+    // trail: spawn a ghost while moving fast or bouncing; each one fades on its own, gradually
+    const str = Math.min(1, Math.max(0, (s.sp - 90) / 650));
+    if (str > 0.04 && !this.reduce) s.ghosts.push({ x: s.x, y: s.y + s.by + s.pr * 5, sc: s.sc, str: str, life: 1 });
+    for (let i = 0; i < s.ghosts.length; i++) s.ghosts[i].life -= dt * 1.7;
+    s.ghosts = s.ghosts.filter((g) => g.life > 0).slice(-30);
+    this.setState({ t: t });
+    this.raf = requestAnimationFrame(this.loop);
+  }
+  renderVals() {
+    const s = this.s;
+    const ink = !!this.props.ink;
+    const col = ink ? '#14130f' : '#ffd60a';
+    const air = Math.min(Math.abs(s.bv) / 3400, 0.3);
+    const sqx = (1 + s.sq) / Math.sqrt(1 + air);
+    const sqy = (1 - s.sq * 0.8) * (1 + air);
+    const st = this.reduce ? 1 : s.st;
+    const yy = s.y + s.by + s.pr * 5;
+    const ballStyle = 'background:' + col + ';opacity:' + (s.seen ? 1 : 0) + ';;transform:translate(' + s.x.toFixed(2) + 'px,' + yy.toFixed(2) + 'px) rotate(' + s.ang.toFixed(1) + 'deg) scale(' + st.toFixed(3) + ',' + (1 / Math.sqrt(st)).toFixed(3) + ') rotate(' + (-s.ang).toFixed(1) + 'deg) scale(' + sqx.toFixed(3) + ',' + sqy.toFixed(3) + ') scale(' + s.sc.toFixed(3) + ')';
+    const ghosts = this.reduce ? [] : s.ghosts.map((g) => ({
+      style: 'background:' + col + ';opacity:' + (Math.pow(g.life, 1.3) * 0.6 * g.str).toFixed(3) + ';transform:translate(' + g.x.toFixed(2) + 'px,' + g.y.toFixed(2) + 'px) scale(' + (g.sc * (0.35 + 0.65 * g.life)).toFixed(3) + ')'
+    }));
+    const view = s.k === 'view';
+    return {
+      ballStyle, ghosts,
+      label: view ? 'View' : '',
+      labelStyle: 'color:#14130f;opacity:' + (view && s.sc > 2.2 && !s.down ? 1 : 0) + ';transform:translate(' + (s.x - 15).toFixed(1) + 'px,' + (yy - 6).toFixed(1) + 'px)'
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,118 @@
+/* Jaasim Portfolio — generated from tokens.json */
+:root, [data-theme="light"] {
+  --surface: #f1eee8; /* Page ground for every chapter. ink 16.1:1, ink-muted 5.2:1. */
+  --surface-raised: #faf9f6; /* Floating dock, inputs, phone screens, tooltips. One step above surface. ink 17.7:1, ink-muted 5.8:1. */
+  --ink: #14130f; /* Headlines and body on surface and surface-raised, the solid fill of primary buttons, the phone bezel. */
+  --ink-muted: #66625a; /* Secondary copy, mono labels and captions on surface and surface-raised only. Never on colour fills. */
+  --hairline: #dad6cd; /* 1px dividers and card outlines. Decorative only (1.3:1): never the only cue for state or a control boundary. */
+  --yellow: #ffd60a; /* The only accent: a bright yellow. Fills and highlights only, never text or a thin line on bone (1.2:1). Used for the cursor ball (a plain circle, no border, no shadow), the highlighter behind the one accent word per headline (ink text on it, 13.2:1), the tags around the launch name, progress marks inside scenes, and the full-screen Contact scene. On the Contact scene the cursor turns ink. One yellow accent per viewport, apart from the cursor. */
+  --on-yellow: #14130f; /* Ink text and marks on a yellow fill: 13.2:1. */
+  --focus: #14130f; /* Solid 2px keyboard focus ring with 3px offset. 16.1:1 on bone, 13.2:1 on yellow; use on-ink on ink scenes. */
+  --ink-soft: #2a2823; /* A lift on the ink ground: phone bezels and hairlines inside ink scenes. Decorative. */
+  --on-ink: #f1eee8; /* Text on the ink ground in dark scenes (Craft, Contact): 16.1:1. */
+  --on-ink-muted: #a8a399; /* Secondary copy and labels on the ink ground: 7.4:1. */
+  --shadow-float: 0 24px 60px -24px rgba(20, 19, 15, 0.35); /* Floating dock and tooltips only. Phone contact shadows are drawn separately. */
+}
+:root {
+  --space-1: 4px; /* Icon gaps, label to value. */
+  --space-2: 8px; /* Dock padding, tag gaps. */
+  --space-3: 12px; /* Button vertical padding. */
+  --space-4: 16px; /* Page margin on mobile, card gutters. */
+  --space-6: 24px; /* Card padding. */
+  --space-8: 32px; /* Page margin on desktop, 12-column gutter. */
+  --space-12: 48px; /* Between a title and its content. */
+  --space-16: 64px; /* Between groups inside a scene. */
+  --space-24: 96px; /* Scene padding at tablet. */
+  --space-40: 160px; /* Scene padding on desktop. */
+  --radius-sm: 8px; /* Tags, small inputs. */
+  --radius-md: 16px; /* Inputs, tooltips. */
+  --radius-lg: 28px; /* Cards and phone screens. */
+  --radius-xl: 40px; /* Chapter panels and the loader wipe corners. */
+  --radius-pill: 999px; /* Buttons, dock, chips, cursor, logo dot. */
+  --font-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --font-accent: "Fraunces", "Times New Roman", serif;
+  --font-sans: "Geist", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, Menlo, monospace;
+  --text-display-xl: 600 176px/160px var(--font-display); /* Hello and name moments only. Set at font-stretch 125%. Fit to width on the loader. */
+  --text-display-l: 600 104px/96px var(--font-display); /* Scene headlines and counters. */
+  --text-display-m: 600 64px/60px var(--font-display); /* Work card titles, big section numbers. */
+  --text-accent-l: italic 400 120px/106px var(--font-accent); /* The single accent word inside a display-l headline: ink italic over a yellow highlighter (jc-hl). */
+  --text-accent-m: italic 400 72px/63px var(--font-accent); /* The accent word inside a display-m headline, ink italic over a yellow highlighter. */
+  --text-heading: 500 32px/36px var(--font-sans); /* Beat headings and case-study subheads. */
+  --text-body: 400 17px/26px var(--font-sans); /* Paragraphs. Max 60 characters per line. */
+  --text-small: 400 14px/20px var(--font-sans); /* Captions, dock links, buttons. */
+  --text-label: 500 12px/16px var(--font-mono); /* Uppercase section numbers, tags, dates, live strip. 11px on mobile. */
+  --text-mono-body: 400 13px/20px var(--font-mono); /* Contact details, stack lists. */
+}
+.display-xl {
+  font-family: var(--font-display);
+  font-size: 176px;
+  line-height: 160px;
+  font-weight: 600;
+  letter-spacing: -5px;
+}
+.display-l {
+  font-family: var(--font-display);
+  font-size: 104px;
+  line-height: 96px;
+  font-weight: 600;
+  letter-spacing: -3px;
+}
+.display-m {
+  font-family: var(--font-display);
+  font-size: 64px;
+  line-height: 60px;
+  font-weight: 600;
+  letter-spacing: -2px;
+}
+.accent-l {
+  font-family: var(--font-accent);
+  font-size: 120px;
+  line-height: 106px;
+  font-weight: 400;
+  letter-spacing: -3px;
+  font-style: italic;
+}
+.accent-m {
+  font-family: var(--font-accent);
+  font-size: 72px;
+  line-height: 63px;
+  font-weight: 400;
+  letter-spacing: -2px;
+  font-style: italic;
+}
+.heading {
+  font-family: var(--font-sans);
+  font-size: 32px;
+  line-height: 36px;
+  font-weight: 500;
+  letter-spacing: -0.5px;
+}
+.body {
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 26px;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+.small {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+.label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+.mono-body {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 20px;
+  font-weight: 400;
+  letter-spacing: 0;
+}

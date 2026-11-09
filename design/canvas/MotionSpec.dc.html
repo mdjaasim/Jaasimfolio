@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Motion spec and self-audit</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/jaasim/tokens.css">
+<link rel="stylesheet" href="ds/jaasim/components/bundle.css">
+<link rel="stylesheet" href="screens.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..800&family=Fraunces:ital,opsz,wght@1,9..144,400&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap">
+<style>body{margin:0}.audit li{margin:0 0 12px;font:400 15px/22px var(--font-sans)}.audit b{font-weight:600}.audit{margin:0;padding:0;list-style:none}h3.k{margin:0 0 16px;font:500 12px/16px var(--font-mono);letter-spacing:1px;text-transform:uppercase;color:var(--ink-muted)}</style>
+</helmet>
+<div class="pg jc-grain" style="height:1700px;padding:44px 40px 0;box-sizing:border-box">
+  <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:32px">
+    <h1 style="margin:0;font:700 64px/60px var(--font-display);font-stretch:125%;letter-spacing:-.04em">Motion spec</h1>
+    <p class="body17" style="max-width:600px;color:var(--ink-muted);text-align:right">Lenis smooth scroll with GSAP ScrollTrigger, scrub 0.6. One house curve, cubic-bezier(.2,.8,.2,1); expo-out and (.7,0,.2,1) for big reveals. Animate transform and opacity only.</p>
+  </div>
+
+  <div class="spec h"><span>Scene</span><span>What moves</span><span>Trigger</span><span>Duration</span><span>Easing</span><span>Reduced motion or Free scroll</span></div>
+
+  <div class="spec"><b>00 Launch</b><span>Ten word and photograph pairs at 150 ms; then black closes from the top and the bottom together while the cuts accelerate from 150 to 35 ms; grid lines draw, the name is written letter by letter and wrapped in code tags, the curtain slides up.</span><span>Load, first visit per session</span><span>9.3 s total</span><span>Shutters 2.8 s ease in and out; write (.4,0,.2,1); curtain (.7,0,.2,1)</span><span>JAASIM. static for 300 ms, then a 200 ms fade.</span></div>
+  <div class="spec"><b>01a Hello</b><span>The field is a pair of braces with a blinking line and takes focus after the launch. Clicking empties it and the name is typed between the braces. Enter or clicking away commits it; the name turns italic on a yellow highlighter.</span><span>Load, click, typing, Enter or click away</span><span>700 ms</span><span>(.2,.8,.2,1)</span><span>Instant swap with a 200 ms fade.</span></div>
+  <div class="spec"><b>01b Hero</b><span>The name halves drift apart (8vw each way), guides slide, the phone rises into Craft.</span><span>Scroll, scrubbed</span><span>1 viewport</span><span>Linear to scroll, 0.6 s trail</span><span>Static, content fades in over 200 ms.</span></div>
+  <div class="spec"><b>02 Craft</b><span>Ground wipes to ink, ghost word drifts at 0.4x, phone pinned. Four beats swap screen and caption. Beat 4: tap shakes the phone, the sheet rises, the brand switcher re-themes it.</span><span>Scroll pin (about 3 viewports), tap</span><span>Beat 700 ms, shake 500 ms, sheet 600 ms</span><span>(.2,.8,.2,1)</span><span>No pin: four stacked static beats.</span></div>
+  <div class="spec"><b>03 Numbers</b><span>Counters tick up, the highlighter wipes in behind the 4.</span><span>Enter viewport</span><span>Count 1.2 s, wipe 600 ms</span><span>Expo-out</span><span>Final values shown at once.</span></div>
+  <div class="spec"><b>04 Work</b><span>Hover dims the other rows, the title slides 16 px, the preview follows the ball. Select: the preview expands into the case cover.</span><span>Hover, click</span><span>Dim 400 ms, slide 600 ms, expand 900 ms</span><span>(.2,.8,.2,1); expand (.7,0,.2,1)</span><span>Focus ring, then a 200 ms fade to the case study.</span></div>
+  <div class="spec"><b>05 Lab</b><span>Vertical scroll becomes horizontal travel through three panels; the progress line fills.</span><span>Scroll pin (about 2.5 viewports)</span><span>Scrubbed</span><span>Linear, scrub 0.6</span><span>Native horizontal swipe, no hijack.</span></div>
+  <div class="spec"><b>06 Path</b><span>The line draws down, the highlighter follows, each node lights as it is reached.</span><span>Scroll, scrubbed</span><span>Scrubbed</span><span>Linear</span><span>Line shown complete.</span></div>
+  <div class="spec"><b>07 About</b><span>Portrait reveals by clip-path with a scale from 1.08 to 1. Two marquees run in opposite directions; speed follows scroll velocity and pauses on hover.</span><span>Enter viewport, scroll</span><span>Reveal 900 ms</span><span>(.2,.8,.2,1)</span><span>Marquees static.</span></div>
+  <div class="spec"><b>08 Contact</b><span>The ground floods yellow, the headline reveals line by line, the Say hello button is magnetic up to 12 px.</span><span>Scroll, hover</span><span>Flood 900 ms</span><span>(.7,0,.2,1)</span><span>Instant yellow, no magnet.</span></div>
+  <div class="spec"><b>Index</b><span>Overlay slides up with 40 px corners; hovered row brightens and nudges 16 px; the others dim.</span><span>Click Index</span><span>800 ms</span><span>(.7,0,.2,1)</span><span>Instant, focus trapped, Escape closes.</span></div>
+  <div class="spec"><b>Case study</b><span>The work preview becomes the cover. The Next project row previews the next cover on hover.</span><span>Click, hover</span><span>Expand 1 s; next project slides up over the current one in 1.1 s while it drifts up 14 percent</span><span>(.7,0,.2,1)</span><span>A 200 ms fade, no slide.</span></div>
+  <div class="spec"><b>Cursor</b><span>Yellow ball without a border follows softly and leaves a trail of shades that fades out gradually. Press shrinks it to 68 percent and gathers it down; on release it is tossed up about 70 px, falls, squashes softly on landing and bounces three or four times, each lower. Grows on links and with View.</span><span>Pointer</span><span>About 1.6 s per click</span><span>Gravity 2300 px/s2, bounce 0.56</span><span>Hidden; the native cursor returns.</span></div>
+  <div class="spec"><b>404</b><span>The ball rolls off the edge and becomes the Back home button.</span><span>Load</span><span>1.2 s</span><span>(.4,0,.6,1)</span><span>Static.</span></div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:64px;margin-top:56px">
+    <div>
+      <h3 class="k">Self-audit: passes</h3>
+      <ul class="audit">
+        <li><b>No green, blue or purple anywhere.</b> Palette is bone, ink and one yellow.</li>
+        <li><b>No gradients.</b> The film grain is a texture; the underline draws with a solid colour.</li>
+        <li><b>One yellow accent per viewport.</b> The logo dot is the only constant; on yellow it turns ink.</li>
+        <li><b>No cards, sidebars or navbars.</b> Navigation is one word and a full-screen overlay.</li>
+        <li><b>No invented metrics.</b> Every number traces to the résumé.</li>
+        <li><b>Contrast:</b> ink on bone 16.1:1, ink on yellow 13.2:1, muted on ink 7.4:1, muted on bone 5.2:1.</li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="k">Self-audit: flagged</h3>
+      <ul class="audit">
+        <li><b>Yellow on bone is 1.2:1.</b> Dots carry a thin ink outline; check the 16 px favicon and the cursor ball at 14 px.</li>
+        <li><b>Placeholders to replace:</b> project year, live link, app screens, portrait, brand names in the SDK sheet, the availability wording and the fixed Dubai time 14:32.</li>
+        <li><b>Fourth figure</b> (3 companies) is derived from the résumé, not stated in it.</li>
+        <li><b>Fonts are stand-ins:</b> Archivo for Soehne Breit and Geist as the text face; the paid face is the upgrade.</li>
+        <li><b>Scroll story:</b> the Full site board is one continuous pinned stage with eased, lerped scrolling (17 screens), no Next, Continue or Skip buttons, no scroll hints and no side indicator. A Free scroll mode is still to be built as its own state.</li>
+        <li><b>Not yet checked in a browser:</b> layout and the prototype were written but not rendered; a visual pass is the next step.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1700}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

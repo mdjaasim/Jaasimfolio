@@ -1,0 +1,30 @@
+<!-- @dsCard group="Signature moments" height=320 width=960 subtitle="{{ first name }} with a blinking line. Click it, type, press Enter or click away." -->
+<!doctype html>
+<html data-theme="light"><head><meta charset="utf-8">
+<style>
+ body{margin:0;height:320px;position:relative;overflow:hidden}
+ .row{position:absolute;left:48px;top:50%;transform:translateY(-50%);display:flex;align-items:baseline;gap:28px}
+ .h{margin:0;font:700 110px/1 var(--font-display);font-stretch:125%;letter-spacing:-.04em}
+ .jc-nl{font-size:34px}
+ .nm{margin:0;font:italic 400 110px/1 var(--font-accent);letter-spacing:-.03em;background:var(--yellow);color:var(--on-yellow);padding:0 .1em;border-radius:.1em}
+ .rp{position:absolute;right:20px;top:16px;font:500 11px var(--font-mono);letter-spacing:1px;text-transform:uppercase;background:none;border:0;border-bottom:1px solid currentColor;color:var(--ink);cursor:pointer}
+</style></head>
+<body>
+<button class="rp" id="rp">Reset</button>
+<div class="row" id="row"></div>
+<script>
+ var row=document.getElementById('row');
+ function ask(){
+  row.innerHTML='<h1 class="h">Hello</h1><label class="jc-nl" for="n"><span class="br" id="l">{{</span><span class="fw"><input id="n" type="text" maxlength="18" autocomplete="off" spellcheck="false" aria-label="Your first name"><span class="ph" id="ph"><i></i>first name</span></span><span class="br" id="r">}}</span></label>';
+  var inp=document.getElementById('n'),ph=document.getElementById('ph'),focus=false,done=false;
+  function size(){inp.style.width=(inp.value?inp.value.length+.6:(focus?1.2:11.5))+'ch';ph.style.display=(!focus&&!inp.value)?'':'none';}
+  function commit(){var v=inp.value.trim().replace(/[^\p{L}\p{M}' -]/gu,'');if(!v||done)return;done=true;row.innerHTML='';var h=document.createElement('h1');h.className='h';h.textContent='Hello,';var p=document.createElement('p');p.className='nm';p.textContent=v+'.';row.appendChild(h);row.appendChild(p);}
+  inp.addEventListener('focus',function(){focus=true;size()});
+  inp.addEventListener('blur',function(){focus=false;size();commit()});
+  inp.addEventListener('input',size);
+  inp.addEventListener('keydown',function(e){if(e.key==='Enter')commit()});
+  size();
+ }
+ document.getElementById('rp').onclick=ask;ask();
+</script>
+</body></html>

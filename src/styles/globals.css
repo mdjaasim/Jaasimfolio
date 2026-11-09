@@ -1,0 +1,80 @@
+@import './tokens.css';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  background: var(--surface);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+}
+
+/* Section labels: uppercase mono (design token text-label). */
+.label {
+  font: var(--text-label);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.muted {
+  color: var(--ink-muted);
+}
+
+/* Accent word: ink Fraunces italic over a yellow highlighter. One per headline. */
+.highlight {
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-weight: 400;
+  background: var(--yellow);
+  color: var(--on-yellow);
+  padding: 0 0.14em;
+  border-radius: 0.14em;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: fixed;
+  left: var(--space-4);
+  top: var(--space-4);
+  z-index: 100;
+  padding: var(--space-2) var(--space-4);
+  background: var(--ink);
+  color: var(--on-ink);
+  transform: translateY(-200%);
+}
+.skip-link:focus {
+  transform: none;
+}
+
+/* next/font exposes the loaded families as CSS variables; point the design tokens at them. */
+:root {
+  --font-display: var(--nf-archivo), 'Helvetica Neue', Arial, sans-serif;
+  --font-accent: var(--nf-fraunces), 'Times New Roman', serif;
+  --font-sans: var(--nf-geist), 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: var(--nf-geist-mono), ui-monospace, Menlo, monospace;
+}
