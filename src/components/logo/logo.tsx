@@ -35,7 +35,7 @@ export function Logo({ collapse = 0, slash = 0, size, className }: LogoProps) {
       style={size ? ({ '--wm': size } as CSSProperties) : undefined}
     >
       <span className="visually-hidden">{site.shortName}</span>
-      <span aria-hidden="true" className={styles.tag}>
+      <span aria-hidden="true" className={`${styles.tag} ${styles.tagOpen}`}>
         {copy.launch.tagOpen}
       </span>
       <span aria-hidden="true">{first}</span>
@@ -45,7 +45,7 @@ export function Logo({ collapse = 0, slash = 0, size, className }: LogoProps) {
       <span aria-hidden="true" className={styles.clip} style={slashStyle}>
         /
       </span>
-      <span aria-hidden="true" className={styles.tag}>
+      <span aria-hidden="true" className={`${styles.tag} ${styles.tagClose}`}>
         {copy.launch.tagClose}
       </span>
     </span>

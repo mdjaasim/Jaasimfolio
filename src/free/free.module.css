@@ -135,6 +135,9 @@
 }
 
 /* ---- Craft ---- */
+.ghost::before {
+  content: attr(data-word);
+}
 .ghost {
   position: absolute;
   left: 0;

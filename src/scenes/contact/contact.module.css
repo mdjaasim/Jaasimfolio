@@ -16,7 +16,7 @@
   display: block;
   overflow: hidden;
   /* Room below the baseline so descenders (g, y) are not clipped by the reveal mask. */
-  height: calc(128 * var(--s));
+  height: calc(154 * var(--s));
   padding-bottom: calc(26 * var(--s));
   margin-bottom: calc(-26 * var(--s));
 }
@@ -25,7 +25,7 @@
   will-change: transform;
 }
 .maskAccent {
-  height: calc(150 * var(--s));
+  height: calc(176 * var(--s));
   padding-top: calc(12 * var(--s));
 }
 /* The accent line is ink with a yellow word: the only inversion on the yellow ground. */
@@ -112,12 +112,12 @@
     line-height: calc(50 * var(--s));
   }
   .mask {
-    height: calc(50 * var(--s));
+    height: calc(60 * var(--s));
     padding-bottom: calc(10 * var(--s));
     margin-bottom: calc(-10 * var(--s));
   }
   .maskAccent {
-    height: calc(64 * var(--s));
+    height: calc(74 * var(--s));
     padding-top: calc(10 * var(--s));
   }
   .accent {

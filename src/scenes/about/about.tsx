@@ -14,7 +14,17 @@ const MOBILE = { tops: [690, 750], speed: 140, bottomOffset: 700 } as const;
 const REPEATS = 2;
 
 /** Alternate solid and outlined words, repeated so the line never runs out. */
-function Marquee({ words, x, top }: { words: readonly string[]; x: number; top: number }) {
+function Marquee({
+  words,
+  x,
+  top,
+  startOutlined = false,
+}: {
+  words: readonly string[];
+  x: number;
+  top: number;
+  startOutlined?: boolean;
+}) {
   const list = Array.from({ length: REPEATS }, () => words).flat();
   return (
     <div
@@ -24,7 +34,7 @@ function Marquee({ words, x, top }: { words: readonly string[]; x: number; top: 
     >
       {list.map((w, i) => (
         <span key={i}>
-          <span className={i % 2 ? styles.outline : undefined}>{w}</span>
+          <span className={(i % 2 === 1) !== startOutlined ? styles.outline : undefined}>{w}</span>
           <em>/</em>
         </span>
       ))}
@@ -77,7 +87,12 @@ export function About({ u }: { u: number }) {
           <p className={styles.education}>{copy.education}</p>
         </div>
         <Marquee words={copy.marqueeTop} x={-run * g.speed} top={g.tops[0]} />
-        <Marquee words={copy.marqueeBottom} x={-g.bottomOffset + run * g.speed} top={g.tops[1]} />
+        <Marquee
+          words={copy.marqueeBottom}
+          x={-g.bottomOffset + run * g.speed}
+          top={g.tops[1]}
+          startOutlined
+        />
       </div>
     </Frame>
   );

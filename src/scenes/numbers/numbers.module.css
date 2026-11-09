@@ -8,8 +8,10 @@
 .digits {
   position: relative;
   display: inline-block;
-  padding: 0 0.08em;
   isolation: isolate;
+}
+.digits[data-marked='true'] {
+  padding: 0 0.08em;
 }
 /* Flat yellow highlighter wiping in behind the first counter. */
 .mark {

@@ -73,6 +73,7 @@ export function Contact({ u }: { u: number }) {
       </h2>
       <a
         className={styles.cta}
+        data-cursor-tone="yellow"
         data-cursor="link"
         href={`mailto:${site.email}`}
         style={{ transform: `scale(${round2(0.4 + 0.6 * back(bt))})` }}

@@ -74,9 +74,7 @@ function Craft() {
   const copy = t().craft;
   return (
     <section id="chapter-craft" data-tone="dark" className={`${styles.sec} ${styles.dark}`}>
-      <p aria-hidden="true" className={styles.ghost}>
-        {copy.ghost}
-      </p>
+      <p aria-hidden="true" className={styles.ghost} data-word={copy.ghost} />
       <h2 className="visually-hidden">{copy.label}</h2>
       {copy.beats.map((b, i) => {
         const beat = (i + 1) as Beat;
@@ -220,13 +218,16 @@ function Path() {
 }
 
 function Marquee({ words, reverse }: { words: readonly string[]; reverse?: boolean }) {
+  // The second row starts outlined so the two rows interleave solid and outline.
   const list = [...words, ...words, ...words, ...words];
   return (
     <div aria-hidden="true" className={styles.marquee} data-reverse={reverse}>
       <div className={styles.marqueeTrack}>
         {list.map((w, i) => (
           <span key={i}>
-            <span className={i % 2 ? styles.outline : undefined}>{w}</span>
+            <span className={(i % 2 === 1) !== Boolean(reverse) ? styles.outline : undefined}>
+              {w}
+            </span>
             <em>/</em>
           </span>
         ))}
@@ -285,7 +286,12 @@ function Contact() {
         </h2>
       </Reveal>
       <Reveal delay={120} className={styles.contactRow}>
-        <a className={styles.cta} data-cursor="link" href={`mailto:${site.email}`}>
+        <a
+          className={styles.cta}
+          data-cursor-tone="yellow"
+          data-cursor="link"
+          href={`mailto:${site.email}`}
+        >
           {copy.cta}
         </a>
         <div className={styles.contactLinks}>

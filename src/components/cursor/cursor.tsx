@@ -21,6 +21,10 @@ export function Cursor() {
   const ballRef = useRef<HTMLSpanElement>(null);
   const labelRef = useRef<HTMLSpanElement>(null);
   const ghostRefs = useRef<(HTMLSpanElement | null)[]>([]);
+  const inkRef = useRef(false);
+  useEffect(() => {
+    inkRef.current = ink;
+  }, [ink]);
 
   useEffect(() => {
     if (!active) return;
@@ -28,8 +32,14 @@ export function Cursor() {
     const root = document.documentElement;
     root.dataset.cursor = 'ball';
 
+    // An element can force the ball's tone, e.g. a dark circle that needs a yellow ball on top.
+    let toneOverride: 'yellow' | 'ink' | null = null;
     const onMove = (e: PointerEvent) => {
-      const el = (e.target as Element | null)?.closest?.('[data-cursor]');
+      const target = e.target as Element | null;
+      toneOverride =
+        (target?.closest?.('[data-cursor-tone]')?.getAttribute('data-cursor-tone') as
+          'yellow' | 'ink' | null) ?? null;
+      const el = target?.closest?.('[data-cursor]');
       body.moveTo(
         e.clientX,
         e.clientY,
@@ -49,6 +59,11 @@ export function Cursor() {
       last = now;
       const ball = ballRef.current;
       if (ball) {
+        const color =
+          toneOverride === 'ink' || (toneOverride === null && inkRef.current)
+            ? cfg.colors.ink
+            : cfg.colors.yellow;
+        ball.style.background = color;
         const air = Math.min(Math.abs(body.tossV) / 3400, 0.3);
         const sqx = (1 + body.squash) / Math.sqrt(1 + air);
         const sqy = (1 - body.squash * 0.8) * (1 + air);
@@ -71,6 +86,7 @@ export function Cursor() {
             g.style.opacity = '0';
             return;
           }
+          g.style.background = color;
           g.style.opacity = (Math.pow(ghost.life, 1.3) * 0.6 * ghost.strength).toFixed(3);
           g.style.transform = `translate(${ghost.x.toFixed(2)}px,${ghost.y.toFixed(2)}px) scale(${(ghost.scale * (0.35 + 0.65 * ghost.life)).toFixed(3)})`;
         });
@@ -89,12 +105,10 @@ export function Cursor() {
   }, [active]);
 
   if (!active) return null;
-  const color = ink ? cfg.colors.ink : cfg.colors.yellow;
   const size = {
     width: cfg.sizePx,
     height: cfg.sizePx,
     margin: `${-cfg.sizePx / 2}px 0 0 ${-cfg.sizePx / 2}px`,
-    background: color,
   };
   return (
     <div className={styles.layer} aria-hidden="true">

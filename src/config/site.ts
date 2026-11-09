@@ -10,4 +10,6 @@ export const site = {
   city: 'Dubai',
   timeZone: 'Asia/Dubai',
   locale: 'en',
+  /** Browser chrome colour; keep in step with the --surface token. */
+  themeColor: '#f1eee8',
 } as const;

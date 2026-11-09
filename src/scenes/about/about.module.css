@@ -19,7 +19,7 @@
   display: grid;
   place-items: end start;
   padding: calc(24 * var(--s));
-  font: var(--text-label);
+  font: 500 11px / 14px var(--font-mono);
   letter-spacing: 1px;
   text-transform: uppercase;
 }

@@ -37,7 +37,6 @@ export function Header({ onOpenIndex, overIndex = false }: HeaderProps) {
         className={styles.home}
         data-cursor="link"
         onClick={() => navigate('hello')}
-        aria-label={site.shortName}
       >
         <Logo collapse={collapse} slash={slash} />
       </button>

@@ -33,10 +33,9 @@ export function Craft({ u }: { u: number }) {
       <div
         aria-hidden="true"
         className={styles.ghost}
+        data-word={copy.ghost}
         style={{ transform: `translateX(${sp(-drift * GHOST_DRIFT + GHOST_OFFSET)})` }}
-      >
-        {copy.ghost}
-      </div>
+      />
       {copy.tags.map((tag, i) => {
         const g = TAGS[i];
         if (!g) return null;

@@ -1,12 +1,16 @@
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
+import { PHOTO_WIDTHS } from '@/config/images';
 import { caseStudies, fill, launchPhotoOrder, photos, t } from '@/content';
 
 describe('content', () => {
   it('has a file on disk for every photo', () => {
     for (const photo of Object.values(photos)) {
-      expect(existsSync(join(process.cwd(), 'public', photo.src)), photo.src).toBe(true);
+      for (const width of PHOTO_WIDTHS) {
+        const file = join(process.cwd(), 'public', `${photo.src}-${width}.webp`);
+        expect(existsSync(file), file).toBe(true);
+      }
     }
   });
 

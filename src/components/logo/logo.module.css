@@ -13,10 +13,10 @@
 .tag {
   opacity: 0.55;
 }
-.tag:first-of-type {
+.tagOpen {
   margin-right: 0.12em;
 }
-.tag:last-of-type {
+.tagClose {
   margin-left: 0.12em;
 }
 

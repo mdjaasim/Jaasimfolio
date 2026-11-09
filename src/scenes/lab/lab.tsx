@@ -16,6 +16,7 @@ const DESKTOP = {
   travel: 1260,
   textDrift: 70,
   photoDrift: 90,
+  photoBleed: 60,
 } as const;
 const MOBILE = {
   panel: [16, 406, 796],
@@ -23,6 +24,7 @@ const MOBILE = {
   travel: 780,
   textDrift: 40,
   photoDrift: 50,
+  photoBleed: 30,
 } as const;
 
 /** 05 Lab: vertical scroll becomes horizontal travel through three experiments. */
@@ -44,7 +46,10 @@ export function Lab({ u }: { u: number }) {
       >
         {copy.items.map((item, i) => (
           <div key={item.title.join(' ')}>
-            <article className={styles.panel} style={{ left: sp(g.panel[i] ?? 0) }}>
+            <article
+              className={styles.panel}
+              style={{ left: sp(g.panel[i] ?? 0), paddingLeft: sp(isMobile || i === 0 ? 0 : 32) }}
+            >
               <span className="label muted-on-ink">{`${String(i + 1).padStart(2, '0')} / ${String(copy.items.length).padStart(2, '0')}`}</span>
               <h2
                 className={styles.title}
@@ -68,7 +73,8 @@ export function Lab({ u }: { u: number }) {
                 sizes="40vw"
                 className={styles.plateImg}
                 style={{
-                  width: `calc(100% + ${sp(g.photoDrift)})`,
+                  left: sp(-g.photoBleed),
+                  width: `calc(100% + ${sp(g.photoBleed + g.photoDrift)})`,
                   transform: `translateX(${sp(-travel * g.photoDrift)})`,
                 }}
               />

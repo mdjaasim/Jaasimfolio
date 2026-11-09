@@ -9,6 +9,7 @@ export const archivo = Archivo({
 export const fraunces = Fraunces({
   subsets: ['latin'],
   style: ['italic'],
+  axes: ['opsz'],
   variable: '--nf-fraunces',
   display: 'swap',
 });

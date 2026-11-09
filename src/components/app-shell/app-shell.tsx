@@ -1,5 +1,6 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from 'react';
 import { chrome, useChrome } from '@/engine/chrome';
 import { launch } from '@/config/motion';
@@ -9,14 +10,21 @@ import { photos, t } from '@/content';
 import { useMode } from '@/engine/mode';
 import { readStorage, writeStorage } from '@/engine/storage';
 import { SCREEN_UNIT_ATTR } from '@/engine/timeline';
+import { warmUrl } from '@/lib/image-loader';
 import { Launch } from '@/scenes/launch/launch';
-import { FreeSite } from '@/free/free-site';
 import { Stage } from '@/scenes/stage';
-import { CaseStudyOverlay } from '../case-study/case-study-overlay';
 import { Header } from '../header/header';
-import { IndexOverlay } from '../index-overlay/index-overlay';
 import { NAME_FIELD_ID } from '../name-field/name-field';
 import styles from './app-shell.module.css';
+
+// Code that is only needed on demand is split out of the first load.
+const FreeSite = dynamic(() => import('@/free/free-site').then((m) => m.FreeSite));
+const IndexOverlay = dynamic(() =>
+  import('../index-overlay/index-overlay').then((m) => m.IndexOverlay),
+);
+const CaseStudyOverlay = dynamic(() =>
+  import('../case-study/case-study-overlay').then((m) => m.CaseStudyOverlay),
+);
 
 const noopSubscribe = () => () => {};
 const launchSeen = () => readStorage('session', storageKeys.launchSeen) === '1';
@@ -26,6 +34,12 @@ export function AppShell() {
   const copy = t();
   const { mode } = useMode();
   const indexOpen = useChrome((c) => c.indexOpen);
+  const caseOpen = useChrome((c) => c.caseOpen !== null);
+  // Mount each overlay on first use and keep it so its exit animation can play.
+  const [indexUsed, setIndexUsed] = useState(false);
+  const [caseUsed, setCaseUsed] = useState(false);
+  if (indexOpen && !indexUsed) setIndexUsed(true);
+  if (caseOpen && !caseUsed) setCaseUsed(true);
   const [launchDone, setLaunchDone] = useState(false);
   const seenThisSession = useSyncExternalStore(noopSubscribe, launchSeen, () => false);
   const launching = !seenThisSession && !launchDone;
@@ -33,7 +47,9 @@ export function AppShell() {
   // Warm every photograph while the browser is idle so scenes never open onto an empty frame.
   useEffect(() => {
     const warm = () =>
-      Object.values(photos).forEach((p) => Object.assign(new window.Image(), { src: p.src }));
+      Object.values(photos).forEach((p) =>
+        Object.assign(new window.Image(), { src: warmUrl(p.src) }),
+      );
     const idle = window.requestIdleCallback as
       ((cb: () => void, opts?: { timeout: number }) => number) | undefined;
     if (idle) {
@@ -84,8 +100,8 @@ export function AppShell() {
           <FreeSite />
         </>
       )}
-      <CaseStudyOverlay />
-      <IndexOverlay open={indexOpen} onClose={closeIndex} />
+      {caseUsed && <CaseStudyOverlay />}
+      {indexUsed && <IndexOverlay open={indexOpen} onClose={closeIndex} />}
     </>
   );
 }

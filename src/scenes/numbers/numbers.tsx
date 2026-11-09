@@ -61,7 +61,7 @@ export function Numbers({ u }: { u: number }) {
                 className={styles.value}
                 style={{ left: sp(pos.x), top: sp(pos.y), ...enter(i) }}
               >
-                <span className={styles.digits}>
+                <span className={styles.digits} data-marked={i === 0}>
                   {i === 0 && (
                     <i
                       className={styles.mark}

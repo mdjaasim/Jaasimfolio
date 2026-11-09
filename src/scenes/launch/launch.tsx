@@ -8,6 +8,7 @@ import { site } from '@/config/site';
 import { launchPhotoOrder, photos, t } from '@/content';
 import { useMode } from '@/engine/mode';
 import { sp } from '@/engine/units';
+import { warmUrl } from '@/lib/image-loader';
 import { Logo } from '@/components/logo/logo';
 import styles from './launch.module.css';
 
@@ -41,7 +42,7 @@ export function Launch({ onDone }: LaunchProps) {
     root.style.overflow = 'hidden';
     launchPhotoOrder.forEach((id) => {
       const img = new window.Image();
-      img.src = photos[id].src;
+      img.src = warmUrl(photos[id].src);
     });
     return () => {
       root.style.overflow = previous;
@@ -86,7 +87,7 @@ export function Launch({ onDone }: LaunchProps) {
 
   if (reducedMotion) {
     return (
-      <div className={styles.root} data-reduced="true">
+      <div className={styles.root} data-reduced="true" data-launch>
         <div className={styles.reduced}>
           <Logo size="calc(40 * var(--s))" />
         </div>
@@ -119,7 +120,7 @@ export function Launch({ onDone }: LaunchProps) {
   } as CSSProperties;
 
   return (
-    <div className={styles.root} style={vars} aria-hidden="true">
+    <div className={styles.root} style={vars} aria-hidden="true" data-launch>
       {showWord && (
         <div className={styles.word} style={{ fontSize: sp(wordSize) }}>
           {word}
@@ -135,7 +136,6 @@ export function Launch({ onDone }: LaunchProps) {
             sizes="100vw"
             priority
             className={styles.photoImg}
-            unoptimized
           />
           <span className={styles.caption}>{photo.caption}</span>
         </div>
@@ -160,7 +160,7 @@ export function Launch({ onDone }: LaunchProps) {
         ))}
       </div>
 
-      <div className={styles.nameWrap}>
+      <div className={styles.nameWrap} style={{ visibility: nameSize ? 'visible' : 'hidden' }}>
         <div className={styles.nameBox}>
           <div
             ref={nameRef}

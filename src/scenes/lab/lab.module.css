@@ -28,7 +28,7 @@
 }
 .stack {
   margin: calc(24 * var(--s)) 0 0;
-  font: var(--text-label);
+  font: 500 calc(12 * var(--s)) / calc(20 * var(--s)) var(--font-mono);
   letter-spacing: 1px;
   text-transform: uppercase;
 }

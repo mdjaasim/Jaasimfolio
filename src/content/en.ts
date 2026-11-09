@@ -262,6 +262,7 @@ export const en = {
     brandLabel: 'Brand · placeholder',
     brands: ['Brand 1', 'Brand 2', 'Brand 3'],
   },
+  errorPage: { label: 'Something broke', title: 'That did not load.', retry: 'Try again' },
   a11y: { skip: 'Skip to content', mainLabel: 'Portfolio' },
 } as const;
 

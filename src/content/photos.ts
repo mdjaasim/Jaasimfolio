@@ -18,6 +18,7 @@ export type PhotoId =
 
 export interface Photo {
   id: PhotoId;
+  /** Path without extension or width; the image loader appends `-<width>.webp`. */
   src: string;
   width: number;
   height: number;
@@ -29,7 +30,7 @@ export interface Photo {
 
 const p = (id: PhotoId, pexelsId: number, caption: string, alt: string): Photo => ({
   id,
-  src: `/photos/${id}.jpg`,
+  src: `/photos/${id}`,
   width: 1600,
   height: 1000,
   alt,
