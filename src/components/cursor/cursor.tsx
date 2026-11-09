@@ -15,7 +15,8 @@ export function Cursor() {
   const { reducedMotion, finePointer, mode } = useMode();
   const onYellow = useUSelect((u) => headerTone(u) === 'yellow');
   const overlay = useChrome(anyOverlayOpen);
-  const ink = mode === 'guided' && onYellow && !overlay;
+  const freeTone = useChrome((c) => c.tone);
+  const ink = (mode === 'guided' ? onYellow : freeTone === 'yellow') && !overlay;
   const active = finePointer && !reducedMotion;
   const ballRef = useRef<HTMLSpanElement>(null);
   const labelRef = useRef<HTMLSpanElement>(null);

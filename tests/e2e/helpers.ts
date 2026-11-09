@@ -4,3 +4,8 @@ import type { Page } from '@playwright/test';
 export async function skipLaunch(page: Page): Promise<void> {
   await page.addInitScript(() => window.sessionStorage.setItem('jaasim:launch-seen', '1'));
 }
+
+/** Start in free-scroll mode. */
+export async function startFree(page: Page): Promise<void> {
+  await page.addInitScript(() => window.localStorage.setItem('jaasim:mode', 'free'));
+}

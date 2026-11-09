@@ -34,7 +34,7 @@
   text-transform: uppercase;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 767px), (max-aspect-ratio: 1/1) {
   .header {
     left: calc(var(--frame-x) + 16 * var(--s));
     right: calc(var(--frame-x) + 16 * var(--s));

@@ -46,3 +46,25 @@
   object-fit: cover;
   will-change: transform;
 }
+
+@media (max-width: 767px), (max-aspect-ratio: 1/1) {
+  .panel {
+    top: calc(84 * var(--s));
+    width: calc(358 * var(--s));
+    padding-right: 0;
+  }
+  .title {
+    margin: calc(14 * var(--s)) 0 calc(16 * var(--s));
+    font-size: calc(48 * var(--s));
+    line-height: calc(46 * var(--s));
+  }
+  .body {
+    font-size: calc(15 * var(--s));
+    line-height: calc(22 * var(--s));
+  }
+  .plate {
+    top: calc(470 * var(--s));
+    width: calc(358 * var(--s));
+    height: calc(200 * var(--s));
+  }
+}

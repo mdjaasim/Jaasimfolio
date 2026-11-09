@@ -1,27 +1,48 @@
+'use client';
+
 import { timeline } from '@/config/timeline';
 import { t } from '@/content';
 import { clamp01, round2, seg } from '@/engine/math';
+import { useMode } from '@/engine/mode';
 import { sp } from '@/engine/units';
 import { Frame } from '@/components/frame/frame';
 import styles from './path.module.css';
 
-/** Vertical layout of the timeline (design px). */
-const LINE_X = 520;
-const LINE_LENGTH = 1330;
-const SHIFT = 620;
-const ENTRY_Y = [0, 230, 470] as const;
-const ENTRY_SIZE = [56, 56, 88] as const;
-const SUB_START = 700;
-const SUB_GAP = 96;
+/** Vertical layout of the timeline (design px) for the desktop and mobile frames. */
+const DESKTOP = {
+  lineX: 520,
+  length: 1330,
+  shift: 620,
+  entryY: [0, 230, 470],
+  entrySize: [56, 56, 88],
+  /** Offsets of the date, dot and text block from an entry's y. */
+  entry: { date: 8, node: 20, text: 0 },
+  subStart: 700,
+  subGap: 96,
+  sub: { dot: 10, cat: 2, body: 0 },
+} as const;
+const MOBILE = {
+  lineX: 22,
+  length: 1440,
+  shift: 760,
+  entryY: [0, 196, 392],
+  entrySize: [34, 34, 52],
+  entry: { date: 0, node: 6, text: 22 },
+  subStart: 640,
+  subGap: 128,
+  sub: { dot: 6, cat: 0, body: 22 },
+} as const;
 
 /** 06 Path: a 1px line draws down with a yellow head; employers and the Fuze timeline appear as it reaches them. */
 export function Path({ u }: { u: number }) {
   const copy = t().path;
+  const { isMobile } = useMode();
+  const g = isMobile ? MOBILE : DESKTOP;
   const [lo, hi] = timeline.path.visible;
   if (u <= lo || u >= hi) return null;
 
   const drawn = seg(u, timeline.path.draw);
-  const length = drawn * LINE_LENGTH;
+  const length = drawn * g.length;
   const out = seg(u, timeline.path.out);
   const fade = (y: number, span: number) => clamp01((length - y) / span);
   const reveal = (a: number, lift: number) => ({
@@ -38,20 +59,23 @@ export function Path({ u }: { u: number }) {
           transform: `translateY(${sp(-out * 140)})`,
         }}
       >
-        <div className={styles.world} style={{ transform: `translateY(${sp(-drawn * SHIFT)})` }}>
-          <div className={styles.line} style={{ left: sp(LINE_X), height: sp(length) }} />
-          <i className={styles.head} style={{ left: sp(LINE_X - 6), top: sp(length - 7) }} />
+        <div className={styles.world} style={{ transform: `translateY(${sp(-drawn * g.shift)})` }}>
+          <div className={styles.line} style={{ left: sp(g.lineX), height: sp(length) }} />
+          <i className={styles.head} style={{ left: sp(g.lineX - 6), top: sp(length - 7) }} />
 
           {copy.entries.map((e, i) => {
-            const y = ENTRY_Y[i] ?? 0;
-            const size = ENTRY_SIZE[i] ?? 56;
+            const y = g.entryY[i] ?? 0;
+            const size = g.entrySize[i] ?? 56;
             return (
               <div key={e.title} style={reveal(fade(y, 110), 30)}>
-                <span className={`label muted ${styles.date}`} style={{ top: sp(y + 8) }}>
+                <span
+                  className={`label muted ${styles.date}`}
+                  style={{ top: sp(y + g.entry.date) }}
+                >
                   {e.date}
                 </span>
-                <i className={styles.node} style={{ top: sp(y + 20) }} />
-                <div className={styles.entry} style={{ top: sp(y) }}>
+                <i className={styles.node} style={{ top: sp(y + g.entry.node) }} />
+                <div className={styles.entry} style={{ top: sp(y + g.entry.text) }}>
                   <h2 style={{ fontSize: sp(size), lineHeight: sp(size) }}>{e.title}</h2>
                   <span className={`label muted ${styles.role}`}>{e.role}</span>
                   <p className={styles.body}>{e.body}</p>
@@ -61,14 +85,14 @@ export function Path({ u }: { u: number }) {
           })}
 
           {copy.fuze.map((m, i) => {
-            const y = SUB_START + i * SUB_GAP;
+            const y = g.subStart + i * g.subGap;
             return (
               <div key={m.cat} style={reveal(fade(y, 90), 26)}>
-                <i className={styles.subDot} style={{ top: sp(y + 10) }} />
-                <span className={`label ${styles.cat}`} style={{ top: sp(y + 2) }}>
+                <i className={styles.subDot} style={{ top: sp(y + g.sub.dot) }} />
+                <span className={`label ${styles.cat}`} style={{ top: sp(y + g.sub.cat) }}>
                   {m.cat}
                 </span>
-                <p className={styles.subBody} style={{ top: sp(y) }}>
+                <p className={styles.subBody} style={{ top: sp(y + g.sub.body) }}>
                   {m.body}
                 </p>
               </div>

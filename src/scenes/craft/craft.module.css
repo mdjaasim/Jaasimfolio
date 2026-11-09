@@ -86,3 +86,61 @@
 .navItem[data-on='true'] i {
   opacity: 1;
 }
+
+/* Mobile (390x844): heading above the phone, the four beats become four dots. */
+@media (max-width: 767px), (max-aspect-ratio: 1/1) {
+  .ghost,
+  .tag,
+  .body {
+    display: none;
+  }
+  .copy {
+    left: calc(16 * var(--s));
+    top: calc(84 * var(--s));
+    width: calc(358 * var(--s));
+  }
+  .beats {
+    height: calc(150 * var(--s));
+    margin-top: calc(14 * var(--s));
+  }
+  .heading {
+    font-size: calc(32 * var(--s));
+    line-height: calc(36 * var(--s));
+  }
+  .nav {
+    left: calc(16 * var(--s));
+    right: auto;
+    top: auto;
+    bottom: calc(24 * var(--s));
+    width: auto;
+    display: flex;
+    align-items: center;
+    gap: calc(10 * var(--s));
+  }
+  .navItem {
+    padding: 0;
+    gap: calc(10 * var(--s));
+  }
+  .navItem::before {
+    content: '';
+    width: calc(8 * var(--s));
+    height: calc(8 * var(--s));
+    border-radius: 50%;
+    background: var(--ink-soft);
+  }
+  .navItem[data-on='true']::before {
+    width: calc(12 * var(--s));
+    height: calc(12 * var(--s));
+    background: var(--yellow);
+  }
+  .navItem i {
+    display: none;
+  }
+  .navText {
+    display: none;
+  }
+  .navItem[data-on='true'] .navText {
+    display: inline;
+    font-size: calc(10 * var(--s));
+  }
+}

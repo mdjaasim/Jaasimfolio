@@ -81,3 +81,40 @@
   text-transform: uppercase;
   color: var(--on-ink);
 }
+
+@media (max-width: 767px), (max-aspect-ratio: 1/1) {
+  .label {
+    left: calc(16 * var(--s));
+    top: calc(84 * var(--s));
+  }
+  .list {
+    left: calc(16 * var(--s));
+    right: calc(16 * var(--s));
+    top: calc(120 * var(--s));
+  }
+  .list li {
+    border-top: 1px solid var(--hairline);
+  }
+  .list li:last-child {
+    border-bottom: 1px solid var(--hairline);
+  }
+  .row {
+    display: block;
+    padding: calc(18 * var(--s)) 0 calc(22 * var(--s));
+  }
+  .title {
+    display: block;
+    margin-top: calc(6 * var(--s));
+    font-size: calc(44 * var(--s));
+    line-height: calc(44 * var(--s));
+  }
+  .meta {
+    display: block;
+    margin-top: calc(10 * var(--s));
+    text-align: left;
+    font-size: calc(10 * var(--s));
+  }
+  .preview {
+    display: none;
+  }
+}

@@ -99,3 +99,49 @@
   gap: calc(28 * var(--s));
   margin: 0;
 }
+
+@media (max-width: 767px), (max-aspect-ratio: 1/1) {
+  .thanks {
+    left: calc(16 * var(--s));
+    top: calc(84 * var(--s));
+  }
+  .headline {
+    left: calc(16 * var(--s));
+    top: calc(112 * var(--s));
+    font-size: calc(50 * var(--s));
+    line-height: calc(50 * var(--s));
+  }
+  .mask {
+    height: calc(50 * var(--s));
+    padding-bottom: calc(10 * var(--s));
+    margin-bottom: calc(-10 * var(--s));
+  }
+  .maskAccent {
+    height: calc(64 * var(--s));
+    padding-top: calc(10 * var(--s));
+  }
+  .accent {
+    font-size: calc(46 * var(--s));
+  }
+  .cta {
+    right: calc(24 * var(--s));
+    top: calc(470 * var(--s));
+    width: calc(170 * var(--s));
+    height: calc(170 * var(--s));
+    font-size: calc(20 * var(--s));
+  }
+  .links {
+    left: calc(16 * var(--s));
+    bottom: calc(96 * var(--s));
+    flex-wrap: wrap;
+    gap: calc(12 * var(--s)) calc(24 * var(--s));
+    max-width: calc(358 * var(--s));
+  }
+  .foot {
+    left: calc(16 * var(--s)) !important;
+    bottom: calc(24 * var(--s));
+    flex-direction: column;
+    gap: 4px;
+    font-size: calc(10 * var(--s));
+  }
+}

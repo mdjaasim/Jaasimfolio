@@ -56,7 +56,7 @@
   letter-spacing: -0.5px;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 767px), (max-aspect-ratio: 1/1) {
   .row {
     left: calc(16 * var(--s));
     right: calc(16 * var(--s));

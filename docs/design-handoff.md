@@ -22,7 +22,7 @@ The design is complete and approved. This page records what was decided, where t
 - **Logo**: `<JAASIM>` in code tags. On scroll AASIM collapses and a "/" smoothly appears so it becomes `<J/>` (opening tag `<`, closing tag `/>`). Scrolling back restores it.
 - Every screen, sub-screen, section and overlay animates in AND out; the next-project action in a case study slides the next case up over the current one (never instant).
 - Photography is realistic and futuristic (coding, AI, innovation), free Pexels stock to be swapped for the owner's own images later.
-- Free-scroll mode and scroll-driven mobile frames were still open in the design and are built here (see `docs/architecture.md`).
+- Free-scroll mode and scroll-driven mobile frames were still open in the design and are built here (see `docs/architecture.md`). Mobile boards exist only for Hello, Hero, Craft, Work, Case, Contact and Index; Numbers, Lab, Path and About mobile compositions were derived from them and should be reviewed.
 
 ## Scene to module map
 

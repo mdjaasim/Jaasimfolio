@@ -65,6 +65,7 @@ function CasePage({
             style={{
               fontSize: `calc(${fontSize} * var(--s))`,
               lineHeight: `calc(${lineHeight} * var(--s))`,
+              ['--title-mobile' as string]: study.titleSizeMobile,
             }}
           >
             {study.title}

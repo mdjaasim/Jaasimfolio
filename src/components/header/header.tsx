@@ -3,6 +3,7 @@
 import { timeline } from '@/config/timeline';
 import { site } from '@/config/site';
 import { t } from '@/content';
+import { useChrome } from '@/engine/chrome';
 import { ease, headerTone, seg } from '@/engine/math';
 import { useMode } from '@/engine/mode';
 import { useNavigate, useU } from '@/engine/timeline';
@@ -23,10 +24,11 @@ export function Header({ onOpenIndex, overIndex = false }: HeaderProps) {
   const { mode } = useMode();
   const navigate = useNavigate();
   const clock = useClock(site.timeZone);
+  const freeTone = useChrome((c) => c.tone);
 
   const collapse = ease(seg(u, timeline.headerMorph.collapse));
   const slash = ease(seg(u, timeline.headerMorph.slash));
-  const tone = overIndex ? 'dark' : mode === 'guided' ? headerTone(u) : 'light';
+  const tone = overIndex ? 'dark' : mode === 'guided' ? headerTone(u) : freeTone;
 
   return (
     <header className={styles.header} data-tone={tone}>

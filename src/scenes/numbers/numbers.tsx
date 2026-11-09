@@ -1,17 +1,27 @@
+'use client';
+
 import { timeline } from '@/config/timeline';
 import { t } from '@/content';
 import { ease, round2, seg } from '@/engine/math';
+import { useMode } from '@/engine/mode';
 import { sp } from '@/engine/units';
 import { Frame } from '@/components/frame/frame';
 import styles from './numbers.module.css';
 
 /** Counter positions (design px): number, then its caption beside it. */
-const LAYOUT = [
+const DESKTOP = [
   { x: 32, y: 130, tx: 330, ty: 230 },
   { x: 760, y: 130, tx: 1020, ty: 230 },
   { x: 32, y: 480, tx: 330, ty: 590 },
   { x: 760, y: 480, tx: 1020, ty: 590 },
 ] as const;
+/** Mobile: four rows, the number on the left and its caption beside it. */
+const MOBILE = [0, 1, 2, 3].map((i) => ({
+  x: 16,
+  y: 96 + i * 176,
+  tx: 150,
+  ty: 96 + i * 176 + 36,
+}));
 
 const STAGGER = 0.1;
 const RISE = 160;
@@ -20,6 +30,8 @@ const LEAVE_RISE = 120;
 /** 03 By the numbers: four counters tick up; a yellow highlighter wipes behind the first. */
 export function Numbers({ u }: { u: number }) {
   const copy = t().numbers;
+  const { isMobile } = useMode();
+  const layout = isMobile ? MOBILE : DESKTOP;
   const [lo, hi] = timeline.numbers.visible;
   if (u <= lo || u >= hi) return null;
 
@@ -41,7 +53,7 @@ export function Numbers({ u }: { u: number }) {
     <Frame style={{ zIndex: 5 }}>
       <div style={leaving}>
         {copy.items.map((item, i) => {
-          const pos = LAYOUT[i];
+          const pos = layout[i];
           if (!pos) return null;
           return (
             <div key={item.title}>

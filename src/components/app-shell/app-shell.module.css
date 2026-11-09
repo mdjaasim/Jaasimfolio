@@ -11,3 +11,13 @@
   overflow: hidden;
   background: var(--surface);
 }
+
+/* In free scroll the screen unit is simply the viewport height. */
+.freeUnit {
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: 1px;
+  height: 100svh;
+  visibility: hidden;
+  pointer-events: none;
+}

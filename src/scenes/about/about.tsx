@@ -1,12 +1,16 @@
+'use client';
+
 import { timeline } from '@/config/timeline';
 import { t } from '@/content';
 import { ease, round2, seg } from '@/engine/math';
+import { useMode } from '@/engine/mode';
 import { sp } from '@/engine/units';
 import { Frame } from '@/components/frame/frame';
 import styles from './about.module.css';
 
-const MARQUEE_SPEED = 260;
-const MARQUEE_BOTTOM_OFFSET = 1200;
+/** Marquee rows (design px): top of each row, how far they run per screen, and the bottom row's start offset. */
+const DESKTOP = { tops: [620, 730], speed: 260, bottomOffset: 1200 } as const;
+const MOBILE = { tops: [690, 750], speed: 140, bottomOffset: 700 } as const;
 const REPEATS = 2;
 
 /** Alternate solid and outlined words, repeated so the line never runs out. */
@@ -31,6 +35,8 @@ function Marquee({ words, x, top }: { words: readonly string[]; x: number; top: 
 /** 07 About: the portrait reveals by clip-path, the bio rises, two marquees run in opposite directions. */
 export function About({ u }: { u: number }) {
   const copy = t().about;
+  const { isMobile } = useMode();
+  const g = isMobile ? MOBILE : DESKTOP;
   const [lo, hi] = timeline.about.visible;
   if (u <= lo || u >= hi) return null;
 
@@ -70,12 +76,8 @@ export function About({ u }: { u: number }) {
           </h2>
           <p className={styles.education}>{copy.education}</p>
         </div>
-        <Marquee words={copy.marqueeTop} x={-run * MARQUEE_SPEED} top={620} />
-        <Marquee
-          words={copy.marqueeBottom}
-          x={-MARQUEE_BOTTOM_OFFSET + run * MARQUEE_SPEED}
-          top={730}
-        />
+        <Marquee words={copy.marqueeTop} x={-run * g.speed} top={g.tops[0]} />
+        <Marquee words={copy.marqueeBottom} x={-g.bottomOffset + run * g.speed} top={g.tops[1]} />
       </div>
     </Frame>
   );

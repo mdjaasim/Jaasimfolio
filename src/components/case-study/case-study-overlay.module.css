@@ -183,6 +183,82 @@
   white-space: nowrap;
 }
 
+/* Mobile (390x844): cover with one photograph, stacked meta and story, a shorter next band. */
+@media (max-width: 767px), (max-aspect-ratio: 1/1) {
+  /* The cover is shorter than the design frame, so its frame fills the cover instead. */
+  .cover :global(.frame) {
+    top: 0;
+    height: 100%;
+  }
+  .cover {
+    height: calc(430 * var(--s));
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  }
+  .caseNo {
+    left: calc(16 * var(--s));
+    top: calc(60 * var(--s));
+  }
+  .coverImg {
+    left: calc(16 * var(--s));
+    top: calc(84 * var(--s));
+    width: calc(358 * var(--s));
+    height: calc(170 * var(--s));
+    border-radius: calc(20 * var(--s));
+  }
+  .phoneImg {
+    display: none;
+  }
+  .title {
+    left: calc(12 * var(--s));
+    bottom: calc(18 * var(--s));
+    font-size: calc(var(--title-mobile) * var(--s)) !important;
+    line-height: calc(var(--title-mobile) * 0.88 * var(--s)) !important;
+  }
+  .back {
+    left: calc(16 * var(--s));
+    top: calc(20 * var(--s));
+  }
+  .body {
+    display: block;
+    width: 100%;
+    padding: calc(24 * var(--s)) calc(16 * var(--s)) 0;
+  }
+  .meta {
+    margin-bottom: calc(24 * var(--s));
+  }
+  .meta dd {
+    margin-bottom: calc(14 * var(--s));
+  }
+  .section {
+    margin-bottom: calc(24 * var(--s));
+  }
+  .section p {
+    font-size: calc(15 * var(--s));
+    line-height: calc(22 * var(--s));
+  }
+  .gallery {
+    grid-template-columns: 1fr;
+    gap: calc(12 * var(--s));
+  }
+  .gallery img {
+    height: calc(160 * var(--s));
+  }
+  .next {
+    height: calc(200 * var(--s));
+    margin-top: calc(32 * var(--s));
+  }
+  .nextLabel {
+    left: calc(16 * var(--s));
+    top: calc(20 * var(--s));
+  }
+  .nextTitle {
+    left: calc(12 * var(--s));
+    bottom: calc(18 * var(--s));
+    font-size: calc(64 * var(--s));
+    line-height: calc(60 * var(--s));
+  }
+}
+
 @keyframes rise {
   from {
     opacity: 0;

@@ -249,8 +249,8 @@
   -webkit-text-fill-color: var(--ink);
 }
 
-@media (max-width: 767px) {
+@media (max-width: 767px), (max-aspect-ratio: 1/1) {
   .phone {
-    --phone-scale: 0.7333;
+    --phone-scale: 0.78;
   }
 }

@@ -81,7 +81,7 @@ export function Craft({ u }: { u: number }) {
       <ol className={styles.nav} style={enter}>
         {copy.beats.map((b, i) => (
           <li key={b.nav} className={styles.navItem} data-on={beat === i + 1}>
-            {b.nav}
+            <span className={styles.navText}>{b.nav}</span>
             <i />
           </li>
         ))}

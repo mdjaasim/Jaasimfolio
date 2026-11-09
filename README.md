@@ -4,7 +4,7 @@ Personal portfolio of Mohamed Jaasim, full stack mobile & web developer (Dubai).
 
 - **Guided story** (default on desktop and tablet): a pinned stage driven by scroll.
 - **Free scroll**: the same scenes as ordinary sections, no scroll hijack. Chosen from the Index overlay, and automatic with reduced motion.
-- **Mobile**: scroll-driven frames at 390 wide and up.
+- **Mobile**: scroll-driven frames composed for 390x844 (phones and any portrait screen).
 
 ## Stack
 

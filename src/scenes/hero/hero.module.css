@@ -35,7 +35,7 @@
   gap: calc(28 * var(--s));
 }
 
-@media (max-width: 767px) {
+@media (max-width: 767px), (max-aspect-ratio: 1/1) {
   .name {
     font-size: calc(56 * var(--s));
     line-height: calc(96 * var(--s));

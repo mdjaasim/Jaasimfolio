@@ -1,6 +1,13 @@
 .scene {
   position: absolute;
   inset: 0;
+  /* Timeline text fades out under the header instead of colliding with it. */
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent calc(40 * var(--s)),
+    #000 calc(120 * var(--s))
+  );
 }
 .world {
   position: absolute;
@@ -84,4 +91,41 @@
   width: calc(380 * var(--s));
   margin: 0;
   line-height: 16px;
+}
+
+@media (max-width: 767px), (max-aspect-ratio: 1/1) {
+  .world {
+    top: calc(84 * var(--s));
+    width: calc(390 * var(--s));
+  }
+  .date {
+    left: calc(46 * var(--s));
+  }
+  .node {
+    left: calc(17.5 * var(--s));
+  }
+  .entry {
+    left: calc(46 * var(--s));
+    width: calc(328 * var(--s));
+  }
+  .body,
+  .subBody {
+    font-size: calc(15 * var(--s));
+    line-height: calc(22 * var(--s));
+  }
+  .subDot {
+    left: calc(19 * var(--s));
+  }
+  .cat {
+    left: calc(46 * var(--s));
+  }
+  .subBody {
+    left: calc(46 * var(--s));
+    width: calc(328 * var(--s));
+  }
+  .edu {
+    left: calc(16 * var(--s));
+    bottom: calc(24 * var(--s));
+    width: calc(358 * var(--s));
+  }
 }

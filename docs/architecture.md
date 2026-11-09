@@ -11,8 +11,8 @@ Desktop stage is designed at 1440x900. `--u = min(100vw/1440, 100svh/900)` turns
 ## Modes
 
 - **Guided** (desktop and tablet default): sticky stage plus a spacer of `TOTAL_SCREENS` stage heights; panels wipe up with 40px corners straightening to 0.
-- **Free scroll**: the same scene components laid out as stacked sections that reveal on entering the viewport (IntersectionObserver); native scroll, no pin, lerp or parallax. Toggle lives in the Index overlay; the choice is stored in `localStorage` (try/catch). Reduced motion starts in free mode.
-- **Mobile (up to 767px)**: scroll-driven frames: each mobile board is a pinned frame whose progress comes from scroll, using the same timeline utilities.
+- **Free scroll** (`src/free`): the same chapters as ordinary in-flow sections that ease in once (`useReveal`), with counters that count up; native scroll, no pin, lerp or parallax. `--s` there scales with viewport width only. The section under the header sets `data-tone` so the header and cursor adapt. Toggle lives in the Index overlay; the choice is stored in `localStorage` (try/catch). Reduced motion starts in free mode.
+- **Mobile** (narrower than 768px, or any portrait screen): the same pinned stage and timeline, composed for a 390x844 frame. Scenes switch geometry with `useMode().isMobile` and typography with the shared `@media (max-width: 767px), (max-aspect-ratio: 1/1)` query.
 
 ## Overlays
 

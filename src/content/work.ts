@@ -5,6 +5,8 @@ export interface CaseStudy {
   title: string;
   /** Per-case display size so long titles never clip (design px at 1440 wide). */
   titleSize: { fontSize: number; lineHeight: number };
+  /** Mobile title size in design px (390 wide); sized so the whole word fits the screen. */
+  titleSizeMobile: number;
   summary: string;
   role: string;
   stack: string;
@@ -24,6 +26,7 @@ export const caseStudies: readonly CaseStudy[] = [
     slug: 'filozo',
     title: 'Filozo',
     titleSize: { fontSize: 280, lineHeight: 240 },
+    titleSizeMobile: 96,
     summary: 'Next.js · TypeScript',
     role: 'Architecture and front-end development',
     stack: 'Next.js, React, TypeScript, Tailwind CSS',
@@ -41,6 +44,7 @@ export const caseStudies: readonly CaseStudy[] = [
     slug: 'borderless',
     title: 'Borderless',
     titleSize: { fontSize: 228, lineHeight: 196 },
+    titleSizeMobile: 60,
     summary: 'Borderless Creatives · Figma to code',
     role: 'Front-end development',
     stack: 'Next.js, React, TypeScript, Tailwind CSS',
@@ -58,6 +62,7 @@ export const caseStudies: readonly CaseStudy[] = [
     slug: 'kem',
     title: 'KEM',
     titleSize: { fontSize: 280, lineHeight: 240 },
+    titleSizeMobile: 112,
     summary: 'KEM Collections · Klaviyo',
     role: 'Build and launch',
     stack: 'Klaviyo, HTML/CSS, JavaScript',
@@ -75,6 +80,7 @@ export const caseStudies: readonly CaseStudy[] = [
     slug: 'fuze',
     title: 'Fuze',
     titleSize: { fontSize: 280, lineHeight: 240 },
+    titleSizeMobile: 108,
     summary: 'React Native · Expo · 4 apps live',
     role: 'Mobile and web lead',
     stack: 'React Native, Expo, Node.js, Prisma',

@@ -1,8 +1,15 @@
 import { timeline } from '@/config/timeline';
 import { ease, seg, within } from '@/engine/math';
 
+/** Phone path in design px of each frame: where it starts, after rising, after travelling up, and the frame height. */
+const PATHS = {
+  desktop: { frame: 900, start: 900, risen: 650, settled: 140 },
+  mobile: { frame: 844, start: 844, risen: 470, settled: 250 },
+} as const;
+
 /** Where the single persistent phone is, from the hero through Craft, as ratios of the frame height. */
-export function phoneState(u: number) {
+export function phoneState(u: number, mobile = false) {
+  const path = mobile ? PATHS.mobile : PATHS.desktop;
   const { phone } = timeline;
   const rise = ease(seg(u, phone.rise));
   const up = ease(seg(u, phone.up));
@@ -12,9 +19,10 @@ export function phoneState(u: number) {
     u >= shakeStart && u <= shakeEnd
       ? Math.sin((u - shakeStart) * 90) * 5 * (1 - seg(u, [shakeStart, shakeEnd]))
       : 0;
-  const designY = 900 - 250 * rise - 510 * up - 1100 * out;
+  const designY =
+    path.start - (path.start - path.risen) * rise - (path.risen - path.settled) * up - 1100 * out;
   return {
-    yRatio: designY / 900,
+    yRatio: designY / path.frame,
     rotationDeg: -2 * up + shake,
     visible: within(u, [phone.visible]),
   };

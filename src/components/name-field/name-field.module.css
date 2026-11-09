@@ -57,7 +57,7 @@
   }
 }
 
-@media (max-width: 767px) {
+@media (max-width: 767px), (max-aspect-ratio: 1/1) {
   .field {
     font-size: calc(30 * var(--s));
   }

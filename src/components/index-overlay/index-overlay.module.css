@@ -145,7 +145,7 @@
   color: var(--on-ink-muted);
 }
 
-@media (max-width: 767px) {
+@media (max-width: 767px), (max-aspect-ratio: 1/1) {
   .top {
     inset: calc(20 * var(--s)) calc(16 * var(--s)) auto;
   }

@@ -7,7 +7,7 @@
   --design-w: 1440;
   --design-h: 900;
 }
-@media (max-width: 767px) {
+@media (max-width: 767px), (max-aspect-ratio: 1/1) {
   :root {
     --s: var(--m);
     --design-w: 390;

@@ -18,11 +18,11 @@ import { brandAt, craftBeat, phoneState } from './phone-track';
 
 /** The pinned stage: every scene is a function of the eased scroll position u. */
 export function Stage() {
-  const { mode } = useMode();
+  const { mode, isMobile } = useMode();
   const scrolled = useU();
   // Free-scroll layouts arrive in a later wave; until then the stage holds the opening scene.
   const u = mode === 'guided' ? scrolled : 0;
-  const phone = phoneState(u);
+  const phone = phoneState(u, isMobile);
 
   return (
     <>

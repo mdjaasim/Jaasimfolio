@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useState, useSyncExternalStore } from 'react';
+import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from 'react';
 import { chrome, useChrome } from '@/engine/chrome';
 import { launch } from '@/config/motion';
 import { storageKeys } from '@/config/preferences';
@@ -10,6 +10,7 @@ import { useMode } from '@/engine/mode';
 import { readStorage, writeStorage } from '@/engine/storage';
 import { SCREEN_UNIT_ATTR } from '@/engine/timeline';
 import { Launch } from '@/scenes/launch/launch';
+import { FreeSite } from '@/free/free-site';
 import { Stage } from '@/scenes/stage';
 import { CaseStudyOverlay } from '../case-study/case-study-overlay';
 import { Header } from '../header/header';
@@ -43,6 +44,13 @@ export function AppShell() {
     return () => window.clearTimeout(id);
   }, []);
 
+  // Switching modes restarts at the top; the two layouts have different lengths.
+  const previousMode = useRef(mode);
+  useEffect(() => {
+    if (previousMode.current !== mode) window.scrollTo(0, 0);
+    previousMode.current = mode;
+  }, [mode]);
+
   const closeIndex = useCallback(() => chrome.setIndexOpen(false), []);
 
   const onLaunchDone = useCallback(() => {
@@ -59,15 +67,23 @@ export function AppShell() {
       <h1 className="visually-hidden">{copy.hello.h1}</h1>
       {launching && <Launch onDone={onLaunchDone} />}
       <Header onOpenIndex={() => chrome.setIndexOpen(true)} overIndex={indexOpen} />
-      <div
-        className={styles.track}
-        data-mode={mode}
-        style={{ ['--screens' as string]: TOTAL_SCREENS }}
-      >
-        <div className={`${styles.stage} grain`} {...{ [SCREEN_UNIT_ATTR]: '' }}>
-          <Stage />
+      {mode === 'guided' ? (
+        <div
+          className={styles.track}
+          data-mode={mode}
+          style={{ ['--screens' as string]: TOTAL_SCREENS }}
+        >
+          <div className={`${styles.stage} grain`} {...{ [SCREEN_UNIT_ATTR]: '' }}>
+            <Stage />
+          </div>
         </div>
-      </div>
+      ) : (
+        <>
+          {/* Measures one screen (the viewport height) so chrome that reads scroll in screens works here too. */}
+          <div {...{ [SCREEN_UNIT_ATTR]: '' }} aria-hidden="true" className={styles.freeUnit} />
+          <FreeSite />
+        </>
+      )}
       <CaseStudyOverlay />
       <IndexOverlay open={indexOpen} onClose={closeIndex} />
     </>
