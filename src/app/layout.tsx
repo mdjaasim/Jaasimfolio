@@ -38,9 +38,11 @@ const personJsonLd = {
   sameAs: [site.linkedin, site.github],
 };
 
+// <html> carries suppressHydrationWarning because the inline script below sets data-launch-seen
+// before hydration, so that attribute legitimately differs from the server markup.
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang={site.locale} className={fontVariables}>
+    <html lang={site.locale} className={fontVariables} suppressHydrationWarning>
       <body>
         {/* Without JavaScript the launch overlay would stay up; hide it. */}
         <noscript>

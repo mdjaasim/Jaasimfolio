@@ -35,6 +35,6 @@ Mohamed Jaasim's personal portfolio. It is a personal project: not part of FuzeA
 
 ## Workflow
 
-- Run `npm run check` (typecheck, lint, unit tests, build) before committing. Husky runs lint-staged and commitlint on commit.
+- Run `npm run check` (typecheck, lint, unit tests, build) before committing, and `npm run test:dev` when touching components or images: it drives the site through `next dev`, where React and next/image enforce rules the production build skips (the production-only suite cannot see them). Husky runs lint-staged and commitlint on commit.
 - Pure logic (timeline math, sanitizers, mode switching) gets Vitest tests in `tests/unit/`; user flows get Playwright tests in `tests/e2e/`.
 - Update `CHANGELOG.md` and the relevant doc in `docs/` when behaviour changes.

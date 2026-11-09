@@ -69,8 +69,10 @@ export function Lab({ u }: { u: number }) {
               <Image
                 src={photos[item.photo].src}
                 alt=""
-                fill
+                width={photos[item.photo].width}
+                height={photos[item.photo].height}
                 sizes="40vw"
+                loading="eager"
                 className={styles.plateImg}
                 style={{
                   left: sp(-g.photoBleed),

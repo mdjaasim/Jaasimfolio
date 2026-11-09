@@ -43,6 +43,9 @@
 }
 /* Photographs travel faster than the plate that frames them; they are wider by the travel so no edge shows. */
 .plateImg {
+  position: absolute;
+  top: 0;
+  height: 100%;
   object-fit: cover;
   will-change: transform;
 }
